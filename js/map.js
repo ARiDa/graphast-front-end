@@ -1,3 +1,4 @@
+var GraphastMap = {};
 
 function mapInit() {
 
@@ -8,30 +9,21 @@ function mapInit() {
 
     var map = L.mapbox.map('Map', 'mapbox.outdoors', {zoomControl: false})
     new L.Control.Zoom({position: 'bottomleft'}).addTo(map)
-    map.setView([-11.505, -41.09], 4)
-    
 
-    var marker = L.marker([-11.505, -41.09], {
-        icon: L.mapbox.marker.icon({
-        	'marker-size': 'large',
-           	'marker-symbol': 'bus',
-          	'marker-color': '#f86767'
-        })
-    });
 
-    var t = -41.09;
-    var t2 = -11.505
-    window.setInterval(function() {
-        // Making a lissajous curve just for fun.
-        // Create your own animated path here.
-        marker.setLatLng(L.latLng(
-            t2 * 1.1,
-            t  * 1.1));
-        t  += 0.25;
-        t2 += 0.25;
-    }, 1000);
+    // var t = -41.09;
+    // var t2 = -11.505
+    // window.setInterval(function() {
+    //     // Making a lissajous curve just for fun.
+    //     // Create your own animated path here.
+    //     marker.setLatLng(L.latLng(
+    //         t2 * 1.1,
+    //         t  * 1.1));
+    //     t  += 0.25;
+    //     t2 += 0.25;
+    // }, 1000);
 
-    marker.addTo(map);
+    // marker.addTo(map);
 
     // Add a new line to the map with no points.
     var polyline = L.polyline([]).addTo(map);
@@ -40,7 +32,7 @@ function mapInit() {
     var pointsAdded = 0;
 
     // Start drawing the polyline.
-    add();
+    // add();
 
     function add() {
 
@@ -60,9 +52,57 @@ function mapInit() {
         if (++pointsAdded < 360) window.setTimeout(add, 100);
     }
 
-    var GraphastMap = {
-    	addPath: {},
-    	addPoint: {}
+    GraphastMap = {
+    	addPath: function(path) {
+           var origin = path.geometry[0]; 
+           map.setView(origin, 1);
+           var marker = this.addMarker(origin);
+
+           var polyline = L.polyline([], {color: "#30a07A"}).addTo(map);
+           for (var i=0; i < path.geometry.length; i++) {
+                var geo = path.geometry[i];
+                polyline.addLatLng(L.latLng(geo[0], geo[1])); 
+           }
+
+            var durationTime = _.reduce(path.path, function(memo, p){ return memo + p.distance}, 0);
+            var durationlabel=L.divIcon({className: '', html: '<div class="travelduration">'+durationTime+' meters</strong>'});
+
+            var middlepos=path.geometry[Math.round(path.geometry.length/2)];
+
+            L
+            .marker([middlepos[0],middlepos[1]], {icon: durationlabel})
+            .addTo(map);
+
+           var j = 1;
+
+           window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
+
+           window.setInterval(function() {
+                // Making a lissajous curve just for fun.
+                // Create your own animated path here.
+                console.log(j)
+                if (j < path.geometry.length) {
+                    var geo = path.geometry[j];
+                    marker.setLatLng(L.latLng(geo[0], geo[1]));
+
+                    j++;
+                }
+
+            }, 1000);
+        },
+    	addPoint: {},
+        addMarker: function(arrayLatLng) {
+            var marker = L.marker(arrayLatLng, {
+                icon: L.mapbox.marker.icon({
+                    'marker-size': 'large',
+                    'marker-symbol': 'bus',
+                    'marker-color': '#30a07A'
+                })
+            });
+            marker.addTo(map);
+
+            return marker;
+        }
     }
 
 }

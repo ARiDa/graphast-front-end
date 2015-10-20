@@ -7,3 +7,39 @@
 	top: 0;
 }
 
+/*
+ * The path-start class is added to each line
+ * to manage its animation - this interpolates
+ * between the starting and ending values for the
+ * stroke-dashoffset css property
+ */
+.path-start {
+  -webkit-transition:stroke-dashoffset 5s ease-in;
+     -moz-transition:stroke-dashoffset 5s ease-in;
+       -o-transition:stroke-dashoffset 5s ease-in;
+          transition:stroke-dashoffset 5s ease-in;
+ }
+
+.travelduration {
+  background:white;
+  border:2px solid #30a07A;
+  color:#30a07A;
+  margin:-7px -19px;
+  width:50px;
+  text-align:center;
+  border-radius:10px;
+  font-weight:bold;
+  -moz-transform: translateZ(1px);
+  -webkit-transform: translateZ(1px); 
+}
+
+  path.leaflet-clickable {
+    stroke:#30a07A;
+    stroke-width:4px;
+    stroke-dashoffset: 10000; 
+    stroke-dasharray:10000; 
+    -moz-transition:stroke-dashoffset 10s;
+    -webkit-transition:stroke-dashoffset 10s;
+    pointer-events:none;
+}
+
