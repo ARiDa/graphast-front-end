@@ -25,7 +25,8 @@ body.admin #AdminSidebar {
 	bottom:     0px;
 	width:   2000px;
 	height:  2000px;
-	background: #eaeaea;
+	background: #eaeaea url(/img/bg-logo.png) no-repeat 400px 95%;
+	border-left: 3px solid #777;
 	transform: rotateZ(90deg);
 	transform-origin: 0% 100%;
 	transition: all 0.5s;
@@ -33,6 +34,59 @@ body.admin #AdminSidebar {
 body.admin #AdminContent {
 	left: 250px;
 	transform: rotateZ(0);
+}
+
+#BtnMenuClose {
+	position: fixed;
+	z-index: 1004;
+	top:     15px;
+	left:    10px;
+	width:   30px;
+	height:  25px;
+	cursor: pointer;
+}
+#BtnMenuClose:active {
+	opacity: 0.5;
+	transform: scale3d(0.95,0.95,1);
+}
+#BtnMenuClose span {
+	display: block;
+	line-height: 1;
+	padding: 0;
+	margin:  0 0 5px 0;
+	width: 30px;
+	height: 3px;
+	opacity: 1;
+	background: #aaa;
+	border-radius: 2px;
+	transition: all 0.5s;
+	transform: translate3d(0,0,0) rotateZ(0);
+	transform-origin: center center;
+}
+#BtnMenuClose:hover span {
+	background: #fff;
+	transition: all 0.2s;
+}
+#BtnMenuClose:hover span.a {
+	transform: translate3d(0,-2px,0);
+}
+#BtnMenuClose:hover span.c {
+	transform: translate3d(0,+2px,0);
+}
+body.admin #BtnMenuClose span.a {
+	transform: translate3d(0,7px,0) rotateZ(135deg);
+}
+body.admin #BtnMenuClose span.b {
+	opacity: 0;
+}
+body.admin #BtnMenuClose span.c {
+	transform: translate3d(0,-8px,0) rotateZ(45deg);
+}
+body.admin #BtnMenuClose:hover span.a {
+	transform: translate3d(0,7px,0) rotateZ(140deg);
+}
+body.admin #BtnMenuClose:hover span.c {
+	transform: translate3d(0,-8px,0) rotateZ(40deg);
 }
 
 
@@ -51,32 +105,94 @@ body.admin #AdminContent {
 body.admin #Logo {
 	opacity: 1;
 	top:  20px;
-	left: 20px;
+	left: 50px;
 	transform: rotateZ(0);
 	transition: all 0.7s;
 }
 
 
 #Search {
+	outline: none;
 	position: fixed;
 	z-index: 1003;
 	top:   100px;
 	left:   20px;
 	width: 170px;
-	padding: 3px 10px 4px 36px;
+	padding: 5px 10px 7px 36px;
 	font-size: 20px;
 	color: #555;
 	opacity: 0;
-	background: #fafafa url(/img/search.png) no-repeat 10px 45%;
+	background: #f0f0f0 url(/img/search.png) no-repeat 10px 45%;
 	border: none;
 	border-radius: 50px;
-	transition: all 0.4s;
+	transition: all 0.2s;
+}
+#Search::-webkit-input-placeholder {
+	color: #bbb;
+}
+body.admin #Search:focus {
+	background-color: #fff;
+	transition: all 0.3s;
 }
 body.admin #Search {
 	opacity: 1;
 	top: 120px;
-	transition: all 1s ease 0.5s;
+	transition: all 0.7s ease 0.5s;
 }
+
+
+#AppsResult {
+	position: fixed;
+	z-index: 1004;
+	top: 180px;
+	left:  0px;
+	width: 250px;
+	height: calc(100% - 180px - 70px); /* 100% - top - bottom */
+	opacity: 0;
+	background: rgba(0,0,0, 0.2);
+	transform: scale3d(0,0,1) translate3d(-300px,0,0);
+	transform-origin: 0% 50%;
+	transition: all 0.5s;
+}
+body.admin #AppsResult {
+	opacity: 1;
+	transform: scale3d(1,1,1) translate3d(0,0,0);
+}
+
+#BtnMenuNewApp {
+	outline: none;
+	position: fixed;
+	z-index: 1004;
+	left:   10px;
+	bottom:-50px;
+	width: 225px;
+	padding: 10px;
+	font-size: 18px;
+	cursor: pointer;
+	color: rgba(255,255,255, 0.8);
+	background: #0a0;
+	border: none;
+	border-radius: 4px;
+	transition: all 0.3s;
+}
+body.admin #BtnMenuNewApp {
+	bottom: 15px;
+	transition: all 0.3s ease 0.5s;
+}
+body.admin #BtnMenuNewApp:hover {
+	color: #fff;
+	transition: all 0.3s;
+}
+body.admin #BtnMenuNewApp:active {
+	color: rgba(255,255,255, 0.5);
+	opacity: 0.8;
+	transition: none;
+}
+
+
+
+
+
 
 
 
