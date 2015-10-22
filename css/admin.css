@@ -25,7 +25,7 @@ body.admin #AdminSidebar {
 	bottom:     0px;
 	width:   2000px;
 	height:  2000px;
-	background: #eaeaea url(/img/bg-logo.png) no-repeat 400px 95%;
+	background: #eaeaea; /* url(/img/bg-logo.png) no-repeat 400px 95%;*/
 	border-left: 3px solid #777;
 	transform: rotateZ(90deg);
 	transform-origin: 0% 100%;
@@ -112,7 +112,6 @@ body.admin #Logo {
 
 
 #Search {
-	outline: none;
 	position: fixed;
 	z-index: 1003;
 	top:   100px;
@@ -154,10 +153,7 @@ body.admin #Search {
 	transform-origin: 0% 50%;
 	transition: all 0.5s;
 }
-body.admin #AppsResult {
-	opacity: 1;
-	transform: scale3d(1,1,1) translate3d(0,0,0);
-}
+
 
 #BtnMenuNewApp {
 	outline: none;
@@ -190,7 +186,90 @@ body.admin #BtnMenuNewApp:active {
 }
 
 
+body.admin #AppsResult {
+	opacity: 1;
+	transform: scale3d(1,1,1) translate3d(0,0,0);
+}
 
+#AppsResult,
+#AppsResult * {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+#AppsResult button {
+	display: block;
+	padding: 0px 10px 0 10px;
+	overflow: hidden;
+	width: 100%;
+	height: 60px;
+	text-align: left;
+	font-size: 18px;
+	color: #fff;
+	opacity: 0.5;
+	cursor: pointer;
+	background: #252525;
+	border: none;
+	border-left: 3px solid #252525;
+	transition: all 0.3s;
+}
+#AppsResult button.hidden {
+	height: 0;
+	opacity:0;
+}
+#AppsResult button:hover {
+	padding-left: 15px;
+	opacity: 1;
+	background: #3a3a3a;
+	border-left-color: #0a0;
+}
+#AppsResult button b {
+	float: right;
+	font-weight: normal;
+	opacity: 0.2;
+	transform: translate3d(3px,0,0);
+	transition: all 0.3s;
+}
+#AppsResult button span {
+	display: block;
+	text-align: right;
+	font-size: 12px;
+	color: #aaa;
+	opacity: 0.2;
+	transform: translate3d(3px,0,0);
+	transition: all 0.3s;
+}
+#AppsResult button:hover b {
+	opacity: 0.5;
+	transform: translate3d(0,0,0);
+}
+#AppsResult button:hover span {
+	opacity: 0.5;
+	transform: translate3d(0,0,0);
+}
+
+#AppsResult button:active {
+	opacity: 0.5;
+	border-left-color: #0f0;
+	transition: none;
+}
+
+#AppsResult button.selected {
+	padding-left:  20px;
+	padding-right: 8px;
+	opacity: 1;
+	cursor: default;
+	background: #353;
+	border-left: 3px solid #0a0;
+}
+#AppsResult button.selected b {
+	opacity: 0.5;
+    transform: translate3d(0,0,0)
+}
+#AppsResult button.selected span {
+	opacity: 0.5;
+    transform: translate3d(0,0,0)
+}
 
 
 
