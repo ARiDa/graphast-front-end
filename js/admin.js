@@ -11,8 +11,7 @@ function adminInit() {
 	})
 	//
 	// searching/filtering apps
-	Search.addEventListener('keyup', function() {
-		var q = this.value.toLowerCase()
+	function search(q) {
 		var items = document.querySelectorAll('#AppsResult button')
 		for (var i = 0; i < items.length; i++) {
 			if (items[i].innerHTML.toLowerCase().indexOf(q) == -1)
@@ -21,6 +20,9 @@ function adminInit() {
 				items[i].classList.remove('hidden')
 			items[i].classList.remove('selected')
 		}
+	}
+	Search.addEventListener('keyup', function() {
+		search(this.value.toLowerCase())
 	})
 	//
 	// click on app buttons (edit app)
@@ -40,7 +42,13 @@ function adminInit() {
 		btn.classList.add('selected')
 	})
 	//
-
+	BtnMenuNewApp.addEventListener('click', function() {
+		var items = document.querySelectorAll('#AppsResult button')
+		for (var i = 0; i < items.length; i++)
+			items[i].classList.remove('selected')
+		Search.value = ''
+		search('')
+	})
 
 
 	// setInterval(function() {
