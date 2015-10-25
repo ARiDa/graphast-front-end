@@ -17,31 +17,26 @@ function mapInit() {
     function style(feature) {
         
         return {
-            color: getColor(feature.properties.speed)
+            color: getColor(feature.properties.speed),
+            'stroke-width': 10
         };
     }
 
     function getColor(d) {
-        return d > 1000 ? '#800026' :
-               d > 500  ? '#BD0026' :
-               d > 200  ? '#E31A1C' :
-               d > 100  ? '#FC4E2A' :
-               d > 50   ? '#FD8D3C' :
-               d > 20   ? '#FEB24C' :
-               d > 10   ? '#FED976' :
+        return '#30a07A';
+        return d > 3000 ? '#800026' :
+               d > 2000  ? '#BD0026' :
+               d > 1000  ? '#E31A1C' :
+               d > 500  ? '#FC4E2A' :
+               d > 300   ? '#FD8D3C' :
+               d > 200   ? '#FEB24C' :
+               d > 100   ? '#FED976' :
                           '#FFEDA0';
     }
 
     function highlightFeature(e) {
-
+        console.log("adada");
         var layer = e.target;
-
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
 
         if (!L.Browser.ie && !L.Browser.opera) {
             layer.bringToFront();
@@ -49,15 +44,14 @@ function mapInit() {
     }
 
     function onEachFeature(feature, layer) {
-
-        layer.on({
-            mouseover: highlightFeature
-            // mouseout: resetHighlight,
-        });
+        (function(layer, properties) {
+            layer.on('mouseover', highlightFeature);
+        })(layer, feature.properties);
     }
 
     GraphastMap = {
         destination: {},
+        origin: {},
         originMarker: undefined,
         destinationMarker: undefined,
         pathLayer: undefined,
@@ -67,7 +61,7 @@ function mapInit() {
     	addPath: function(origin, destination, path) {
             this.cleanPath();
             path.instructions.reverse();
-            path.totalDistance = path.totalDistance/1000;
+            path.totalDistance = (path.totalCost/1000/1000).toFixed(1);
             var features = this.createPolylines(path);
             var polyline = this.createPolyline(path);
             var points = this.createPoints(path);
@@ -104,7 +98,7 @@ function mapInit() {
            // var j = 1;
            // var totalTimePerPoint = 10000/path.geometry.length;
 
-           // window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
+           window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
 
             tick(this);
            function tick(e) {
@@ -137,6 +131,7 @@ function mapInit() {
                                         + pd.latitude + "/" + pd.longitude + "/";
             var that = this;
             this.destination = pd;
+            this.origin = po;
             $.get(url, function(data){
                 that.addPath(po, pd, data);
             })
@@ -152,7 +147,12 @@ function mapInit() {
         },
 
         addDestinationMarker: function(latlng) {
-            return this.addMarker( latlng, '#D84027', function(e) {} );
+            this.cleanDestination();
+            var that = this;
+            return this.addMarker( latlng, '#D84027', function(e) {
+                var destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
+                that.getShortestPath(that.origin, destination);
+            });
         },
 
         cleanPath: function() {
@@ -163,6 +163,10 @@ function mapInit() {
 
         cleanOrigin: function() {
             if (this.originMarker) map.removeLayer(this.originMarker);
+        },
+
+        cleanDestination: function() {
+            if (this.destinationMarker) map.removeLayer(this.destinationMarker);
         },
 
         addMarker: function(arrayLatLng, color, callbackDragEnd) {
@@ -197,7 +201,7 @@ function mapInit() {
                 
                 var properties = inst;
                 properties.speed = (inst.distance/1000) / (inst.cost/1000/60/60);
-
+                
                 return {
                     type: "Feature",
                     properties: properties,
