@@ -1,7 +1,7 @@
 var GraphastMap = {};
 
 function mapInit() {
-
+    var SHORTEST_PATH_URL = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";
     var ACCESS_TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
     var MB_URL = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + ACCESS_TOKEN;
 
@@ -14,45 +14,101 @@ function mapInit() {
     var colors = "#99d8c9 #66c2a4 #41ae76 #238b45 #006d2c #00441b".split(" ");
     var speed  = [1, 10, 5, 2];
 
+    function style(feature) {
+        
+        return {
+            color: getColor(feature.properties.speed)
+        };
+    }
+
+    function getColor(d) {
+        return d > 1000 ? '#800026' :
+               d > 500  ? '#BD0026' :
+               d > 200  ? '#E31A1C' :
+               d > 100  ? '#FC4E2A' :
+               d > 50   ? '#FD8D3C' :
+               d > 20   ? '#FEB24C' :
+               d > 10   ? '#FED976' :
+                          '#FFEDA0';
+    }
+
+    function highlightFeature(e) {
+
+        var layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera) {
+            layer.bringToFront();
+        }
+    }
+
+    function onEachFeature(feature, layer) {
+
+        layer.on({
+            mouseover: highlightFeature
+            // mouseout: resetHighlight,
+        });
+    }
+
     GraphastMap = {
-    	addPath: function(path) {
-           var origin = path.geometry[0]; 
-           
-           // var marker = this.addMarker(origin);
-           var line = L.polyline(path.geometry);
-           var markers = [];
+        destination: {},
+        originMarker: undefined,
+        destinationMarker: undefined,
+        pathLayer: undefined,
+        animatedMarker: undefined,
+        labelMarker: undefined,
 
-            map.fitBounds(line.getBounds());
+    	addPath: function(origin, destination, path) {
+            this.cleanPath();
+            path.instructions.reverse();
+            path.totalDistance = path.totalDistance/1000;
+            var features = this.createPolylines(path);
+            var polyline = this.createPolyline(path);
+            var points = this.createPoints(path);
 
-           for (var i=0; i < path.geometry.length-1; i++) {
-                var j = i+1;
-                
-                var geoOrigin = path.geometry[i];
-                var geoDest = path.geometry[j];
+           this.originMarker      = this.addOriginMarker(L.latLng(origin.latitude, origin.longitude));
+           this.destinationMarker = this.addDestinationMarker(L.latLng(destination.latitude, destination.longitude));
+            
+            this.originMarker.addTo(map);
+            this.destinationMarker.addTo(map);
 
-                var polyline = L.polyline([geoOrigin, geoDest], {color: colors[Math.floor((Math.random() * 5) + 0)]}).addTo(map);
+            this.pathLayer = L.geoJson(
+                features, {
+                    style, style,
+                    onEachFeature: onEachFeature
+            }).addTo(map);
 
-           }
+            // L.geoJson(points, {
+            //     onEachFeature: function(feature, layer){
+            //         // var layer = e.t
+            //         console.log(feature);
+            //         layer.bindPopup(feature.geometry.coordinates[1] + "," + feature.geometry.coordinates[0],
+            //             {closeOnClick: false});
+            //     }
+            // }).addTo(map);
 
-            var durationTime = _.reduce(path.path, function(memo, p){ return memo + p.distance}, 0);
-            var durationlabel = L.divIcon({className: '', html: '<div class="travelduration">'+durationTime+' meters</strong>'});
+            map.fitBounds(polyline.getBounds());
 
-            var middlepos=path.geometry[Math.round(path.geometry.length/2)];
+            var durationlabel = L.divIcon({className: '', html: '<div class="travelduration">'+path.totalDistance+' km</strong>'});
 
-            L.marker([middlepos[0],middlepos[1]], {icon: durationlabel})
+            var middlepos=polyline._latlngs[Math.round(polyline._latlngs.length/2)];
+            this.labelMarker = L.marker(middlepos, {icon: durationlabel})
              .addTo(map);
 
+           // var j = 1;
+           // var totalTimePerPoint = 10000/path.geometry.length;
 
+           // window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
 
-           var j = 1;
-           var totalTimePerPoint = 10000/path.geometry.length;
-
-           window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
-
-            tick();
-
-           function tick() {
-                    var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+            tick(this);
+           function tick(e) {
+                    e.animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
                     distance: _.map(path.geometry, function(d) { return Math.floor((Math.random() * 200) + 1000)}),
                     // ms
                     interval: _.map(path.geometry, function(d) { return Math.floor((Math.random() * 2) + 10)*50}),
@@ -65,9 +121,8 @@ function mapInit() {
                     onEnd: function() {
                         $(this._shadow).fadeOut();
                         $(this._icon).fadeOut(3000, function(){
-                          map.removeLayer(this);
+                          // map.removeLayer(this);
                         });
-                        tick();
                     }
             }).addTo(map);
 
@@ -76,17 +131,127 @@ function mapInit() {
            }
         },
     	addPoint: {},
-        addMarker: function(arrayLatLng) {
-            var marker = L.marker(arrayLatLng, {
-                icon: L.mapbox.marker.icon({
-                    'marker-size': 'large',
-                    'marker-symbol': 'bus',
-                    'marker-color': '#30a07A'
-                })
+
+        getShortestPath: function(po, pd) {
+            var url = SHORTEST_PATH_URL + po.latitude + "/" + po.longitude + "/" 
+                                        + pd.latitude + "/" + pd.longitude + "/";
+            var that = this;
+            this.destination = pd;
+            $.get(url, function(data){
+                that.addPath(po, pd, data);
+            })
+        },
+
+        addOriginMarker: function(latlng) {
+            this.cleanOrigin();
+            var that = this;
+            return this.addMarker(latlng, '#30a07A', function(e) {
+                var origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
+                that.getShortestPath(origin, that.destination);
             });
-            marker.addTo(map);
+        },
+
+        addDestinationMarker: function(latlng) {
+            return this.addMarker( latlng, '#D84027', function(e) {} );
+        },
+
+        cleanPath: function() {
+            if (this.animatedMarker) map.removeLayer(this.animatedMarker);
+            if (this.pathLayer) map.removeLayer(this.pathLayer);
+            if (this.labelMarker) map.removeLayer(this.labelMarker);
+        },
+
+        cleanOrigin: function() {
+            if (this.originMarker) map.removeLayer(this.originMarker);
+        },
+
+        addMarker: function(arrayLatLng, color, callbackDragEnd) {
+            var that = this;
+            var marker = L.marker(arrayLatLng, {
+                    draggable: true,
+                    icon: L.mapbox.marker.icon({
+                        'marker-size': 'large',
+                        'marker-color': color
+                    })
+                });
+
+            marker.on('dragstart', function() {
+                that.cleanPath();
+            })
+            marker.on('dragend', callbackDragEnd);
 
             return marker;
+        },
+        createPolylines: function(path) {
+            var geometry     = path.geometry;
+            var instructions = path.instructions;
+
+            var polylines = _.map(instructions, function(inst){
+                var startGeom = inst.startGeometry;
+                var endGeom   = inst.endGeometry;
+
+                var points  = geometry.slice(startGeom, endGeom + 1);
+                var linestring = _.map(points, function(point) {
+                    return [point.longitude, point.latitude];
+                });
+                
+                var properties = inst;
+                properties.speed = (inst.distance/1000) / (inst.cost/1000/60/60);
+
+                return {
+                    type: "Feature",
+                    properties: properties,
+                    geometry: {
+                        type: "LineString",
+                        coordinates: linestring
+                    }
+                }
+            });
+
+            return { type: "FeatureCollection", features: polylines }
+        },
+
+        createPoints: function(path) {
+            var geometry   = path.geometry;
+            var instructions = path.instructions;
+
+            var features = [];
+
+            _.each(instructions, function(inst){
+                var startGeom = inst.startGeometry;
+                var endGeom   = inst.endGeometry;
+                var points  = geometry.slice(startGeom, endGeom + 1);
+                _.each(points, function(point) {
+                    features.push({
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [point.longitude, point.latitude]
+                        }
+                    });
+                });
+            }); 
+
+            return { type: "FeatureCollection", features: features }
+        },
+
+        createPolyline: function(path) {
+            var geometry   = path.geometry;
+            var instructions = path.instructions;
+
+            var polyline = [];
+
+            _.each(instructions, function(inst){
+                var startGeom = inst.startGeometry;
+                var endGeom   = inst.endGeometry;
+                var points  = geometry.slice(startGeom, endGeom + 1);
+                _.each(points, function(point) {
+                    polyline.push(L.latLng(point.latitude, point.longitude));
+                });
+            });
+
+            return L.polyline(polyline, {color: colors[Math.floor((Math.random() * 5) + 0)]});
         }
     }
 
