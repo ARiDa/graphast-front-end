@@ -60,7 +60,8 @@ function mapInit() {
 
     	addPath: function(origin, destination, path) {
             this.cleanPath();
-            path.instructions.reverse();
+            console.log(path);
+            path.path.reverse();
             path.totalDistance = (path.totalCost/1000/1000).toFixed(1);
             var features = this.createPolylines(path);
             var polyline = this.createPolyline(path);
@@ -188,7 +189,7 @@ function mapInit() {
         },
         createPolylines: function(path) {
             var geometry     = path.geometry;
-            var instructions = path.instructions;
+            var instructions = path.path;
 
             var polylines = _.map(instructions, function(inst){
                 var startGeom = inst.startGeometry;
@@ -217,7 +218,7 @@ function mapInit() {
 
         createPoints: function(path) {
             var geometry   = path.geometry;
-            var instructions = path.instructions;
+            var instructions = path.path;
 
             var features = [];
 
@@ -242,7 +243,7 @@ function mapInit() {
 
         createPolyline: function(path) {
             var geometry   = path.geometry;
-            var instructions = path.instructions;
+            var instructions = path.path;
 
             var polyline = [];
 
