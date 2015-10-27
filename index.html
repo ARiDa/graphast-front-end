@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="css/app.css" />
 	<link rel="stylesheet" href="css/map.css" />
 	<link rel="stylesheet" href="css/admin.css" />
+	<link rel="stylesheet" href="css/admin-form.css" />
 	
 	<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
 	<script src='js/animated-marker.js'></script>
@@ -59,6 +60,24 @@
 	<button id="BtnMenuNewApp">
 		New Application
 	</button>
+
+	<div id="AppForm">
+		<span>Application Name:</span>
+		<input type="text" name="name" placeholder=""/>
+		<br/>
+		<div class="column">
+			<h1>Import Service</h1>
+			<b>Map</b> <input/> <br/>
+			<b>PoIs</b> <input/> <br/>
+			<b>Costs</b> <input/> <br/>
+		</div>
+		<div class="column">
+			<h1>Query Services</h1>
+			<b>Shortest Path - Djkstra</b> <br/>
+			<b>Shortest Path - A*</b> <br/>
+			<b>Optimal Sequenced Route</b> <br/>
+		</div>
+	</div>
 	<!-- END Admin Screen -->
 
 

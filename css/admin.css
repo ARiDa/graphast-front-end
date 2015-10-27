@@ -3,17 +3,18 @@
 	position: fixed;
 	z-index: 1002;
 	top: 0;
-	left:  -150px;
+	left:  -155px;
 	width:  250px;
 	height: 150%;
-	background: #333;
-	box-shadow: 0 1px 3px rgba(0,0,0, 0.3);
+	background: #051;
+	box-shadow: 0 1px 3px rgba(0,0,0, 0.5);
 	transform: rotateZ(45deg);
 	transform-origin: 100% 0%;
 	transition: all 0.5s;
 }
 body.admin #AdminSidebar {
-	left:      0;
+	left: 0;
+	background: #333;
 	transform: rotateZ(0deg);
 }
 
@@ -25,7 +26,7 @@ body.admin #AdminSidebar {
 	bottom:     0px;
 	width:   2000px;
 	height:  2000px;
-	background: #eaeaea; /* url(/img/bg-logo.png) no-repeat 400px 95%;*/
+	background: #e0e0e0; /* url(/img/bg-logo.png) no-repeat 400px 95%;*/
 	border-left: 3px solid #777;
 	transform: rotateZ(90deg);
 	transform-origin: 0% 100%;
@@ -57,8 +58,8 @@ body.admin #AdminContent {
 	width: 30px;
 	height: 3px;
 	opacity: 1;
-	background: #aaa;
-	border-radius: 2px;
+	background: rgba(255,255,255, 0.8);
+	border-radius: 3px;
 	transition: all 0.5s;
 	transform: translate3d(0,0,0) rotateZ(0);
 	transform-origin: center center;
@@ -93,21 +94,18 @@ body.admin #BtnMenuClose:hover span.c {
 #Logo {
 	position: fixed;
 	z-index: 1003;
-	top:   -20px;
-	left:  -80px;
+	top:     0px;
+	left:   30px;
 	width: 200px;
 	height:100px;
 	opacity: 0;
 	background: url(../img/logo.png) no-repeat center;
-	transform: rotateZ(45deg);
-	transition: all 0.4s;
+	transition: all 0.1s;
 }
 body.admin #Logo {
 	opacity: 1;
 	top:  20px;
-	left: 50px;
-	transform: rotateZ(0);
-	transition: all 0.7s;
+	transition: all 0.6s ease 0.3s;
 }
 
 

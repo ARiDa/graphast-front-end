@@ -1,0 +1,30 @@
+
+#AppForm {
+	position: fixed;
+	z-index:  10000;
+	top:  100%;
+	left: 100%;
+	width: calc(100% - 300px);
+	height: 90%;
+	opacity: 0;
+	background: rgba(200,50,5, 0.2);
+	transition: all 0.5s ease 0s;
+}
+body.admin
+#AppForm {
+	top:   50px;
+	left: 300px;
+	opacity: 1;
+	transition: all 0.5s ease 0.5s;
+}
+
+#AppForm .column {
+	display: inline-block;
+	margin: 20px 20px 0 0;
+	width: 30%;
+	height: 200px;
+	background: rgba(0,0,0, 0.1);
+	border-radius: 5px;
+}
+
+

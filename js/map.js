@@ -58,6 +58,7 @@ function mapInit() {
         animatedMarker: [],
         labelMarker: [],
 
+
         getColor: function(d) {
         if (this.pathLayer.length-1 < 0) return colors[0];
         return colors[this.pathLayer.length];
@@ -87,6 +88,7 @@ function mapInit() {
             // this.cleanPath();
             // this.cleanMap();
             path.instructions.reverse();
+
             path.totalDistance = (path.totalCost/1000/1000).toFixed(1);
             var features = this.createPolylines(path);
             var polyline = this.createPolyline(path);
@@ -229,7 +231,7 @@ function mapInit() {
         },
         createPolylines: function(path) {
             var geometry     = path.geometry;
-            var instructions = path.instructions;
+            var instructions = path.path;
 
             var polylines = _.map(instructions, function(inst){
                 var startGeom = inst.startGeometry;
@@ -258,7 +260,7 @@ function mapInit() {
 
         createPoints: function(path) {
             var geometry   = path.geometry;
-            var instructions = path.instructions;
+            var instructions = path.path;
 
             var features = [];
 
@@ -283,7 +285,7 @@ function mapInit() {
 
         createPolyline: function(path) {
             var geometry   = path.geometry;
-            var instructions = path.instructions;
+            var instructions = path.path;
 
             var polyline = [];
 
