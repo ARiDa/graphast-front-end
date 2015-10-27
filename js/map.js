@@ -11,19 +11,19 @@ function mapInit() {
     new L.Control.Zoom({position: 'bottomleft'}).addTo(map)
 
     // var colors = "#ffffb2 #fecc5c #fd8d3c #f03b20 #bd0026".split(" ");
-    var colors = "#99d8c9 #66c2a4 #41ae76 #238b45 #006d2c #00441b".split(" ");
+    var colors = "#fb9a99 #e31a1c #fdbf6f #ff7f00 #cab2d6".split(" ");
     var speed  = [1, 10, 5, 2];
 
     function style(feature) {
         
         return {
-            color: getColor(feature.properties.speed),
+            color: GraphastMap.getColor(feature.properties.speed),
             'stroke-width': 10
         };
     }
 
     function getColor(d) {
-        return '#30a07A';
+        return colors[pathLayer.length-1];
         return d > 3000 ? '#800026' :
                d > 2000  ? '#BD0026' :
                d > 1000  ? '#E31A1C' :
@@ -54,29 +54,50 @@ function mapInit() {
         origin: {},
         originMarker: undefined,
         destinationMarker: undefined,
-        pathLayer: undefined,
-        animatedMarker: undefined,
-        labelMarker: undefined,
+        pathLayer: [],
+        animatedMarker: [],
+        labelMarker: [],
 
-    	addPath: function(origin, destination, path) {
-            this.cleanPath();
+        getColor: function(d) {
+        if (this.pathLayer.length-1 < 0) return colors[0];
+        return colors[this.pathLayer.length];
+        return d > 3000 ? '#800026' :
+               d > 2000  ? '#BD0026' :
+               d > 1000  ? '#E31A1C' :
+               d > 500  ? '#FC4E2A' :
+               d > 300   ? '#FD8D3C' :
+               d > 200   ? '#FEB24C' :
+               d > 100   ? '#FED976' :
+                          '#FFEDA0';
+    	},
+
+        addOriginDestinationMarker: function(origin, destination) {
+        	this.originMarker      = this.addOriginMarker(L.latLng(origin.latitude, origin.longitude));
+          	this.destinationMarker = this.addDestinationMarker(L.latLng(destination.latitude, destination.longitude));
+
+          	this.originMarker.addTo(map);
+            this.destinationMarker.addTo(map);
+        },
+
+        fitBounds: function(geom){
+        	map.fitBounds(geom.getBounds(),{'padding':[100,100]});
+        },
+
+    	addPath: function(path) {
+            // this.cleanPath();
+            // this.cleanMap();
             path.instructions.reverse();
             path.totalDistance = (path.totalCost/1000/1000).toFixed(1);
             var features = this.createPolylines(path);
             var polyline = this.createPolyline(path);
             var points = this.createPoints(path);
 
-           this.originMarker      = this.addOriginMarker(L.latLng(origin.latitude, origin.longitude));
-           this.destinationMarker = this.addDestinationMarker(L.latLng(destination.latitude, destination.longitude));
-            
-            this.originMarker.addTo(map);
-            this.destinationMarker.addTo(map);
 
-            this.pathLayer = L.geoJson(
+            this.pathLayer.push(L.geoJson(
                 features, {
-                    style, style,
+                    style: style,
                     onEachFeature: onEachFeature
-            }).addTo(map);
+            }).addTo(map));
 
             // L.geoJson(points, {
             //     onEachFeature: function(feature, layer){
@@ -87,43 +108,52 @@ function mapInit() {
             //     }
             // }).addTo(map);
 
-            map.fitBounds(polyline.getBounds());
+            this.fitBounds(polyline);
 
             var durationlabel = L.divIcon({className: '', html: '<div class="travelduration">'+path.totalDistance+' km</strong>'});
 
             var middlepos=polyline._latlngs[Math.round(polyline._latlngs.length/2)];
-            this.labelMarker = L.marker(middlepos, {icon: durationlabel})
-             .addTo(map);
+            this.labelMarker.push(L.marker(middlepos, {icon: durationlabel})
+             					.addTo(map));
 
            // var j = 1;
            // var totalTimePerPoint = 10000/path.geometry.length;
 
            window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
 
-            tick(this);
+           tick(this);
            function tick(e) {
-                    e.animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
-                    distance: _.map(path.geometry, function(d) { return Math.floor((Math.random() * 200) + 1000)}),
-                    // ms
-                    interval: _.map(path.geometry, function(d) { return Math.floor((Math.random() * 2) + 10)*50}),
-                    icon: L.mapbox.marker.icon({
-                        'marker-size': 'large',
-                        'marker-symbol': 'bus',
-                        'marker-color': '#30a07A'
-                    }),
-                    autoStart: true,
-                    onEnd: function() {
-                        $(this._shadow).fadeOut();
-                        $(this._icon).fadeOut(3000, function(){
-                          // map.removeLayer(this);
-                        });
-                    }
-            }).addTo(map);
+                var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
+	                    distance: _.map(path.geometry, function(d) { return Math.floor((Math.random() * 200) + 1000)}),
+	                    // ms
+	                    interval: _.map(path.geometry, function(d) { return Math.floor((Math.random() * 2) + 10)*50}),
+	                    icon: L.mapbox.marker.icon({
+	                        'marker-size': 'large',
+	                        'marker-symbol': 'bus',
+	                        'marker-color': GraphastMap.getColor()
+	                    }),
+	                    autoStart: false,
+	                    clickable: true,
+	                    zIndexOffset: 100,
+	                    onEnd: function() {
+	                        $(this._shadow).fadeOut();
+	                        $(this._icon).fadeOut(3000, function(){
+	                          tick(e);
+	                        });
+	                    }
+	            }).addTo(map);
 
-            // map.addLayer(animatedMarker);
-            // animatedMarker.start();
+	            // map.addLayer(animatedMarker);
+	            // animatedMarker.start();
+	            animatedMarker.on('click', function(t){
+	            	console.log("click");
+	            	this.start();
+	            });
+
+	            e.animatedMarker.push(animatedMarker);
            }
         },
+
     	addPoint: {},
 
         getShortestPath: function(po, pd) {
@@ -133,7 +163,8 @@ function mapInit() {
             this.destination = pd;
             this.origin = po;
             $.get(url, function(data){
-                that.addPath(po, pd, data);
+            	that.addOriginDestinationMarker(po,pd);
+                that.addPath(data);
             })
         },
 
@@ -156,9 +187,15 @@ function mapInit() {
         },
 
         cleanPath: function() {
-            if (this.animatedMarker) map.removeLayer(this.animatedMarker);
-            if (this.pathLayer) map.removeLayer(this.pathLayer);
-            if (this.labelMarker) map.removeLayer(this.labelMarker);
+        	this.cleanAnimatedMarker();
+            // if (this.pathLayer) map.removeLayer(this.pathLayer);
+            _.each(this.pathLayer, function(p){ map.removeLayer(p); })
+            _.each(this.labelMarker, function(p){ map.removeLayer(p); })
+            this.cleanAnimatedMarker();
+        },
+
+        cleanAnimatedMarker: function() {
+        	_.each(this.animatedMarker, function(p){ map.removeLayer(p); })
         },
 
         cleanOrigin: function() {
@@ -167,6 +204,10 @@ function mapInit() {
 
         cleanDestination: function() {
             if (this.destinationMarker) map.removeLayer(this.destinationMarker);
+        },
+
+        cleanMap: function() {
+        	this.cleanPath();
         },
 
         addMarker: function(arrayLatLng, color, callbackDragEnd) {
@@ -180,7 +221,7 @@ function mapInit() {
                 });
 
             marker.on('dragstart', function() {
-                that.cleanPath();
+                // that.cleanPath();
             })
             marker.on('dragend', callbackDragEnd);
 
