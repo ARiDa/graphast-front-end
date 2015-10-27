@@ -26,9 +26,9 @@
       <file leaf-file-name="map.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="45" selection-start="2923" selection-end="2923" vertical-scroll-proportion="0.30793652" vertical-offset="1482" max-vertical-offset="8228">
+            <state line="222" column="38" selection-start="7784" selection-end="7784" vertical-scroll-proportion="0.7031746" vertical-offset="3998" max-vertical-offset="8228">
               <folding>
-                <marker date="1445956825000" expanded="true" signature="3784:3790" placeholder="..." />
+                <marker date="1445956988000" expanded="true" signature="3784:3790" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -209,9 +209,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="45" selection-start="2923" selection-end="2923" vertical-scroll-proportion="0.30793652" vertical-offset="1482" max-vertical-offset="8228">
+        <state line="222" column="38" selection-start="7784" selection-end="7784" vertical-scroll-proportion="0.7031746" vertical-offset="3998" max-vertical-offset="8228">
           <folding>
-            <marker date="1445956825000" expanded="true" signature="3784:3790" placeholder="..." />
+            <marker date="1445956988000" expanded="true" signature="3784:3790" placeholder="..." />
           </folding>
         </state>
       </provider>

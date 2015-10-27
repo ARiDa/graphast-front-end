@@ -220,7 +220,7 @@ function mapInit() {
             this.origin = po;
             $.get(url, function(data){
                 that.addOriginDestinationMarker(po,pd);
-                that.addPath(data, "A Star");
+                that.addPath(data, "A-Star");
             })
         },
 
