@@ -45,6 +45,7 @@ function mapInit() {
         pathLayer: [],
         animatedMarker: [],
         labelMarker: [],
+        pathSettings: [],
 
         init: function() {
             this.addOriginDestinationMarker(this.origin, this.destination);
@@ -77,10 +78,6 @@ function mapInit() {
         addPath: function(path, label) {
 //            this.cleanPath();
             // this.cleanMap();
-
-            if (this.labelExists(label)) {
-                return;
-            }
 
             path.path.reverse();
 
@@ -192,25 +189,48 @@ function mapInit() {
         },
 
         getShortestPath: function(label, time) {
-            this._getShortestPath(SHORTEST_PATH_URL, label,time);
+            var method = "dijstra";
+            this._getShortestPath(SHORTEST_PATH_URL, method, label,time);
         },
 
         getShortestPathAStart: function(label, time) {
-            this._getShortestPath(SHORTEST_A_STAR_PATH_URL, label, time);
+            var method = "a-star";
+            this._getShortestPath(SHORTEST_A_STAR_PATH_URL, method, label, time);
         },
 
-        _getShortestPath: function(url, label, time) {
+        runPathSettings: function() {
+            var that = this;
+
+            _.each(this.pathSettings, function(p) {
+                if (p.method == "dijstra") {
+                    that.getShortestPath(p.label, p.time);
+                    return
+                }
+                if (p.method == "a-star") {
+                    that.getShortestPathAStart(p.label, p.time);
+                }
+            })
+        },
+
+        _getShortestPath: function(url, method, label, time) {
+
+            if (this.labelExists(label)) {
+                return;
+            }
+
+            if (! _.findWhere(this.pathSettings, {label: label}) ){
+                this.pathSettings.push({method: method, time: time, label: label});
+            }
+            
             var po = this.origin,
                 pd = this.destination;
 
-                console.log(time);
+            
             var url = url + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
 
             if ( time && time.weekday >= 0 && time.hours >=0 && time.minutes >=0 ) {
                 url = url + time.weekday + "/" + time.hours + "/" + time.minutes + "/";
             }
-
-            console.log(url);
 
             var that = this;
             $.get(url, function(data){
@@ -242,6 +262,7 @@ function mapInit() {
             _.each(this.labelMarker, function(p){ map.removeLayer(p); })
             this.labelMarker = [];
             this.cleanAnimatedMarker();
+            this.cleanLabels();
         },
 
         cleanAnimatedMarker: function() {
@@ -258,13 +279,12 @@ function mapInit() {
         },
 
         cleanLabels: function() {
-            console.log($("div.info.legend"));
             $("div.info.legend").html('Routes <br><br>');
         },
 
         cleanMap: function() {
             this.cleanPath();
-            this.cleanLabels();
+            this.pathSettings = [];
         },
 
         addMarker: function(arrayLatLng, color, callbackDragEnd) {
@@ -278,9 +298,12 @@ function mapInit() {
             });
 
             marker.on('dragstart', function() {
-                that.cleanMap();
+                that.cleanPath();
             })
-            marker.on('dragend', callbackDragEnd);
+            marker.on('dragend', function(e){
+                callbackDragEnd(e);
+                that.runPathSettings();
+            });
 
             return marker;
         },
