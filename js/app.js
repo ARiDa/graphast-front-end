@@ -18,11 +18,12 @@ var App = {};
 
 window.onload = function() {
 	// load map
-	mapInit()
+	mapInit();
 	// load admin screen
-	adminInit()
+	adminInit();
 
-	App.init()
+	App.init();
+	GraphastMap.init();
 	// ...
 	//
 
