@@ -24,7 +24,6 @@ function mapInit() {
 
 
     function highlightFeature(e) {
-        console.log("adada");
         var layer = e.target;
 
         if (!L.Browser.ie && !L.Browser.opera) {
@@ -39,14 +38,17 @@ function mapInit() {
     }
 
     GraphastMap = {
-        destination: {},
-        origin: {},
+        destination: { latitude: 47.624446, longitude: -122.347527},
+        origin: { latitude: 47.607957, longitude: -122.33315 },
         originMarker: undefined,
         destinationMarker: undefined,
         pathLayer: [],
         animatedMarker: [],
         labelMarker: [],
 
+        init: function() {
+            this.addOriginDestinationMarker(this.origin, this.destination);
+        },
 
         getColor: function(d) {
             return colors[this.pathLayer.length];
@@ -95,15 +97,6 @@ function mapInit() {
             this.pathLayer.push(layer);
 
             this.updateLegend(label, color);
-
-//            L.geoJson(points, {
-//                 onEachFeature: function(feature, layer){
-//                     // var layer = e.t
-//                     console.log(feature);
-//                     layer.bindPopup(feature.geometry.coordinates[1] + "," + feature.geometry.coordinates[0],
-//                         {closeOnClick: false});
-//                 }
-//            }).addTo(map);
 
             this.fitBounds(polyline);
 
@@ -190,37 +183,27 @@ function mapInit() {
             legend.addTo(map);
         },
 
-        getShortestPath: function(po, pd, weekday, hour, minutes) {
-            var url = SHORTEST_PATH_URL + po.latitude + "/" + po.longitude + "/"
-                + pd.latitude + "/" + pd.longitude + "/";
-
-            if ( weekday && hour && minutes ) {
-                url + weekday + "/" + hour + "/" + minutes + "/";
-            }
-
-            var that = this;
-            this.destination = pd;
-            this.origin = po;
-            $.get(url, function(data){
-                that.addOriginDestinationMarker(po,pd);
-                that.addPath(data, "Dijkstra");
-            })
+        getShortestPath: function(time) {
+            this._getShortestPath(SHORTEST_PATH_URL, "Dijkstra",time);
         },
 
-        getShortestPathAStart: function(po, pd, weekday, hour, minutes) {
-            var url = SHORTEST_A_STAR_PATH_URL + po.latitude + "/" + po.longitude + "/"
-                + pd.latitude + "/" + pd.longitude + "/";
+        getShortestPathAStart: function(time) {
+            this._getShortestPath(SHORTEST_A_STAR_PATH_URL, "A-Star", time);
+        },
 
-            if ( weekday && hour && minutes ) {
-                url + weekday + "/" + hour + "/" + minutes + "/";
+        _getShortestPath: function(url, label, time) {
+            var po = this.origin,
+                pd = this.destination;
+
+            var url = url + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
+
+            if ( time && time.weekday && time.hour && time.minutes ) {
+                url = url + time.weekday + "/" + time.hour + "/" + time.minutes + "/";
             }
 
             var that = this;
-            this.destination = pd;
-            this.origin = po;
             $.get(url, function(data){
-                that.addOriginDestinationMarker(po,pd);
-                that.addPath(data, "A-Star");
+                that.addPath(data, label);
             })
         },
 
@@ -228,9 +211,7 @@ function mapInit() {
             this.cleanOrigin();
             var that = this;
             return this.addMarker(latlng, '#30a07A', function(e) {
-                var origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
-                that.getShortestPath(origin, that.destination);
-                that.getShortestPathAStart(origin, that.destination);
+                that.origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
             });
         },
 
@@ -238,9 +219,7 @@ function mapInit() {
             this.cleanDestination();
             var that = this;
             return this.addMarker( latlng, '#D84027', function(e) {
-                var destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
-                that.getShortestPath(that.origin, destination);
-                that.getShortestPathAStart(that.origin, destination);
+                that.destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
             });
         },
 

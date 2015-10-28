@@ -18,6 +18,17 @@
 	<script src="js/map.js"></script>
 	<script src="js/admin.js"></script>
 	<script src="js/app.js"></script>
+
+	<style>
+		#algorithms {
+			position: absolute;
+			width: 200px;
+			height: 300px;
+			z-index: 999999999;
+			right: 0;
+			top: 50px;
+		}
+	</style>
 </head>
 <body>
 
@@ -80,9 +91,19 @@
 	</div>
 	<!-- END Admin Screen -->
 
+	<div id='algorithms'>
+		<div>
+			<button id='a-start-button' type="button">A-Start</button>
+		</div>
+		<div>
+			<button id='dijstra-button' type="button">Dijstra</button>
+		</div>
+	</div>
 
 	<!-- BEGIN Admin Screen -->
 	<div id="Map"></div>
 	<!-- END Admin Screen -->
+
+
 </body>
 </html>

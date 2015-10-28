@@ -6,8 +6,10 @@ var App = {};
 
 	App = {
 	
-		getShortestPath: function(po, pd) {
-			GraphastMap.getShortestPath(po,pd);
+		init: function() {
+			$("#dijstra-button").click(function(){
+				GraphastMap.getShortestPath()
+			})
 		}
 	}
 })($)
@@ -19,11 +21,10 @@ window.onload = function() {
 	mapInit()
 	// load admin screen
 	adminInit()
+
+	App.init()
 	// ...
 	//
-	var latlngOrigin = { latitude: 47.607957, longitude: -122.33315 };
-	var latlngDest   = { latitude: 47.624446, longitude: -122.347527};
-	App.getShortestPath(latlngOrigin, latlngDest)
 
 	
 }
