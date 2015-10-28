@@ -90,7 +90,6 @@ function mapInit() {
             var points   = this.createPoints(path);
 
             var color = this.getColor();
-            console.log(label + "-" + color);
             var layer = L.geoJson(
                 features, {
                     style: style(color),
@@ -157,7 +156,7 @@ function mapInit() {
                 this.createLegend();
                 jDoc = $("div.info.legend");
             }
-            var id = label.replace(/ /g, '-');
+            var id = this.createLabelID(label);
 
             if ( !this.labelExists(label) ) {
                 var html = '<i id="'+id+'" style="background:'+color+'"></i> ' + label + '<br><br>';
@@ -168,8 +167,12 @@ function mapInit() {
 
         },
 
+        createLabelID: function(label){
+            return label.replace(/ /g, '-').replace(":","-");
+        },
+
         labelExists: function(label) {
-            var id = label.replace(/ /g, '-');
+            var id = this.createLabelID(label);
 
             return  $("#"+id).length > 0;
         },
@@ -188,23 +191,26 @@ function mapInit() {
             legend.addTo(map);
         },
 
-        getShortestPath: function(time) {
-            this._getShortestPath(SHORTEST_PATH_URL, "Dijkstra",time);
+        getShortestPath: function(label, time) {
+            this._getShortestPath(SHORTEST_PATH_URL, label,time);
         },
 
-        getShortestPathAStart: function(time) {
-            this._getShortestPath(SHORTEST_A_STAR_PATH_URL, "A-Star", time);
+        getShortestPathAStart: function(label, time) {
+            this._getShortestPath(SHORTEST_A_STAR_PATH_URL, label, time);
         },
 
         _getShortestPath: function(url, label, time) {
             var po = this.origin,
                 pd = this.destination;
 
+                console.log(time);
             var url = url + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
 
-            if ( time && time.weekday && time.hour && time.minutes ) {
-                url = url + time.weekday + "/" + time.hour + "/" + time.minutes + "/";
+            if ( time && time.weekday >= 0 && time.hours >=0 && time.minutes >=0 ) {
+                url = url + time.weekday + "/" + time.hours + "/" + time.minutes + "/";
             }
+
+            console.log(url);
 
             var that = this;
             $.get(url, function(data){

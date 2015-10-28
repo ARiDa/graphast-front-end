@@ -7,18 +7,35 @@ var App = {};
 	App = {
 	
 		init: function() {
+
+			var that = this;
+
 			$("#dijstra-button").click(function(){
-				GraphastMap.getShortestPath();
+				var time = getClockTime();
+				time.weekday = 0;
+				var label = that.formatLabel("Dijstra", time);
+				GraphastMap.getShortestPath(label, time);
 			});
 
 			$("#a-start-button").click(function(){
-				GraphastMap.getShortestPathAStart();
+				var time = getClockTime();
+				time.weekday = 0;
+				var label = that.formatLabel("A-Start");
+				GraphastMap.getShortestPathAStart(label);
 			});
 
 			$("#clean-map-button").click(function(){
 				GraphastMap.cleanMap();
 			});
 			
+		},
+
+		formatLabel: function(method, time) {
+			if (time) {
+				return method + " at " + time.hours + ":" + time.minutes;
+			}
+
+			return method
 		}
 	}
 })($)
