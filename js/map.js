@@ -1,6 +1,7 @@
 var GraphastMap = {};
 
 function mapInit() {
+    var BOUNDS_URL                = "http://demo.graphast.org:8080/graphast-ws/admin/bbox";
     var SHORTEST_PATH_URL         = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";
     var SHORTEST_A_STAR_PATH_URL  = "http://demo.graphast.org:8080/graphast-ws/shortestpath/a*/";
     var ACCESS_TOKEN              = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
@@ -49,6 +50,19 @@ function mapInit() {
 
         init: function() {
             this.addOriginDestinationMarker(this.origin, this.destination);
+            this.centerMapBasedOnTheGraph();
+        },
+
+        updateMapPosition: function(bbox) {
+            var bounds = [[bbox.minLatitude, bbox.minLongitude], [bbox.maxLatitude, bbox.maxLongitude]];
+            map.fitBounds(bounds);
+        },
+
+        centerMapBasedOnTheGraph: function() {
+            var that = this;
+            $.get(BOUNDS_URL, function(bounds){
+                that.updateMapPosition(bounds);
+            });
         },
 
         getColor: function(d) {
