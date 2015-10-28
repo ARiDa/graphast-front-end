@@ -120,7 +120,7 @@ function mapInit() {
                     interval: 1000*5,
                     icon: L.mapbox.marker.icon({
                         'marker-size': 'large',
-                        'marker-symbol': 'bus',
+                        'marker-symbol': 'car',
                         'marker-color': color
                     }),
                     autoStart: true,
