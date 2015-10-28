@@ -77,6 +77,11 @@ function mapInit() {
         addPath: function(path, label) {
 //            this.cleanPath();
             // this.cleanMap();
+
+            if (this.labelExists(label)) {
+                return;
+            }
+
             path.path.reverse();
 
             path.totalDistance = (path.totalCost/1000/1000).toFixed(1);
@@ -154,7 +159,7 @@ function mapInit() {
             }
             var id = label.replace(/ /g, '-');
 
-            if (jDoc.find("#"+id).length == 0) {
+            if ( !this.labelExists(label) ) {
                 var html = '<i id="'+id+'" style="background:'+color+'"></i> ' + label + '<br><br>';
                 jDoc.append(html);
             } else {
@@ -163,19 +168,19 @@ function mapInit() {
 
         },
 
+        labelExists: function(label) {
+            var id = label.replace(/ /g, '-');
+
+            return  $("#"+id).length > 0;
+        },
+
         createLegend: function() {
             var legend = L.control({position: 'bottomright'});
 
             legend.onAdd = function (map) {
 
                 var div = L.DomUtil.create('div', 'info legend')
-//                    grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-//                    labels = [];
-//
-//                // loop through our density intervals and generate a label with a colored square for each interval
-//                for (var i = 0; i < grades.length; i++) {
                     div.innerHTML += 'Routes <br><br>';
-//                }
 
                 return div;
             };
@@ -246,8 +251,14 @@ function mapInit() {
             if (this.destinationMarker) map.removeLayer(this.destinationMarker);
         },
 
+        cleanLabels: function() {
+            console.log($("div.info.legend"));
+            $("div.info.legend").html('Routes <br><br>');
+        },
+
         cleanMap: function() {
             this.cleanPath();
+            this.cleanLabels();
         },
 
         addMarker: function(arrayLatLng, color, callbackDragEnd) {
@@ -261,7 +272,7 @@ function mapInit() {
             });
 
             marker.on('dragstart', function() {
-                that.cleanPath();
+                that.cleanMap();
             })
             marker.on('dragend', callbackDragEnd);
 

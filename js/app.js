@@ -8,8 +8,17 @@ var App = {};
 	
 		init: function() {
 			$("#dijstra-button").click(function(){
-				GraphastMap.getShortestPath()
-			})
+				GraphastMap.getShortestPath();
+			});
+
+			$("#a-start-button").click(function(){
+				GraphastMap.getShortestPathAStart();
+			});
+
+			$("#clean-map-button").click(function(){
+				GraphastMap.cleanMap();
+			});
+			
 		}
 	}
 })($)
