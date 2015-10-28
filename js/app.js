@@ -22,6 +22,8 @@ window.onload = function() {
 	// load admin screen
 	adminInit();
 
+	createClock();
+
 	App.init();
 	GraphastMap.init();
 	// ...
