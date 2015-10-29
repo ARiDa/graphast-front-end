@@ -2,7 +2,7 @@
 function createClock() {
 	var today = new Date()
 	var lastClick = +new Date(1990,1,1)
-	window.datetime  = {
+	window.datetime = {
 		    day: today.getDate(),
 		  month: today.getMonth(),
 		   year: today.getFullYear(),
@@ -28,8 +28,8 @@ function createClock() {
 			return false
 		var number = +e.target.innerHTML
 		var now = +new Date()
-		if (now - lastClick < 3000) { // 3 seconds
-			datetime.minutes = number * 5 // 12 * 5 = 60
+		if (now - lastClick < 5000) { // 5 seconds
+			datetime.minutes = (number * 5) % 60 // 12 * 5 = 60
 			now = +new Date(1990,1,1)
 		} else
 			datetime.hours = datetime.hours > 11 ? (number+12) : number
