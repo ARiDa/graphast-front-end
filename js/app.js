@@ -43,6 +43,8 @@ var App = {};
 
 
 window.onload = function() {
+	document.body.classList.remove('loading')
+	//
 	// load map
 	mapInit();
 	// load admin screen

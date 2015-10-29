@@ -112,8 +112,8 @@ body.admin #Logo {
 #Search {
 	position: fixed;
 	z-index: 1003;
-	top:   100px;
-	left:   20px;
+	top:   120px;
+	left: -200px;
 	width: 170px;
 	padding: 5px 10px 7px 36px;
 	font-size: 20px;
@@ -133,7 +133,7 @@ body.admin #Search:focus {
 }
 body.admin #Search {
 	opacity: 1;
-	top: 120px;
+	left: 20px;
 	transition: all 0.7s ease 0.5s;
 }
 

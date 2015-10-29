@@ -1,5 +1,7 @@
 
 #Clock {
+	user-select: none;
+	-webkit-user-select: none;
 	position: fixed;
 	z-index: 3;
 	top:  40px;
@@ -8,7 +10,12 @@
 	height:165px;
 	opacity: 1;
 	background: url(../img/clock.png) no-repeat center;
-	transition: all 0.4s;
+	transition: all 0.8s;
+}
+body.loading
+#Clock {
+	opacity: 0;
+	transform: scale3d(0,0,1);
 }
 body.admin
 #Clock {
@@ -34,13 +41,88 @@ body.admin
 	transition: all 0.3s;
 }
 
-#Clock #Weekday {
+#Clock #ClockPeriod {
 	position: absolute;
-	width: 100%;
-	padding-top: 85px;
-	line-height: 1;
+	z-index:  99;
+	width:  40px;
+	height: 40px;
+	top:  50%;
+	left: 50%;
+	padding: 10px 0 0 0;
+	margin-left: -20px;
+	margin-top:  -20px;
+	line-height: 100%;
 	text-align: center;
-	font-size: 26px;
-	color: rgba(9,9,9, 0.4);
+	font-family: monospace;
+	font-size: 18px;
+	cursor: pointer;
+	color: rgba(255,255,255, 0.8);
+	background: #575;
+	border-radius: 20px;
+	box-sizing: border-box;
+	transition: 0.3s;
 }
+#Clock #ClockPeriod:hover {
+	background: #686;
+}
+#Clock #ClockPeriod:active {
+	color: rgba(255,255,255, 0.5);
+	background: #464;
+	transition: none;
+}
+
+#Clock b {
+	position: absolute;
+	top: 0;
+	left:0;
+	z-index: 99;
+	width: 20px;
+	height:20px;
+	margin: -10px 0 0 -10px;
+	font-size: 16px;
+	text-align: center;
+	text-shadow: 0 0 0;
+	cursor: pointer;
+	color: #333;
+	opacity: 0;
+	transition: all 0.3s;
+}
+#Clock:hover b {
+	opacity: 0.3;
+}
+/* main numbers */
+#Clock b.h12,
+#Clock b.h3,
+#Clock b.h6,
+#Clock b.h9 {
+	margin-top: -13px;
+	font-size:   22px;
+	opacity: 0.5;
+}
+#Clock b:hover {
+	opacity: 1;
+}
+#Clock b:active {
+	opacity: 0.8;
+	color: #000;
+	transform: scale3d(5,5,1);
+	transition: none;
+}
+/* align numbers */
+#Clock b.h12 { left: 50%; top: 12%}
+#Clock b.h1  { left: 68%; top: 19%}
+#Clock b.h2  { left: 81%; top: 32%}
+#Clock b.h3  { left: 87%; top: 50%}
+#Clock b.h4  { left: 81%; top: 68%}
+#Clock b.h5  { left: 68%; top: 81%}
+#Clock b.h6  { left: 50%; top: 87%}
+#Clock b.h7  { left: 32%; top: 81%}
+#Clock b.h8  { left: 19%; top: 68%}
+#Clock b.h9  { left: 12%; top: 50%}
+#Clock b.h10 { left: 19%; top: 32%}
+#Clock b.h11 { left: 32%; top: 19%}
+
+
+
+
 
