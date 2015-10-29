@@ -69,6 +69,7 @@ body.admin
 	color: rgba(255,255,255, 0.5);
 	background: #464;
 	transition: none;
+	transform: scale3d(1.5,1.5,1);
 }
 
 #Clock b {
@@ -123,6 +124,13 @@ body.admin
 #Clock b.h11 { left: 32%; top: 19%}
 
 
-
+.pickmeup {
+	position: fixed;
+	z-index:  9;
+	top: 100px;
+	left:100px;
+	width: 200px;
+	height:300px;
+}
 
 

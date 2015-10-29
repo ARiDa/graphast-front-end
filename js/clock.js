@@ -2,7 +2,7 @@
 function createClock() {
 	var today = new Date()
 	var lastClick = +new Date(1990,1,1)
-	var datetime  = {
+	window.datetime  = {
 		    day: today.getDate(),
 		  month: today.getMonth(),
 		   year: today.getFullYear(),
@@ -37,7 +37,7 @@ function createClock() {
 		update()
 	})
 	//
-	ClockPeriod.addEventListener('click', function(e) {
+	ClockPeriod.addEventListener('mousedown', function(e) {
 		if (datetime.hours > 11)
 			datetime.hours -= 12
 		else
@@ -49,9 +49,7 @@ function createClock() {
 }
 
 function getClockTime() {
-	var h = +Clock.getAttribute('hours')
-	var m = +Clock.getAttribute('minutes')
-	return {hours: h, minutes: m}
+	return datetime
 }
 
 
