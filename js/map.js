@@ -293,8 +293,6 @@ function mapInit() {
 
         getShortestPath: function(label, timeInfo) {
             var method = "dijstra";
-            console.log(timeInfo);
-            console.log(this.pathSettings);
             this._getShortestPath(SHORTEST_PATH_URL, method, label, timeInfo);
         },
 
@@ -305,7 +303,7 @@ function mapInit() {
 
         runPathSettings: function() {
             var that = this;
-            console.log("run path");
+            
             _.each(this.pathSettings, function(p) {
                 if (p.method == "dijstra") {
                     that.getShortestPath(p.label, p.timeInfo);
@@ -320,7 +318,6 @@ function mapInit() {
         _getShortestPath: function(url, method, label, timeInfo) {
             
             if (this.labelExists(label, timeInfo)) {
-                console.log("foi");
                 return;
             }
 
