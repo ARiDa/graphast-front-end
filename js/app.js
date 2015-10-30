@@ -11,15 +11,13 @@ var App = {};
 			var that = this;
 
 			$("#dijstra-button").click(function(){
-				console.log(GraphastMap.pathSettings);
 				var time = getClockTime();
-				console.log(time);
 				var label = "Dikjstra";
 				GraphastMap.getShortestPath(label, time);
 			});
 
 			$("#a-start-button").click(function(){
-				var time = getClockTime().copy();
+				var time = getClockTime();
 				var label = "A-Start";
 				GraphastMap.getShortestPathAStart(label);
 			});
