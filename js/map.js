@@ -87,7 +87,6 @@ function mapInit() {
         },
 
         formatCost: function(path) {
-        	console.log(path)
 			return (path.totalCost / 1000 / 60).toFixed(1) + " min";
         },
 
@@ -120,7 +119,7 @@ function mapInit() {
             });
         },
 
-        addPath: function(path, label) {
+        addPath: function(path, label, timeInfo) {
 
             path.path.reverse();
 
@@ -132,7 +131,6 @@ function mapInit() {
             var points   = this.createPoints(path);
 
             var speedVector = this.computeSpeedVector(path);
-            console.log(speedVector);
 
             var color = this.getColor();
             var layer = L.geoJson(
@@ -145,7 +143,14 @@ function mapInit() {
 
             this.pathLayer.push(layer);
 
-            this.updateLegend(label, color, costFormatted, distanceFormatted);
+            var info = {
+                cost: costFormatted, 
+                distance: distanceFormatted,
+                date: (timeInfo) ? timeInfo.year+"/"+timeInfo.month+"/"+timeInfo.day : "",
+                timeInfo: (timeInfo) ? timeInfo.hours+":"+timeInfo.minutes : ""
+            }
+
+            this.updateLegend(label, color, timeInfo, info);
 
             this.fitBounds(polyline);
 
@@ -194,21 +199,23 @@ function mapInit() {
 
         addPoint: {},
 
-        updateLegend: function(label, color, temporalCost, distance) {
+        updateLegend: function(label, color, timeInfo, info) {
 
             var jDoc = $("#routes");
             if (jDoc.length == 0) {
                 this.createLegend();
                 jDoc = $("#routes");
             }
-            var id = this.createLabelID(label);
+            var id = this.createLabelID(label, timeInfo);
 
-            if ( !this.labelExists(label) ) {
+            if ( !this.labelExists(label, timeInfo) ) {
                 var html = '<tr id="'+id+'">' +
                 			'<td><i  style="background:'+color+'"></i></td>'+
                 			'<td>' + label + '</td>' +
-                			'<td>' + temporalCost + '</td>' +
-                			'<td>' + distance + '</td> ' +
+                            '<td>' + info.date + '</td>' +
+                            '<td>' + info.timeInfo + '</td>' +
+                			'<td>' + info.cost + '</td>' +
+                			'<td>' + info.distance + '</td> ' +
                 			'<td></td> ' +
                 			'</tr>';
                 jDoc.append(html);
@@ -218,12 +225,16 @@ function mapInit() {
 
         },
 
-        createLabelID: function(label){
-            return label.replace(/ /g, '-').replace(":","-");
+        createLabelID: function(label, timeInfo){
+            var l = label.toLowerCase().replace(/ /g, '-');
+            if (timeInfo && timeInfo.year)
+                l = l + timeInfo.year+""+timeInfo.month+""+timeInfo.day+""+timeInfo.hours+""+timeInfo.minutes;
+
+            return l;
         },
 
-        labelExists: function(label) {
-            var id = this.createLabelID(label);
+        labelExists: function(label, timeInfo) {
+            var id = this.createLabelID(label, timeInfo);
 
             return  $("#"+id).length > 0;
         },
@@ -233,6 +244,8 @@ function mapInit() {
 
             var html = '<thead><tr><td></td>'+
 			'<td>Algorithm</td>' +
+            '<td>Date</td> ' +
+            '<td>Time</td> ' +
 			'<td>ETA</td>' +
 			'<td>Distance</td> ' +
 			'<td></td> ' +
@@ -253,14 +266,18 @@ function mapInit() {
         	$(".info.legend tbody").empty();
         },
 
-        getShortestPath: function(label, time) {
+        getShortestPath: function(label, timeInfo) {
             var method = "dijstra";
-            this._getShortestPath(SHORTEST_PATH_URL, method, label,time);
+            console.log("dijkstra");
+            console.log(timeInfo);
+            this._getShortestPath(SHORTEST_PATH_URL, method, label, timeInfo);
         },
 
-        getShortestPathAStart: function(label, time) {
+        getShortestPathAStart: function(label, timeInfo) {
             var method = "a-star";
-            this._getShortestPath(SHORTEST_A_STAR_PATH_URL, method, label, time);
+            console.log("a-start");
+            console.log(timeInfo);
+            this._getShortestPath(SHORTEST_A_STAR_PATH_URL, method, label, timeInfo);
         },
 
         runPathSettings: function() {
@@ -268,23 +285,27 @@ function mapInit() {
 
             _.each(this.pathSettings, function(p) {
                 if (p.method == "dijstra") {
-                    that.getShortestPath(p.label, p.time);
+                    that.getShortestPath(p.label, p.timeInfo);
                     return
                 }
                 if (p.method == "a-star") {
-                    that.getShortestPathAStart(p.label, p.time);
+                    that.getShortestPathAStart(p.label, p.timeInfo);
                 }
             })
         },
 
-        _getShortestPath: function(url, method, label, time) {
-
-            if (this.labelExists(label)) {
+        _getShortestPath: function(url, method, label, timeInfo) {
+            
+            if (this.labelExists(label, timeInfo)) {
                 return;
             }
 
-            if (! _.findWhere(this.pathSettings, {label: label}) ){
-                this.pathSettings.push({method: method, time: time, label: label});
+            if (_.where(this.pathSettings, {label: label, timeInfo: timeInfo}).length == 0 ){
+                this.pathSettings.push({
+                    method: method, 
+                    timeInfo: timeInfo, 
+                    label: label
+                });
             }
             
             var po = this.origin,
@@ -293,13 +314,13 @@ function mapInit() {
             
             var url = url + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
 
-            if ( time && time.weekday >= 0 && time.hours >=0 && time.minutes >=0 ) {
-                url = url + time.weekday + "/" + time.hours + "/" + time.minutes + "/";
+            if ( timeInfo && timeInfo.weekday >= 0 && timeInfo.hours >=0 && timeInfo.minutes >=0 ) {
+                url = url + timeInfo.weekday + "/" + timeInfo.hours + "/" + timeInfo.minutes + "/";
             }
 
             var that = this;
             $.get(url, function(data){
-                that.addPath(data, label);
+                that.addPath(data, label, timeInfo);
             })
         },
 

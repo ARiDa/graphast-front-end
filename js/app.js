@@ -12,15 +12,13 @@ var App = {};
 
 			$("#dijstra-button").click(function(){
 				var time = getClockTime();
-				time.weekday = 0;
-				var label = that.formatLabel("Dijstra", time);
+				var label = "Dikjstra";
 				GraphastMap.getShortestPath(label, time);
 			});
 
 			$("#a-start-button").click(function(){
 				var time = getClockTime();
-				time.weekday = 0;
-				var label = that.formatLabel("A-Start");
+				var label = "A-Start";
 				GraphastMap.getShortestPathAStart(label);
 			});
 
