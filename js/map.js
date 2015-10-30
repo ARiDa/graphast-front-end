@@ -49,6 +49,7 @@ function mapInit() {
         pathSettings: [],
 
         init: function() {
+        	this.createLegend();
             this.addOriginDestinationMarker(this.origin, this.destination);
             this.centerMapBasedOnTheGraph();
         },
@@ -85,20 +86,53 @@ function mapInit() {
             this.destinationMarker.addTo(map);
         },
 
+        formatCost: function(path) {
+        	console.log(path)
+			return (path.totalCost / 1000 / 60).toFixed(1) + " min";
+        },
+
+        formatDistance: function(path) {
+			return (path.totalDistance / 1000 ).toFixed(1) + " km";
+        },
+
         fitBounds: function(geom){
             map.fitBounds(geom.getBounds(),{'padding':[100,100]});
         },
 
+        mapSpeed: function(speed) {
+        	if (speed <= 4) return 1000;
+        	if (speed <= 10) return 5000;
+        	
+        	return 8000;
+        },
+
+        computeSpeedVector: function(path) {
+        	var geometry     = path.geometry;
+            var instructions = path.path;
+
+            var that = this;
+
+            return _.map(instructions, function(inst){
+            	var cost = inst.cost;
+            	var distance = inst.distance;
+            	var speed = distance / cost;
+            	return that.mapSpeed(speed);
+            });
+        },
+
         addPath: function(path, label) {
-//            this.cleanPath();
-            // this.cleanMap();
 
             path.path.reverse();
 
-            path.totalDistance = (path.totalCost/1000/1000).toFixed(1);
+            var costFormatted = this.formatCost(path);
+            var distanceFormatted = this.formatDistance(path);
+
             var features = this.createPolylines(path);
             var polyline = this.createPolyline(path);
             var points   = this.createPoints(path);
+
+            var speedVector = this.computeSpeedVector(path);
+            console.log(speedVector);
 
             var color = this.getColor();
             var layer = L.geoJson(
@@ -111,11 +145,11 @@ function mapInit() {
 
             this.pathLayer.push(layer);
 
-            this.updateLegend(label, color);
+            this.updateLegend(label, color, costFormatted, distanceFormatted);
 
             this.fitBounds(polyline);
 
-            var durationlabel = L.divIcon({className: '', html: '<div class="travelduration" style="color:'+color+';border-color:'+color+';">'+path.totalDistance+' km</strong>'});
+            var durationlabel = L.divIcon({className: '', html: '<div class="travelduration" style="color:'+color+';border-color:'+color+';">'+costFormatted+'</strong>'});
 
             var middlepos=polyline._latlngs[Math.round(polyline._latlngs.length/2)];
             this.labelMarker.push(L.marker(middlepos, {icon: durationlabel})
@@ -131,7 +165,7 @@ function mapInit() {
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
                     distance: 20000,
                     // ms
-                    interval: 1000*5,
+                    interval: 5000,
                     icon: L.mapbox.marker.icon({
                         'marker-size': 'large',
                         'marker-symbol': 'car',
@@ -160,17 +194,23 @@ function mapInit() {
 
         addPoint: {},
 
-        updateLegend: function(label, color) {
+        updateLegend: function(label, color, temporalCost, distance) {
 
-            var jDoc = $("div.info.legend");
+            var jDoc = $("#routes");
             if (jDoc.length == 0) {
                 this.createLegend();
-                jDoc = $("div.info.legend");
+                jDoc = $("#routes");
             }
             var id = this.createLabelID(label);
 
             if ( !this.labelExists(label) ) {
-                var html = '<i id="'+id+'" style="background:'+color+'"></i> ' + label + '<br><br>';
+                var html = '<tr id="'+id+'">' +
+                			'<td><i  style="background:'+color+'"></i></td>'+
+                			'<td>' + label + '</td>' +
+                			'<td>' + temporalCost + '</td>' +
+                			'<td>' + distance + '</td> ' +
+                			'<td></td> ' +
+                			'</tr>';
                 jDoc.append(html);
             } else {
                 jDoc.find("#"+id).css('background', color)
@@ -189,17 +229,28 @@ function mapInit() {
         },
 
         createLegend: function() {
-            var legend = L.control({position: 'bottomright'});
+            var legend = L.control({position: 'topright'});
+
+            var html = '<thead><tr><td></td>'+
+			'<td>Algorithm</td>' +
+			'<td>ETA</td>' +
+			'<td>Distance</td> ' +
+			'<td></td> ' +
+			'</tr></thead>';
 
             legend.onAdd = function (map) {
 
                 var div = L.DomUtil.create('div', 'info legend')
-                    div.innerHTML += 'Routes <br><br>';
+                    div.innerHTML += '<h3>Routes</h3><table id="routes">'+html+'</table>';
 
                 return div;
             };
 
             legend.addTo(map);
+        },
+
+        cleanLegend: function() {
+        	$(".info.legend tbody").empty();
         },
 
         getShortestPath: function(label, time) {
@@ -293,7 +344,7 @@ function mapInit() {
         },
 
         cleanLabels: function() {
-            $("div.info.legend").html('Routes <br><br>');
+            this.cleanLegend();
         },
 
         cleanMap: function() {

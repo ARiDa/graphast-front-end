@@ -63,8 +63,11 @@ L.AnimatedMarker = L.Marker.extend({
         distanceParam = this.options.distance;
 
 
-    if (this.options.interval instanceof Array && this.options.distance instanceof Array) {
+    if (this.options.interval instanceof Array ) {
       intervalParam = this.options.interval[this._i-1];
+    }
+
+    if (this.options.distance instanceof Array) {
       distanceParam = this.options.distance[this._i-1];
     }
 
