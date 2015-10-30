@@ -74,7 +74,13 @@ function createClock() {
 }
 
 function getClockTime() {
-	return datetime
+	return { hours: datetime.hours,
+			 day: datetime.day,
+			 year: datetime.year,
+			 weekday: datetime.weekday,
+			 month: datetime.month,
+			 minutes: datetime.minutes
+			}
 }
 
 

@@ -18,7 +18,8 @@ function mapInit() {
         return function(feature) {
             return {
                 color: color,
-                'stroke-width': 10
+                'stroke-width': 10,
+                className: "route"
             };
         }
     }
@@ -44,6 +45,7 @@ function mapInit() {
         originMarker: undefined,
         destinationMarker: undefined,
         pathLayer: [],
+        bbLayer: undefined,
         animatedMarker: [],
         labelMarker: [],
         pathSettings: [],
@@ -56,7 +58,30 @@ function mapInit() {
 
         updateMapPosition: function(bbox) {
             var bounds = [[bbox.minLatitude, bbox.minLongitude], [bbox.maxLatitude, bbox.maxLongitude]];
+            
+            // create an orange rectangle
+            
+            if (this.bbLayer) map.removeLayer(this.bbLayer)
+
+            var rect = L.polygon([
+                [bbox.minLatitude, bbox.minLongitude],
+                [bbox.minLatitude, bbox.maxLongitude],
+                [bbox.maxLatitude, bbox.maxLongitude],
+                [bbox.maxLatitude, bbox.minLongitude],
+                [bbox.minLatitude, bbox.minLongitude]
+                ]);
+            this.bbLayer = L.geoJson(rect.toGeoJSON(),
+                {
+                    style: function(feature){
+                        return {
+                          className: "bbox"
+                        };
+                    }
+                }).addTo(map);
+
             map.fitBounds(bounds);
+
+
         },
 
         centerMapBasedOnTheGraph: function() {
@@ -91,7 +116,7 @@ function mapInit() {
         },
 
         formatDistance: function(path) {
-			return (path.totalDistance / 1000 ).toFixed(1) + " km";
+			return (path.totalDistance / 1000 / 1000 ).toFixed(1) + " km";
         },
 
         fitBounds: function(geom){
@@ -268,21 +293,19 @@ function mapInit() {
 
         getShortestPath: function(label, timeInfo) {
             var method = "dijstra";
-            console.log("dijkstra");
             console.log(timeInfo);
+            console.log(this.pathSettings);
             this._getShortestPath(SHORTEST_PATH_URL, method, label, timeInfo);
         },
 
         getShortestPathAStart: function(label, timeInfo) {
             var method = "a-star";
-            console.log("a-start");
-            console.log(timeInfo);
             this._getShortestPath(SHORTEST_A_STAR_PATH_URL, method, label, timeInfo);
         },
 
         runPathSettings: function() {
             var that = this;
-
+            console.log("run path");
             _.each(this.pathSettings, function(p) {
                 if (p.method == "dijstra") {
                     that.getShortestPath(p.label, p.timeInfo);
@@ -297,6 +320,7 @@ function mapInit() {
         _getShortestPath: function(url, method, label, timeInfo) {
             
             if (this.labelExists(label, timeInfo)) {
+                console.log("foi");
                 return;
             }
 
