@@ -1,5 +1,7 @@
 
 function createClock() {
+	var calendar = $('#Calendar').jqxCalendar({width: 180, height: 180})
+	//
 	var today = new Date()
 	var lastClick = +new Date(1990,1,1)
 	window.datetime = {
@@ -8,6 +10,16 @@ function createClock() {
 		   year: today.getFullYear(),
 		  hours: today.getHours(),
 		minutes: today.getMinutes()
+	}
+	//
+	function getdate() {
+		var s = ''
+		s += (datetime.day < 10 ? '0' : '') + datetime.day
+		s += '-'
+		s += (datetime.month < 10 ? '0' : '') + datetime.month
+		s += '-'
+		s += datetime.year
+		return s
 	}
 	//
 	function update() {
@@ -21,7 +33,12 @@ function createClock() {
 		ClockHour  .style.transform = 'rotateZ('+hRot+'deg)'
 		ClockMinute.style.transform = 'rotateZ('+mRot+'deg)'
 		ClockPeriod.innerHTML = datetime.hours < 12 ? 'AM' : 'PM'
+		ClockDate.innerHTML   = getdate()
 	}
+	//
+	ClockDate.addEventListener('click', function() {
+		document.body.classList.add('show-calendar')
+	})
 	//
 	Clock.addEventListener('click', function(e) {
 		if (e.target.nodeName !== 'B')
@@ -42,6 +59,14 @@ function createClock() {
 			datetime.hours -= 12
 		else
 			datetime.hours += 12
+		update()
+	})
+	//
+	calendar.on('change', function(e) {
+		document.body.classList.remove('show-calendar')
+		datetime.day   = calendar.val().getDate()
+		datetime.month = calendar.val().getMonth() + 1
+		datetime.year  = calendar.val().getFullYear()
 		update()
 	})
 	//

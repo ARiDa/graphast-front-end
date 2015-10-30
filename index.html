@@ -6,6 +6,7 @@
 	<title>Graphast Demo</title>
 
 	<link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css" />
+	<link rel="stylesheet" href="css/jqx.base.css" />
 	<link rel="stylesheet" href="css/app.css" />
 	<link rel="stylesheet" href="css/map.css" />
 	<link rel="stylesheet" href="css/admin.css" />
@@ -15,6 +16,10 @@
 	<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
 	<script src='js/animated-marker.js'></script>
 	<script src='js/jquery-2.1.4.min.js'></script>
+	<script src='js/jqxcore.js'></script>
+	<script src='js/jqxcalendar.js'></script>
+	<script src='js/jqxdatetimeinput.js'></script>
+	<script src='js/globalize.js'></script>
 	<script src='js/underscore.js'></script>
 	<script src="js/map.js"></script>
 	<script src="js/admin.js"></script>
@@ -109,6 +114,7 @@
 
 	<!-- BEGIN Clock Widget -->
 	<div id="Clock" hours="3" minutes="30" weekday="Monday">
+		<div id="ClockDate"></div>
 		<div id="ClockPeriod">-</div>
 		<div id="ClockHour"   class="hour"></div>
 		<div id="ClockMinute" class="minute"></div>
@@ -125,7 +131,7 @@
 		<b class="h11">11</b>
 		<b class="h12">12</b>
 	</div>
-	<div id="Calendar" data-pmu-format="dd-mm-YYYY"></div>
+	<div id="Calendar"></div>
 	<!-- END Clock Widget -->
 
 	<!-- BEGIN Admin Screen -->

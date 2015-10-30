@@ -23,6 +23,12 @@ body.admin
 	transform: scale3d(0,0,1);
 }
 
+body.show-calendar
+#Clock {
+	top: 230px;
+	opacity: 0;
+}
+
 #Clock .hour {
 	position: absolute;
 	width: 100%;
@@ -39,6 +45,33 @@ body.admin
 	background: url(../img/clock-minute.png) no-repeat center;
 	transform-origin: center;
 	transition: all 0.3s;
+}
+
+#Clock #ClockDate {
+	display: inline-block;
+	position: absolute;
+	z-index:  9;
+	top: 63%;
+	left:50%;
+	width: 70px;
+	margin-left: -35px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	color: #885C22;
+	background: rgba(255,255,255, 0.6);
+	border-radius: 3px;
+	transition: all 0.3s;
+}
+#Clock #ClockDate:hover {
+	color: #741;
+	background: rgba(255,255,255, 0.85);
+}
+#Clock #ClockDate:active {
+	color: #741;
+	transition: none;
+	transform: scale3d(2,2,1);
 }
 
 #Clock #ClockPeriod {
@@ -124,13 +157,24 @@ body.admin
 #Clock b.h11 { left: 32%; top: 19%}
 
 
-.pickmeup {
+#Calendar {
 	position: fixed;
-	z-index:  9;
-	top: 100px;
-	left:100px;
-	width: 200px;
-	height:300px;
+	z-index:  2;
+	top: 230px;
+	left: 30px;
+	opacity: 0;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0,0,0, 0.5);
+	transition: all 0.4s;
+}
+body.show-calendar
+#Calendar {
+	top: 70px;
+	opacity: 1;
+}
+
+#Calendar #calendarTitleViewCalendar {
+	background: #B9C4B2;
 }
 
 
