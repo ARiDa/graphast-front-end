@@ -1,0 +1,84 @@
+
+.dialog {
+	position: fixed;
+	z-index: 99;
+	top:    30px;
+	right:  30px;
+	width: 330px;
+	height: auto;
+	padding: 10px 10px 40px 10px;
+	background: #D1DBCB;
+	border: none; /* 3px solid #B9C4B2; */
+	border-radius: 3px 3px 0 0;
+	box-shadow: 0 3px 8px rgba(0,0,0, 0.5);
+	transition: all 0.5s;
+}
+body.admin
+.dialog {
+	opacity: 0;
+	transform: scale(0,0);
+}
+
+.dialog h1 {
+	margin:  0;
+	padding: 5px 10px 25px 0;
+	font-family: arial;
+	letter-spacing: 1px;
+	line-height: 1;
+	font-weight: lighter;
+	text-align:  left;
+	font-size: 23px;
+	color: rgba(0,0,0, 0.3);
+}
+
+.dialog div.input {
+	display: block;
+	text-align: left;
+	vertical-align: middle;
+}
+.dialog div.input * {
+	vertical-align: middle;
+}
+.dialog div.input b {
+	display: inline-block;
+	vertical-align: middle;
+	width: 30px;
+	height:30px;
+	font-weight: lighter;
+	font-family: arial;
+	font-size: 26px;
+	color: rgba(255,255,255, 0.3);
+	text-align: center;
+	background: #aaa;
+	border: 2px solid rgba(255,255,255, 0.3);
+	border-radius: 30px;
+}
+.dialog div.input input {
+	padding: 5px 10px;
+	margin-left: 10px;
+	width: 250px;
+	font-size: 20px;
+	color: #888;
+	background: #f5fff5;
+	border: 3px solid #b1c3b2;
+	border-radius: 5px;
+	transition: all 0.3s;
+}
+.dialog div.input input:focus {
+	color: #555;
+	background: #fff
+}
+
+.dialog div.input b.begin {
+	background: #35A984;
+}
+.dialog div.input b.end {
+	background: #DC482B;
+}
+
+
+
+
+
+
+

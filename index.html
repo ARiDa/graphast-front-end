@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="css/admin.css" />
 	<link rel="stylesheet" href="css/admin-form.css" />
 	<link rel="stylesheet" href="css/clock.css" />
+	<link rel="stylesheet" href="css/dialog.css" />
+	<link rel="stylesheet" href="css/dialog-osr.css" />
 	
 	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
@@ -25,6 +27,8 @@
 	<script src="js/map.js"></script>
 	<script src="js/admin.js"></script>
 	<script src="js/clock.js"></script>
+	<script src="js/dialog.js"></script>
+	<script src="js/dialog-osr.js"></script>
 	<script src="js/app.js"></script>
 
 	<style>
@@ -33,10 +37,10 @@
     	/* width: 200px; */
 	    background-color: white;
 	    /* height: 300px; */
-	    z-index: 999999999;
+	    z-index: 99;
 	    padding: 15px 15px 15px 15px;
-	    right: 100px;
-	    top: 50px;
+	    left: 50px;
+	    bottom: 0;
 		}
 	</style>
 </head>
@@ -134,6 +138,24 @@
 	</div>
 	<div id="Calendar"></div>
 	<!-- END Clock Widget -->
+
+	<!-- BEGIN Dialog OSM Widget -->
+	<div class="dialog dialog-osr">
+		<h1>Optimal Sequenced Route</h1>
+		<div class="input">
+			<b class="begin">A</b> <input type="text" name="begin" placeholder="start..."/>
+		</div>
+		<div class="pois">
+			<div class="places"></div>
+			<div class="add" id="add-osr-poi">
+				<button>+</button>
+			</div>
+		</div>
+		<div class="input">
+			<b class="end">B</b> <input type="text" name="end" placeholder="end.."/>
+		</div>
+	</div>
+	<!-- END Dialog OSM Widget -->
 
 	<!-- BEGIN Admin Screen -->
 	<div id="Map"></div>

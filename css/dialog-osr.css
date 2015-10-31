@@ -1,0 +1,85 @@
+
+.dialog .pois {
+	padding: 10px 0 20px 0;
+	margin: -2px 0 0 0;
+	background: url(../img/arrow-bottom.png) no-repeat center bottom;
+}
+
+.dialog .pois .places p {
+	display: block;
+	padding: 0;
+	margin:  4px auto;
+	text-align: center;
+}
+.dialog .pois .places span {
+	display: inline-block;
+	text-align: center;
+	padding: 2px 15px 5px 15px;
+	font-size: 17px;
+	text-shadow: 0 1px 0 #bbb;
+	cursor: default;
+	color: #444;
+	background: #b1c3b2;
+	border-radius: 50px;
+}
+
+
+.dialog .pois .add {
+	text-align: center;
+	padding: 10px 0 10px 0;
+}
+.dialog .pois .add button {
+	display: inline-block;
+	width: 38px;
+	height:38px;
+	padding: 0 5px 5px 5px;
+	font-size: 20px;
+	text-align: center;
+	cursor: pointer;
+	color: rgba(255,255,255, 0.8);
+	background: #575;
+	border: 3px solid #b1c3b2;
+	border-radius: 50px;
+	transition: all 0.2s;
+}
+.dialog .pois .add button:hover {
+	background: #686;
+	transform: scale(1.2,1.2);
+}
+.dialog .pois .add button:active {
+	color: rgba(255,255,255, 0.5);
+	background: #464;
+	transition: none;
+}
+
+.dialog .pois .add div {
+	text-align: center;
+	color: rgba(255,255,255, 0.8);
+	background: #c1d3c2;
+	border: 3px solid #b1c3b2;
+	border-radius: 5px;
+}
+.dialog .pois .add div b {
+	display: inline-block;
+	margin:  4px;
+	padding: 3px 5px;
+	font-size: 17px;
+	text-align: center;
+	cursor: pointer;
+	color: rgba(0,0,0, 0.5);
+	transition: all 0.2s;
+}
+.dialog .pois .add div b:hover {
+	color: #222;
+	transform: scale(1.2,1.2);
+}
+.dialog .pois .add div b:active {
+	transition: none;
+}
+
+
+
+
+
+
+

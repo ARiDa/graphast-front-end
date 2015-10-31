@@ -1,5 +1,21 @@
 
 function adminInit() {
+	// load apps from server
+	$.getJSON('http://demo.graphast.org:8080/graphast-ws/admin/apps', function(apps) {
+		var html = ''
+		for (var i = 0; i < apps.length; i++) {
+			var  a = apps[i]
+			html += '<button data-id="' + a.appName + '">'
+			html += a.appName
+			html += '<b>' + (a.size / 1024 / 1024).toFixed(2) + ' MB</b>'
+			html += '<span>' + a.numberOfNodes + ' nodes</span>'
+			html += '</button>'
+		}
+		AppsResult.innerHTML = html
+	}, function(err) {
+		console.log(err)
+		alert('Error on GET admin apps')
+	})
 	//
 	// event click ||| menu (top left)
 	BtnMenuClose.addEventListener('click', function() {

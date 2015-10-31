@@ -1,12 +1,13 @@
 
 function createClock() {
+	var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 	var calendar = $('#Calendar').jqxCalendar({width: 180, height: 180})
 	//
 	var today = new Date()
 	var lastClick = +new Date(1990,1,1)
 	window.datetime = {
 		    day: today.getDate(),
-		  month: today.getMonth(),
+		  month: today.getMonth() + 1,
 		   year: today.getFullYear(),
 		  hours: today.getHours(),
 		weekday: today.getDay(),
@@ -14,13 +15,14 @@ function createClock() {
 	}
 	//
 	function getdate() {
+		datetime.weekday = (new Date(datetime.year, datetime.month - 1, datetime.day, datetime.hours, datetime.minutes)).getDay()
 		var s = ''
 		s += (datetime.day < 10 ? '0' : '') + datetime.day
 		s += '-'
 		s += (datetime.month < 10 ? '0' : '') + datetime.month
 		s += '-'
 		s += datetime.year
-		return s
+		return '<b>' + weekdays[datetime.weekday] + '</b>' + s
 	}
 	//
 	function update() {
@@ -42,7 +44,7 @@ function createClock() {
 	})
 	//
 	Clock.addEventListener('click', function(e) {
-		if (e.target.nodeName !== 'B')
+		if (e.target.nodeName !== 'B' || e.target.innerHTML.length > 2)
 			return false
 		var number = +e.target.innerHTML
 		var now = +new Date()
@@ -62,15 +64,19 @@ function createClock() {
 			datetime.hours += 12
 		update()
 	})
-	//
+	// click on same date
+	Calendar.addEventListener('click', function(e) {
+		if (e.target.getAttribute('role') == 'gridcell')
+			document.body.classList.remove('show-calendar')
+	})
+	// click on other date
 	calendar.on('change', function(e) {
 		document.body.classList.remove('show-calendar')
-		
-		datetime.day     = calendar.val().getDate();
-		datetime.month   = calendar.val().getMonth() + 1;
-		datetime.year    = calendar.val().getFullYear();
-		datetime.weekday = calendar.val().getDay();
-		update();
+		datetime.day     = calendar.val().getDate()
+		datetime.month   = calendar.val().getMonth() + 1
+		datetime.year    = calendar.val().getFullYear()
+		datetime.weekday = calendar.val().getDay()
+		update()
 	})
 	//
 	update()
