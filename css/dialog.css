@@ -3,14 +3,14 @@
 	position: fixed;
 	z-index: 99;
 	top:    30px;
-	right: 330px;
+	right:  30px;
 	width: 330px;
 	height: auto;
 	padding: 10px 10px 40px 10px;
 	background: #D1DBCB;
 	border: none; /* 3px solid #B9C4B2; */
 	border-radius: 3px 3px 0 0;
-	box-shadow: 0 3px 8px rgba(0,0,0, 0.7);
+	box-shadow: 0 3px 8px rgba(0,0,0, 0.5);
 	transition: all 0.5s;
 }
 body.admin

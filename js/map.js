@@ -269,7 +269,7 @@ function mapInit() {
         },
 
         createLegend: function() {
-            var legend = L.control({position: 'topright'});
+            var legend = L.control({position: 'bottomleft'});
 
             var html = '<thead><tr><td></td>'+
 			'<td>Algorithm</td>' +
