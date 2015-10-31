@@ -144,6 +144,10 @@ function mapInit() {
             });
         },
 
+        n: function(n){
+            return n > 9 ? "" + n : "0" + n;
+        },
+
         addPath: function(path, label, timeInfo) {
 
             path.path.reverse();
@@ -171,8 +175,8 @@ function mapInit() {
             var info = {
                 cost: costFormatted, 
                 distance: distanceFormatted,
-                date: (timeInfo) ? timeInfo.year+"/"+timeInfo.month+"/"+timeInfo.day : "",
-                timeInfo: (timeInfo) ? timeInfo.hours+":"+timeInfo.minutes : ""
+                date: (timeInfo) ? timeInfo.year+"/"+this.n(timeInfo.month)+"/"+this.n(timeInfo.day) : "",
+                timeInfo: (timeInfo) ? this.n(timeInfo.hours)+":"+this.n(timeInfo.minutes) : ""
             }
 
             this.updateLegend(label, color, timeInfo, info);
@@ -332,12 +336,14 @@ function mapInit() {
             var po = this.origin,
                 pd = this.destination;
 
-            
+            console.log(timeInfo);
             var url = url + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
 
             if ( timeInfo && timeInfo.weekday >= 0 && timeInfo.hours >=0 && timeInfo.minutes >=0 ) {
                 url = url + timeInfo.weekday + "/" + timeInfo.hours + "/" + timeInfo.minutes + "/";
             }
+
+            console.log(url);
 
             var that = this;
             $.get(url, function(data){

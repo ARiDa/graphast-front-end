@@ -9,6 +9,7 @@ function createClock() {
 		  month: today.getMonth(),
 		   year: today.getFullYear(),
 		  hours: today.getHours(),
+		weekday: today.getDay(),
 		minutes: today.getMinutes()
 	}
 	//
@@ -64,10 +65,12 @@ function createClock() {
 	//
 	calendar.on('change', function(e) {
 		document.body.classList.remove('show-calendar')
-		datetime.day   = calendar.val().getDate()
-		datetime.month = calendar.val().getMonth() + 1
-		datetime.year  = calendar.val().getFullYear()
-		update()
+		
+		datetime.day     = calendar.val().getDate();
+		datetime.month   = calendar.val().getMonth() + 1;
+		datetime.year    = calendar.val().getFullYear();
+		datetime.weekday = calendar.val().getDay();
+		update();
 	})
 	//
 	update()
@@ -79,7 +82,8 @@ function getClockTime() {
 			 year: datetime.year,
 			 weekday: datetime.weekday,
 			 month: datetime.month,
-			 minutes: datetime.minutes
+			 minutes: datetime.minutes,
+			 weekday: datetime.weekday
 			}
 }
 
