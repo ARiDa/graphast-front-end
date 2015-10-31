@@ -20,13 +20,13 @@ body.loading
 body.admin
 #Clock {
 	opacity: 0;
-	transform: scale3d(0,0,1);
+	transform: scale(0,0);
 }
 
 body.show-calendar
 #Clock {
-	top: 230px;
 	opacity: 0;
+	transform: scale(0.5,0.5);
 }
 
 #Clock .hour {
@@ -51,28 +51,33 @@ body.show-calendar
 	display: inline-block;
 	position: absolute;
 	z-index:  9;
-	top: 63%;
+	top: 99%;
 	left:50%;
-	width: 70px;
-	margin-left: -35px;
+	width: 100px;
+	margin-left: -64px;
+	padding: 3px 14px 7px 14px;
 	cursor: pointer;
-	font-size: 12px;
-	font-weight: bold;
+	font-family: monospace;
+	font-size: 14px;
 	text-align: center;
-	color: #885C22;
-	background: rgba(255,255,255, 0.6);
-	border-radius: 3px;
+	color: rgba(255,255,255, 0.8);
+	background: #575;
+	border-radius: 5px;
 	transition: all 0.3s;
 }
+#Clock #ClockDate b {
+	display: block;
+}
 #Clock #ClockDate:hover {
-	color: #741;
-	background: rgba(255,255,255, 0.85);
+	background: #686;
 }
 #Clock #ClockDate:active {
-	color: #741;
+	color: rgba(255,255,255, 0.5);
+	background: #464;
 	transition: none;
 	transform: scale3d(2,2,1);
 }
+
 
 #Clock #ClockPeriod {
 	position: absolute;
@@ -105,7 +110,7 @@ body.show-calendar
 	transform: scale3d(2,2,1);
 }
 
-#Clock b {
+#Clock > b {
 	position: absolute;
 	top: 0;
 	left:0;
@@ -121,60 +126,78 @@ body.show-calendar
 	opacity: 0;
 	transition: all 0.3s;
 }
-#Clock:hover b {
+#Clock:hover > b {
 	opacity: 0.3;
 }
 /* main numbers */
-#Clock b.h12,
-#Clock b.h3,
-#Clock b.h6,
-#Clock b.h9 {
+#Clock > b.h12,
+#Clock > b.h3,
+#Clock > b.h6,
+#Clock > b.h9 {
 	margin-top: -13px;
 	font-size:   22px;
 	opacity: 0.5;
 }
-#Clock b:hover {
+#Clock > b:hover {
 	opacity: 1;
 }
-#Clock b:active {
+#Clock > b:active {
 	opacity: 0.8;
 	color: #000;
 	transform: scale3d(5,5,1);
 	transition: none;
 }
 /* align numbers */
-#Clock b.h12 { left: 50%; top: 12%}
-#Clock b.h1  { left: 68%; top: 19%}
-#Clock b.h2  { left: 81%; top: 32%}
-#Clock b.h3  { left: 87%; top: 50%}
-#Clock b.h4  { left: 81%; top: 68%}
-#Clock b.h5  { left: 68%; top: 81%}
-#Clock b.h6  { left: 50%; top: 87%}
-#Clock b.h7  { left: 32%; top: 81%}
-#Clock b.h8  { left: 19%; top: 68%}
-#Clock b.h9  { left: 12%; top: 50%}
-#Clock b.h10 { left: 19%; top: 32%}
-#Clock b.h11 { left: 32%; top: 19%}
+#Clock > b.h12 { left: 50%; top: 12%}
+#Clock > b.h1  { left: 68%; top: 19%}
+#Clock > b.h2  { left: 81%; top: 32%}
+#Clock > b.h3  { left: 87%; top: 50%}
+#Clock > b.h4  { left: 81%; top: 68%}
+#Clock > b.h5  { left: 68%; top: 81%}
+#Clock > b.h6  { left: 50%; top: 87%}
+#Clock > b.h7  { left: 32%; top: 81%}
+#Clock > b.h8  { left: 19%; top: 68%}
+#Clock > b.h9  { left: 12%; top: 50%}
+#Clock > b.h10 { left: 19%; top: 32%}
+#Clock > b.h11 { left: 32%; top: 19%}
 
 
 #Calendar {
 	position: fixed;
 	z-index:  2;
-	top: 230px;
+	top:  30px;
 	left: 30px;
-	opacity: 0;
+	opacity: 0.5;
+	border: 0;
 	border-radius: 5px;
 	box-shadow: 0 1px 3px rgba(0,0,0, 0.5);
+	transform: scale(0.2,0.2);
 	transition: all 0.4s;
 }
 body.show-calendar
 #Calendar {
 	top: 70px;
+	z-index: 5;
 	opacity: 1;
+	transform: scale(1,1);
 }
 
 #Calendar #calendarTitleViewCalendar {
+	color: rgba(255,255,255, 0.8);
+	background: #575;
+}
+#Calendar td.jqx-item.jqx-calendar-cell.jqx-calendar-cell-month {
+	transition: transform 0.3s;
+}
+#Calendar td.jqx-item.jqx-calendar-cell.jqx-calendar-cell-month:active {
+	color: #000;
+	background: #464;
+	transform: scale(3,3);
+	transition: none;
+}
+#Calendar .jqx-calendar-column-header,
+#Calendar #calendarColumnHeaderViewCalendar {
+	color: rgba(0,0,0, 0.5);
 	background: #B9C4B2;
 }
-
 
