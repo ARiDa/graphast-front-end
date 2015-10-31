@@ -336,7 +336,7 @@ function mapInit() {
             var po = this.origin,
                 pd = this.destination;
 
-            console.log(timeInfo);
+            
             var url = url + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
 
             if ( timeInfo && timeInfo.weekday >= 0 && timeInfo.hours >=0 && timeInfo.minutes >=0 ) {
