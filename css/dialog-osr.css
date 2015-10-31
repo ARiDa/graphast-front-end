@@ -19,7 +19,7 @@
 	text-shadow: 0 1px 0 #bbb;
 	cursor: default;
 	color: #444;
-	background: #9d9d9d;
+	background: #b1c3b2;
 	border-radius: 50px;
 }
 
@@ -38,7 +38,7 @@
 	cursor: pointer;
 	color: rgba(255,255,255, 0.8);
 	background: #575;
-	border: 3px solid #9d9d9d;
+	border: 3px solid #b1c3b2;
 	border-radius: 50px;
 	transition: all 0.2s;
 }
@@ -55,8 +55,8 @@
 .dialog .pois .add div {
 	text-align: center;
 	color: rgba(255,255,255, 0.8);
-	background: #ccc;
-	border: 3px solid #9d9d9d;
+	background: #c1d3c2;
+	border: 3px solid #b1c3b2;
 	border-radius: 5px;
 }
 .dialog .pois .add div b {
@@ -71,10 +71,9 @@
 }
 .dialog .pois .add div b:hover {
 	color: #222;
+	transform: scale(1.2,1.2);
 }
 .dialog .pois .add div b:active {
-	color: rgba(0,0,0, 0.3);
-	transform: scale(1,1);
 	transition: none;
 }
 
