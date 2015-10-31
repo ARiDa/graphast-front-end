@@ -65,7 +65,7 @@
   -webkit-transform: translateZ(1px); 
 }
 
-  path.leaflet-clickable.route {
+path.leaflet-clickable.route {
     /*stroke:#30a07A;*/
     stroke-width:10px;
     stroke-dashoffset: 10000; 
@@ -77,13 +77,14 @@
     stroke-opacity: 0.7;
 }
 
-  path.leaflet-clickable.bbox {
-    stroke:#30a07A;
-    stroke-width:5px;
+path.leaflet-clickable.bbox {
+    stroke: #885C22;
+    stroke-width: 2px;
+    stroke-dasharray: 20, 10, 5, 5, 5, 10;
     fill: rgba(0,0,0,0);
     /*stroke-linecap: butt;*/
-    pointer-events:none;
-    stroke-opacity: 0.7;
+    pointer-events: none;
+    stroke-opacity: 0.9;
 }
 
 
