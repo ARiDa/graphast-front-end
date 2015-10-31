@@ -7,6 +7,34 @@
 	top: 0;
 }
 
+.city {
+
+  -webkit-animation:scaleme 10s;
+  -webkit-animation-fill-mode: forwards;
+  
+  color: rgba(255,255,255, 0.5);
+  padding: 8px;
+  border-radius: 10px;
+  background: #464;
+  z-index: 9999;
+  transition: none;
+  font-size:  0em;
+  transform: scale3d(2,2,1);
+  position: fixed;
+
+  left: 50%;
+  top: 45%;
+
+  transition: all 0.8s;
+  font-size:  3em;
+
+
+    /*-webkit-animation: disapear 1s;
+  -webkit-animation-fill-mode: forwards; 
+  animation: disapear 1s;
+  animation-fill-mode: forwards;*/
+}
+
 /*
  * The path-start class is added to each line
  * to manage its animation - this interpolates

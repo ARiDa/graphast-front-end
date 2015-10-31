@@ -14,6 +14,8 @@ function mapInit() {
     // var colors = "#ffffb2 #fecc5c #fd8d3c #f03b20 #bd0026".split(" ");
     var colors = "#fb9a99 #fdbf6f #ff7f00 #cab2d6 #e31a1c".split(" ");
 
+    var MARKER_ICONS = ["cafe", "restaurant", "bar", "bank", "cinema", "hospital", "swimming", "theatre", "parking", "airport", "shop"];
+
     function style(color) {
         return function(feature) {
             return {
@@ -51,9 +53,20 @@ function mapInit() {
         pathSettings: [],
 
         init: function() {
+
         	this.createLegend();
-            this.addOriginDestinationMarker(this.origin, this.destination);
             this.centerMapBasedOnTheGraph();
+            
+        },
+
+        centroid: function(bbox) {
+            var avgLat = (bbox.minLatitude + bbox.maxLatitude) / 2;
+            var avgLng = (bbox.minLongitude + bbox.maxLongitude) / 2;
+
+            this.origin = {latitude: avgLat, longitude: avgLng};
+            this.destination = {latitude: avgLat, longitude: avgLng};
+
+            this.addOriginDestinationMarker(this.origin, this.destination);
         },
 
         updateMapPosition: function(bbox) {
@@ -84,10 +97,16 @@ function mapInit() {
 
         },
 
+        showCityName: function(city) {
+             
+        },
+
         centerMapBasedOnTheGraph: function() {
             var that = this;
             $.get(BOUNDS_URL, function(bounds){
                 that.updateMapPosition(bounds);
+                that.centroid(bounds);
+                that.showCityName();
             });
         },
 
@@ -104,8 +123,12 @@ function mapInit() {
         },
 
         addOriginDestinationMarker: function(origin, destination) {
+            this.cleanOrigin();
+            this.cleanDestination();
+
             this.originMarker      = this.addOriginMarker(L.latLng(origin.latitude, origin.longitude));
             this.destinationMarker = this.addDestinationMarker(L.latLng(destination.latitude, destination.longitude));
+
 
             this.originMarker.addTo(map);
             this.destinationMarker.addTo(map);
@@ -354,17 +377,29 @@ function mapInit() {
         addOriginMarker: function(latlng) {
             this.cleanOrigin();
             var that = this;
+            var icon = L.mapbox.marker.icon({ 
+                'marker-size': 'large', 
+                'marker-color': '#30a07A', 
+                'marker-symbol': "pitch", 
+                'marker-fill': "#b36"
+            })
             return this.addMarker(latlng, '#30a07A', function(e) {
                 that.origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
-            });
+            }, icon);
         },
 
         addDestinationMarker: function(latlng) {
             this.cleanDestination();
             var that = this;
+            var icon = L.mapbox.marker.icon({ 
+                'marker-size': 'large', 
+                'marker-color': '#D84027', 
+                'marker-symbol': "embassy",
+                'marker-fill': "rgba(255,255,255, 0.3)"
+            })
             return this.addMarker( latlng, '#D84027', function(e) {
                 that.destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
-            });
+            }, icon);
         },
 
         cleanPath: function() {
@@ -400,14 +435,14 @@ function mapInit() {
             this.pathSettings = [];
         },
 
-        addMarker: function(arrayLatLng, color, callbackDragEnd) {
+        addMarker: function(arrayLatLng, color, callbackDragEnd, icon) {
             var that = this;
+
+            var markerIcon =   icon || L.mapbox.marker.icon({'marker-size': 'large', 'marker-color': color })
+
             var marker = L.marker(arrayLatLng, {
                 draggable: true,
-                icon: L.mapbox.marker.icon({
-                    'marker-size': 'large',
-                    'marker-color': color
-                })
+                icon: markerIcon
             });
 
             marker.on('dragstart', function() {
