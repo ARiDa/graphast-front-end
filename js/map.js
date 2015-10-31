@@ -1,7 +1,7 @@
 var GraphastMap = {};
 
 function mapInit() {
-    var BOUNDS_URL                = "http://demo.graphast.org:8080/graphast-ws/admin/bbox";
+    var BOUNDS_URL                = "http://demo.graphast.org:8080/graphast-ws/graph/bbox";
     var SHORTEST_PATH_URL         = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";
     var SHORTEST_A_STAR_PATH_URL  = "http://demo.graphast.org:8080/graphast-ws/shortestpath/a*/";
     var ACCESS_TOKEN              = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
