@@ -1,0 +1,49 @@
+
+#app-menu {
+	position: fixed;
+	z-index:  9;
+	top: 0;
+	right:  0px;
+	width: auto;
+	padding: 0 30px 0 30px;
+	color: #fff;
+	background: #475;
+	border-radius: 0 0 0 3px;
+	box-shadow: -1px 1px 2px rgba(0,0,0, 0.3);
+	transition: all 0.3s;
+}
+body.admin
+#app-menu {
+	top: -50px;
+}
+
+#app-menu b {
+	display: inline-block;
+	padding: 0 30px 0 0;
+	font-size: 32px;
+	color: #D1DBCB;
+}
+
+#app-menu button {
+	display: inline-block;
+	padding: 5px 20px 5px 20px;
+	cursor: pointer;
+	font-size: 18px;
+	color: rgba(255,255,255, 0.5);
+	background: none;
+	border: none;
+	border-bottom: 3px solid rgba(255,255,255, 0);
+	transition: all 0.3s;
+}
+#app-menu button:hover {
+	color: rgba(255,255,255, 0.9);
+	border-bottom-color: rgba(255,255,255, 0.4);
+}
+#app-menu button.selected {
+	color: #fff;
+	border-bottom-color: rgba(255,255,255, 0.7);
+}
+
+
+
+
