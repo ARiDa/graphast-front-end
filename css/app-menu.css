@@ -39,6 +39,11 @@ body.admin
 	color: rgba(255,255,255, 0.9);
 	border-bottom-color: rgba(255,255,255, 0.4);
 }
+#app-menu button:active {
+	color: rgba(255,255,255, 0.3);
+	border-bottom-color: #fff;
+	transition: none;
+}
 #app-menu button.selected {
 	color: #fff;
 	border-bottom-color: rgba(255,255,255, 0.7);

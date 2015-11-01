@@ -19,6 +19,11 @@ body.admin
 	transform: scale(0,0);
 }
 
+.dialog.hidden {
+	opacity: 0;
+	top: 100px;
+}
+
 .dialog h1 {
 	margin:  0;
 	padding: 5px 10px 25px 0;
@@ -78,7 +83,9 @@ body.admin
 }
 
 
-
+.dialog .space {
+	height: 15px;
+}
 
 
 

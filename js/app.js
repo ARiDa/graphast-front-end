@@ -49,7 +49,9 @@ window.onload = function() {
 	adminInit();
 
 	createClock();
+	createAppMenu();
 	createDialogOSR();
+	createDialogShortestPath();
 
 	App.init();
 	GraphastMap.init();

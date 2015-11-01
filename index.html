@@ -31,6 +31,7 @@
 	<script src="js/clock.js"></script>
 	<script src="js/dialog.js"></script>
 	<script src="js/dialog-osr.js"></script>
+	<script src="js/dialog-shortest-path.js"></script>
 	<script src="js/app.js"></script>
 
 	<style>
@@ -145,12 +146,25 @@
 	<div id="app-menu">
 		<b>washington</b>
 		<button>Shortest Path</button>
-		<button class="selected">OSR</button>
+		<button>OSR</button>
 	</div>
 	<!-- END App Menu -->
 
+	<!-- BEGIN Dialog Shortest Path Widget -->
+	<div class="dialog dialog-shortest-path hidden">
+		<h1>Shortest Path</h1>
+		<div class="input">
+			<b class="begin">A</b> <input type="text" name="begin" placeholder="start..."/>
+		</div>
+		<div class="space"></div>
+		<div class="input">
+			<b class="end">B</b> <input type="text" name="end" placeholder="end.."/>
+		</div>
+	</div>
+	<!-- END Dialog Shortest Path Widget -->
+
 	<!-- BEGIN Dialog OSM Widget -->
-	<div class="dialog dialog-osr">
+	<div class="dialog dialog-osr hidden">
 		<h1>Optimal Sequenced Route</h1>
 		<div class="input">
 			<b class="begin">A</b> <input type="text" name="begin" placeholder="start..."/>
