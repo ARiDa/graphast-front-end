@@ -11,7 +11,7 @@
 
   -webkit-animation:scaleme 10s;
   -webkit-animation-fill-mode: forwards;
-  
+
   color: rgba(255,255,255, 0.5);
   padding: 8px;
   border-radius: 10px;
@@ -61,13 +61,36 @@
 }
 
 .info {
-    padding: 6px 8px;
+/*    padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255,255,255,0.8);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
+    border-radius: 5px;*/
 
+        padding: 10px 10px 40px 10px;
+    background: #D1DBCB;
+    border: none;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 3px 8px rgba(0,0,0, 0.5);
+    transition: all 0.5s;
+
+}
+
+.info thead {
+  font-weight: bold;
+}
+
+.info h3 {
+    margin: 0;
+    padding: 5px 2px 2px 0;
+    font-family: arial;
+    letter-spacing: 1px;
+    line-height: 1;
+    font-weight: lighter;
+    text-align: left;
+    font-size: 23px;
+    color: rgba(0,0,0, 0.3);
 }
 
 .info.legend.leaflet-control {
