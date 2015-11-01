@@ -5,9 +5,17 @@ function adminInit() {
 		var html = ''
 		for (var i = 0; i < apps.length; i++) {
 			var  a = apps[i]
-			html += '<button data-id="' + a.appName + '">'
+			var size = (a.size / 1024 / 1024).toFixed(2) + ' MB'
+			html += '<button'
+			html += ' data-id="'    + a.appName + '"'
+			html += ' data-name="'  + a.appName + '"'
+			html += ' data-dir="'   + a.graphDir + '"'
+			html += ' data-nodes="' + a.numberOfNodes + '"'
+			html += ' data-edges="' + a.numberOfEdges + '"'
+			html += ' data-size="'  + size + '"'
+			html += '>'
 			html += a.appName
-			html += '<b>' + (a.size / 1024 / 1024).toFixed(2) + ' MB</b>'
+			html += '<b>' + size + '</b>'
 			html += '<span>' + a.numberOfNodes + ' nodes</span>'
 			html += '</button>'
 		}
@@ -24,6 +32,9 @@ function adminInit() {
 		//
 		if (isAdmin)
 			;// ...
+		//
+		//$('#AppInfo').addClass('hidden')
+		$('#AppInfo').toggleClass('hidden')
 	})
 	//
 	// searching/filtering apps
@@ -36,39 +47,64 @@ function adminInit() {
 				items[i].classList.remove('hidden')
 			items[i].classList.remove('selected')
 		}
+		$('#AppInfo').addClass('fadeOut')
 	}
 	Search.addEventListener('keyup', function() {
 		search(this.value.toLowerCase())
 	})
 	//
 	// click on app buttons (edit app)
-	AppsResult.addEventListener('click', function(e) {
-		var btn = e.target
-		if (btn.tagName == 'DIV')
-			return
-		if (btn.tagName == 'SPAN')
-			btn = btn.parentNode
-		if (btn.tagName == 'B')
-			btn = btn.parentNode
-		if (btn.tagName != 'BUTTON')
-			return // click in invalid element
-		var items = document.querySelectorAll('#AppsResult button')
-		for (var i = 0; i < items.length; i++)
-			items[i].classList.remove('selected')
-		btn.classList.add('selected')
+	$('#AppsResult').on('click', 'button', function() {
+		$('#AppsResult button').removeClass('selected')
+		$(this).addClass('selected')
+		//
+		// populate app-info...
+		var btnApp = $(this)
+		if ($('#AppInfo').hasClass('hidden') || $('#AppInfo').hasClass('fadeOut')) {
+			$('#AppInfo h1').html(btnApp.attr('data-name'))
+			$('#AppInfo .dir   span').html(btnApp.attr('data-dir'))
+			$('#AppInfo .nodes span').html(btnApp.attr('data-nodes'))
+			$('#AppInfo .edges span').html(btnApp.attr('data-edges'))
+			$('#AppInfo .size  span').html(btnApp.attr('data-size'))
+			$('#AppInfo').removeClass('hidden').removeClass('fadeOut')
+		} else {
+			$('#AppInfo').addClass('fadeOut')
+			setTimeout(function() {
+				$('#AppInfo h1').html(btnApp.attr('data-name'))
+				$('#AppInfo .dir   span').html(btnApp.attr('data-dir'))
+				$('#AppInfo .nodes span').html(btnApp.attr('data-nodes'))
+				$('#AppInfo .edges span').html(btnApp.attr('data-edges'))
+				$('#AppInfo .size  span').html(btnApp.attr('data-size'))
+				$('#AppInfo').removeClass('fadeOut')
+			}, 250)
+		}
+		//...
 	})
 	//
-	BtnMenuNewApp.addEventListener('click', function() {
-		var items = document.querySelectorAll('#AppsResult button')
-		for (var i = 0; i < items.length; i++)
-			items[i].classList.remove('selected')
+	$('#BtnMenuNewApp').click(function() {
+		$('#AppsResult button').removeClass('selected')
 		Search.value = ''
 		search('')
+		//
+		$('body').removeClass('show-admin-app-details')
+		$('body').addClass('show-admin-app-form')
+		$('#AppInfo').addClass('hidden')
 	})
-
-
-	// setInterval(function() {
-	// 	document.body.classList.toggle('admin')
-	// }, 3000)
+	//
+	//
+	$('#AppInfo button.open').click(function() {
+		var appName = $('#AppInfo h1').html()
+		$('#app-menu b').html(appName)
+		$('#app-menu button').removeClass('selected')
+		//
+		$('#AppInfo').addClass('hidden')
+		$('body').removeClass('admin')
+		$('.dialog').addClass('hidden')
+	})
+	//
+	$('#AppInfo button.delete').click(function() {
+		alert('not implemented yet')
+	})
+	//
 }
 

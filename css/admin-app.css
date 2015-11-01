@@ -1,0 +1,75 @@
+
+#AppInfo {
+	position: fixed;
+	z-index: 9999;
+	top:     0px;
+	left:  300px;
+	width: 1000px;
+	overflow: hidden;
+	opacity: 1;
+	transition: all 0.5s;
+}
+#AppInfo.hidden {
+	z-index:  0;
+	left: 900px;
+	opacity:  0;
+}
+#AppInfo.fadeOut {
+	left: 350px;
+	opacity:0;
+	transition: all 0.2s;
+}
+
+#AppInfo h1 {
+	margin-bottom: 20px;
+	font-size: 74px;
+	text-shadow: 0 1px 1px #ddd;
+	color: #aaa;
+}
+
+#AppInfo div {
+	padding: 5px 0;
+}
+
+#AppInfo div b {
+	display: inline-block;
+	width: 200px;
+	text-align: right;
+	font-size: 24px;
+	color: #aaa;
+}
+#AppInfo div span {
+	display: inline-block;
+	margin-left: 10px;
+	width: auto;
+	text-align: left;
+	font-size: 26px;
+	color: #777;
+}
+
+#AppInfo button {
+	display: inline-block;
+	padding: 10px 30px;
+	margin: 40px 20px 0 0;
+	font-size: 20px;
+	cursor: pointer;
+	color: #ddd;
+	background: #999;
+	border: none;
+	border-radius: 5px;
+	transition: all 0.2s;
+}
+#AppInfo button:hover {
+	color: #fff;
+	background: #aaa;
+}
+#AppInfo button:active {
+	color: rgba(255,255,255, 0.5);
+	background: #777;
+	transition: none;
+}
+
+
+
+
+

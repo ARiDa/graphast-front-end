@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="css/map.css" />
 	<link rel="stylesheet" href="css/admin.css" />
 	<link rel="stylesheet" href="css/admin-form.css" />
+	<link rel="stylesheet" href="css/admin-app.css" />
 	<link rel="stylesheet" href="css/app-menu.css" />
 	<link rel="stylesheet" href="css/clock.css" />
 	<link rel="stylesheet" href="css/dialog.css" />
@@ -89,7 +90,7 @@
 		New Application
 	</button>
 
-	<div id="AppForm">
+	<div id="AppForm123" class="hidden">
 		<span>Application Name:</span>
 		<input type="text" name="name" placeholder=""/>
 		<br/>
@@ -105,6 +106,24 @@
 			<b>Shortest Path - A*</b> <br/>
 			<b>Optimal Sequenced Route</b> <br/>
 		</div>
+	</div>
+
+	<div id="AppInfo" class="hidden">
+		<h1>monaco</h1>
+		<div class="dir">
+			<b>directory</b> <span>/usr/share/tomcat7/graphast/washington</span>
+		</div>
+		<div class="nodes">
+			<b>nodes</b> <span>12345</span>
+		</div>
+		<div class="edges">
+			<b>edges</b> <span>395</span>
+		</div>
+		<div class="size">
+			<b>size</b> <span>2.43 MB</span>
+		</div>
+		<button class="open">Open</button>
+		<button class="delete">Delete</button>
 	</div>
 	<!-- END Admin Screen -->
 
