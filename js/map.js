@@ -221,9 +221,9 @@ function mapInit() {
             tick(this);
             function tick(e) {
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
-                    distance: path.totalDistance,
+                    distance: 20000,
                     // ms
-                    interval: path.totalCost*5,
+                    interval: 1000000 / (path.totalCost / 1000),
                     icon: L.mapbox.marker.icon({
                         'marker-size': 'large',
                         'marker-symbol': 'car',
