@@ -8,10 +8,10 @@
 .dialog .pois .places p {
 	display: block;
 	padding: 0;
-	margin:  4px auto;
+	margin:  5px auto;
 	text-align: center;
 }
-.dialog .pois .places span {
+.dialog .pois .places p span {
 	display: inline-block;
 	text-align: center;
 	padding: 2px 15px 5px 15px;
@@ -21,6 +21,29 @@
 	color: #444;
 	background: #b1c3b2;
 	border-radius: 50px;
+}
+.dialog .pois .places p button {
+	display: inline-block;
+	width: 28px;
+	height:28px;
+	padding: 0 5px 5px 5px;
+	font-size: 16px;
+	text-align: center;
+	cursor: pointer;
+	color: rgba(255,255,255, 0.8);
+	background: #b1c3b2;
+	border: 3px solid #b1c3b2;
+	border-radius: 3px;
+	transition: all 0.2s;
+}
+.dialog .pois .places p button:hover {
+	background: #a1b3a2;
+	transform: scale(1.2,1.2);
+}
+.dialog .pois .places p button:active {
+	color: rgba(255,255,255, 0.5);
+	background: #b1c3b2;
+	transition: none;
 }
 
 

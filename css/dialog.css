@@ -42,20 +42,21 @@ body.admin
 .dialog div.input b {
 	display: inline-block;
 	vertical-align: middle;
+	margin-left: 5px;
 	width: 30px;
 	height:30px;
+	text-align: center;
 	font-weight: lighter;
 	font-family: arial;
 	font-size: 26px;
 	color: rgba(255,255,255, 0.3);
-	text-align: center;
 	background: #aaa;
 	border: 2px solid rgba(255,255,255, 0.3);
 	border-radius: 30px;
 }
 .dialog div.input input {
 	padding: 5px 10px;
-	margin-left: 10px;
+	margin-left:  5px;
 	width: 250px;
 	font-size: 20px;
 	color: #888;
