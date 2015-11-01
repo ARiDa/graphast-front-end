@@ -3,6 +3,7 @@ var GraphastMap = {};
 function mapInit() {
     var BOUNDS_URL                = "http://demo.graphast.org:8080/graphast-ws/graph/bbox";
     var SHORTEST_PATH_URL         = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";
+    var OSR_URL                   = "http://demo.graphast.org:8080/graphast-ws/osr/";
     var SHORTEST_A_STAR_PATH_URL  = "http://demo.graphast.org:8080/graphast-ws/shortestpath/a*/";
     var ACCESS_TOKEN              = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
 
@@ -220,9 +221,9 @@ function mapInit() {
             tick(this);
             function tick(e) {
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
-                    distance: 20000,
+                    distance: path.totalDistance,
                     // ms
-                    interval: 5000,
+                    interval: path.totalCost*5,
                     icon: L.mapbox.marker.icon({
                         'marker-size': 'large',
                         'marker-symbol': 'car',
@@ -318,6 +319,14 @@ function mapInit() {
         	$(".info.legend tbody").empty();
         },
 
+        getOSR: function() {
+
+            var po = this.origin,
+                pd = this.destination;
+
+            var url = OSR_URL + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
+        },
+
         getShortestPath: function(label, timeInfo) {
             var method = "dijstra";
             this._getShortestPath(SHORTEST_PATH_URL, method, label, timeInfo);
@@ -360,7 +369,7 @@ function mapInit() {
                 pd = this.destination;
 
             
-            var url = url + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
+            var url = url + parseFloat(po.latitude) + "/" + parseFloat(po.longitude) + "/" + parseFloat(pd.latitude) + "/" + parseFloat(pd.longitude) + "/";
 
             if ( timeInfo && timeInfo.weekday >= 0 && timeInfo.hours >=0 && timeInfo.minutes >=0 ) {
                 url = url + timeInfo.weekday + "/" + timeInfo.hours + "/" + timeInfo.minutes + "/";
