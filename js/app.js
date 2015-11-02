@@ -48,7 +48,12 @@ POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
 			}
 
 			return method
+		},
+
+		openApp: function(name) {
+			alert('opening ... ' + name)
 		}
+
 	}
 })($)
 

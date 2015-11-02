@@ -100,6 +100,8 @@ function adminInit() {
 		$('#AppInfo').addClass('hidden')
 		$('body').removeClass('admin')
 		$('.dialog').addClass('hidden')
+		//
+		App.openApp(appName)
 	})
 	//
 	$('#AppInfo button.delete').click(function() {
