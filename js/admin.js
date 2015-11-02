@@ -31,10 +31,9 @@ function adminInit() {
 		window['isAdmin'] = document.body.classList.contains('admin')
 		//
 		if (isAdmin)
-			;// ...
-		//
-		//$('#AppInfo').addClass('hidden')
-		$('#AppInfo').toggleClass('hidden')
+			;
+		$('#AppsResult button.selected').removeClass('selected')
+		$('#AppInfo').addClass('hidden')
 	})
 	//
 	// searching/filtering apps

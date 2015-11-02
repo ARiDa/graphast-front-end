@@ -18,6 +18,7 @@ function createAppMenu() {
 			$('.dialog.dialog-shortest-path').removeClass('hidden')
 		}
 		if (button.indexOf('OSR') == 0) {
+			$('.dialog.dialog-osr .places').empty()
 			$('.dialog.dialog-shortest-path').addClass('hidden')
 			$('.dialog.dialog-knn').addClass('hidden')
 			$('.dialog.dialog-osr').removeClass('hidden')
