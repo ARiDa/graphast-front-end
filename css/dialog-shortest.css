@@ -11,13 +11,13 @@
 	font-family: arial;
 	font-style: normal;
 	cursor: pointer;
-	color: #555;
+	color: #797;
 	background: rgba(0,0,0, 0);
 	border-bottom: 3px solid #b1c3b2;
 	transition: all 0.3s;
 }
 .dialog-shortest .options i:hover {
-	color: #333;
+	color: #565;
 	background: rgba(0,0,0, 0);
 	border-color: #797;
 }
@@ -29,7 +29,7 @@
 }
 .dialog-shortest .options i.selected {
 	color: #475;
-	background: #B9C4B2;
+	background: rgba(185,196,178, 0.5);
 	border-color: #475;
 }
 

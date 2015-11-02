@@ -127,7 +127,7 @@ path.leaflet-clickable.route {
 
 path.leaflet-clickable.bbox {
     stroke: #885C22;
-    stroke-width: 2px;
+    stroke-width: 3px;
     stroke-dasharray: 20, 10, 5, 5, 5, 10;
     fill: rgba(0,0,0,0);
     /*stroke-linecap: butt;*/
