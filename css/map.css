@@ -9,7 +9,7 @@
 
 #clean-map-button {
   position: absolute;
-  z-index:  9;
+  z-index: 99;
   right: 50px;
   bottom:30px;
   width: 70px;
