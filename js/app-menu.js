@@ -1,6 +1,10 @@
 
 function createAppMenu() {
 	//
+	$.get('http://demo.graphast.org:8080/graphast-ws/graph', function(appName) {
+		$('#app-menu b').html(appName)
+	})
+	//
 	$('#app-menu').on('click', 'button', function() {
 		if ($(this).hasClass('selected'))
 			return
