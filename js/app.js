@@ -1,19 +1,19 @@
 
 var App = {};
 
-App.poiCategories      = {}
-App.poiCategories[6]   = {name: 'Hotel',       icon: 'hotel'}
-App.poiCategories[13]  = {name: 'Police',      icon: 'police'}
-App.poiCategories[22]  = {name: 'University',  icon: 'university'}
-App.poiCategories[23]  = {name: 'Bar',         icon: 'bar'}
-App.poiCategories[25]  = {name: 'Cafe',        icon: 'cafe'}
-App.poiCategories[29]  = {name: 'Restaurant',  icon: 'restaurant'}
-App.poiCategories[33]  = {name: 'Hospital',    icon: 'hospital'}
-App.poiCategories[34]  = {name: 'Pharmacy',    icon: 'pharmacy'}
-App.poiCategories[46]  = {name: 'Bank',        icon: 'bank'}
-App.poiCategories[105] = {name: 'Supermarket', icon: 'supermarket'}
-App.poiCategories[162] = {name: 'Fuel',        icon: 'fuel'}
-
+POI_CATEGORIES      = {}
+POI_CATEGORIES[6]   = {name: 'Hotel',       icon: 'hotel'}
+POI_CATEGORIES[13]  = {name: 'Police',      icon: 'police'}
+POI_CATEGORIES[22]  = {name: 'University',  icon: 'university'}
+POI_CATEGORIES[23]  = {name: 'Bar',         icon: 'bar'}
+POI_CATEGORIES[25]  = {name: 'Cafe',        icon: 'cafe'}
+POI_CATEGORIES[29]  = {name: 'Restaurant',  icon: 'restaurant'}
+POI_CATEGORIES[33]  = {name: 'Hospital',    icon: 'hospital'}
+POI_CATEGORIES[34]  = {name: 'Pharmacy',    icon: 'pharmacy'}
+POI_CATEGORIES[46]  = {name: 'Bank',        icon: 'bank'}
+POI_CATEGORIES[105] = {name: 'Supermarket', icon: 'supermarket'}
+POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
+;
 
 (function($){
 	var SHORTEST_PATH_URL = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";

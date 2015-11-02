@@ -1,8 +1,8 @@
 
 function createDialogOSR() {
 	var pois = ''
-	for (var id in App.poiCategories)
-		pois += '<b data-id="'+id+'">'+App.poiCategories[id]+'</b>'
+	for (var id in POI_CATEGORIES)
+		pois += '<b data-id="'+id+'">'+POI_CATEGORIES[id].name+'</b>'
 	pois = '<div>'+pois+'</div>'
 	//
 	$('.dialog-osr .add').on('click', 'button', function() {
