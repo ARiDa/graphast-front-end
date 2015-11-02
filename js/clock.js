@@ -31,8 +31,8 @@ function createClock() {
 			hours -= 12
 		var minutes = datetime.minutes
 		//
-		var hRot = (360 * hours)   / 12
 		var mRot = (360 * minutes) / 60
+		var hRot = (360 * hours)   / 12 + mRot/15
 		ClockHour  .style.transform = 'rotateZ('+hRot+'deg)'
 		ClockMinute.style.transform = 'rotateZ('+mRot+'deg)'
 		ClockPeriod.innerHTML = datetime.hours < 12 ? 'AM' : 'PM'
