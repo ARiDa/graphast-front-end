@@ -224,7 +224,7 @@ function mapInit() {
 
             window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
 
-            // tick(this);
+            tick(this);
             function tick(e) {
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
                     distance: 20000,
@@ -232,7 +232,7 @@ function mapInit() {
                     interval: 1000000 / (path.totalCost / 1000),
                     icon: L.mapbox.marker.icon({
                         'marker-size': 'large',
-                        'marker-symbol': 'car',
+                        'marker-symbol': 'bus',
                         'marker-color': color
                     }),
                     autoStart: true,
