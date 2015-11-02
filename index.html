@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="css/app-menu.css" />
 	<link rel="stylesheet" href="css/clock.css" />
 	<link rel="stylesheet" href="css/dialog.css" />
+	<link rel="stylesheet" href="css/dialog-knn.css" />
 	<link rel="stylesheet" href="css/dialog-osr.css" />
 	
 	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -165,6 +166,7 @@
 	<div id="app-menu">
 		<b>washington</b>
 		<button>Shortest Path</button>
+		<button>kNN</button>
 		<button>OSR</button>
 	</div>
 	<!-- END App Menu -->
@@ -181,6 +183,17 @@
 		</div>
 	</div>
 	<!-- END Dialog Shortest Path Widget -->
+
+	<!-- BEGIN Dialog kNN Widget -->
+	<div class="dialog dialog-knn hidden">
+		<h1>kNN</h1>
+		<div class="input">
+			<b class="begin">A</b>
+			<input type="text" name="begin" placeholder="start..."/>
+			<input type="text" name="n" placeholder="n"/>
+		</div>
+	</div>
+	<!-- END Dialog kNN Widget -->
 
 	<!-- BEGIN Dialog OSM Widget -->
 	<div class="dialog dialog-osr hidden">

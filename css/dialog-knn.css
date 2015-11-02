@@ -1,0 +1,8 @@
+
+.dialog.dialog-knn div input[name='begin'] {
+	width: 190px;
+}
+
+.dialog.dialog-knn div input[name='n'] {
+	width: 25px;
+}
