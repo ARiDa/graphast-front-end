@@ -46,7 +46,9 @@ function createDialogOSR() {
 	//
 	// click on 'Go!'
 	$('.dialog-osr button.go').click(function() {
-		alert('OK')
+		var time = getClockTime();
+		var pois = getCurrentPOIs();
+		GraphastMap.getOSR( "", time, pois );
 	})
 	//
 }

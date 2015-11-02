@@ -325,13 +325,31 @@ function mapInit() {
         },
 
         getOSR: function(label, timeInfo, categories) {
+            var that = this;
 
             var po = this.origin,
                 pd = this.destination;
 
-            var url = OSR_URL + "/" + [po.latitude,po.longitude,pd.latitude,pd.longitude,timeInfo.hours].join("/");
+            var url = OSR_URL + "/" + [po.latitude,po.longitude,pd.latitude,pd.longitude,timeInfo.hours, timeInfo.minutes].join("/");
 
-            console.log(OSR_URL);
+            url  = url + "/" + categories.join(",") + "/"
+
+            $.get(url, function(data) {
+                that.addListOfPois(data.listOfPoIs);
+            })
+        },
+
+        addPoi: function(poi) {
+            var marker = L.marker([poi.latitude, poi.longitude], {
+                icon: POI_CATEGORIES[poi.categoryId].icon
+            })
+            .bindPopup(poi.label)
+            .addTo(map);
+        },
+
+        addListOfPois: function(pois) {
+            console.log(pois);
+            _.each(pois, this.addPoi)
         },
 
         getShortestPath: function(label, timeInfo) {
