@@ -394,6 +394,11 @@ function mapInit() {
             })
             return this.addMarker(latlng, '#30a07A', function(e) {
                 that.origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
+                var aux = $('input[name="destination"]');
+                if (aux.length > 0) {
+                    aux.val(that.origin.latitude+","+that.origin.longitude);
+                }
+
             }, icon);
         },
 
@@ -408,6 +413,10 @@ function mapInit() {
             })
             return this.addMarker( latlng, '#D84027', function(e) {
                 that.destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
+                var aux = $('input[name="destination"]');
+                if (aux.length > 0) {
+                    aux.val(that.destination.latitude+","+that.destination.longitude);
+                }
             }, icon);
         },
 
