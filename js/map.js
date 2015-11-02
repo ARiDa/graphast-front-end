@@ -10,7 +10,7 @@ function mapInit() {
     L.mapbox.accessToken = ACCESS_TOKEN;
 
     var map = L.mapbox.map('Map', 'mapbox.light', {zoomControl: false})
-    new L.Control.Zoom({position: 'bottomleft'}).addTo(map)
+    new L.Control.Zoom({position: 'bottomright'}).addTo(map)
 
     // var colors = "#ffffb2 #fecc5c #fd8d3c #f03b20 #bd0026".split(" ");
     var colors = "#fb9a99 #fdbf6f #ff7f00 #cab2d6 #e31a1c".split(" ");
