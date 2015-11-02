@@ -43,6 +43,12 @@ function createDialogOSR() {
 		})
 		return result
 	}
+	//
+	// click on 'Go!'
+	$('.dialog-osr button.go').click(function() {
+		alert('OK')
+	})
+	//
 }
 
 

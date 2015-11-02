@@ -1,6 +1,23 @@
 
 var App = {};
 
+App.POIs = {}
+App.POIs[6]   = {name: 'Hotel',       icon: ''}
+App.POIs[13]  = {name: 'Police',      icon: ''}
+App.POIs[22]  = {name: 'University',  icon: ''}
+App.POIs[23]  = {name: 'Bar',         icon: ''}
+App.POIs[25]  = {name: 'Cafe',        icon: 'cafe'}
+App.POIs[29]  = {name: 'Restaurant',  icon: 'restaurant'}
+App.POIs[33]  = {name: 'Hospital',    icon: ''}
+App.POIs[34]  = {name: 'Pharmacy',    icon: ''}
+App.POIs[46]  = {name: 'Bank',        icon: ''}
+App.POIs[105] = {name: 'Supermarket', icon: ''}
+App.POIs[162] = {name: 'Fuel',        icon: ''}
+;
+
+//var MARKER_ICONS = ["cafe", "restaurant", "bar", "bank", "cinema", "hospital", "swimming", "theatre", "parking", "airport", "shop"];
+
+
 (function($){
 	var SHORTEST_PATH_URL = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";
 

@@ -90,4 +90,30 @@ body.admin
 
 
 
+.dialog div.btn {
+	margin: 20px 0 0 0;
+	text-align: center;
+}
+.dialog div.btn button.go {
+	display: inline-block;
+	padding: 5px 30px;
+	margin:  0;
+	font-size: 20px;
+	cursor: pointer;
+	color: #ddd;
+	background: #999;
+	border: none;
+	border-radius: 5px;
+	transition: all 0.2s;
+}
+.dialog div.btn button:hover {
+	color: #fff;
+	background: #aaa;
+}
+.dialog div.btn button:active {
+	color: rgba(255,255,255, 0.5);
+	background: #777;
+	transition: none;
+}
+
 
