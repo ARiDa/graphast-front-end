@@ -1,25 +1,12 @@
 
 function createDialogOSR() {
-	var pois  = {}
-	pois[6]   = 'Hotel'
-	pois[13]  = 'Police'
-	pois[22]  = 'University'
-	pois[23]  = 'Bar'
-	pois[25]  = 'Cafe'
-	pois[29]  = 'Restaurant'
-	pois[33]  = 'Hospital'
-	pois[34]  = 'Pharmacy'
-	pois[46]  = 'Bank'
-	pois[105] = 'Supermarket'
-	pois[162] = 'Fuel'
-	//
-	var html = ''
-	for (var id in pois)
-		html += '<b data-id="'+id+'">'+pois[id]+'</b>'
-	html = '<div>'+html+'</div>'
+	var pois = ''
+	for (var id in App.poiCategories)
+		pois += '<b data-id="'+id+'">'+App.poiCategories[id]+'</b>'
+	pois = '<div>'+pois+'</div>'
 	//
 	$('.dialog-osr .add').on('click', 'button', function() {
-		$('#add-osr-poi').html(html)
+		$('#add-osr-poi').html(pois)
 	})
 	$('.dialog-osr .places').on('click', 'button', function() {
 		$('.dialog-osr .places').empty()

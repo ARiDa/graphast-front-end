@@ -1,21 +1,18 @@
 
 var App = {};
 
-App.POIs = {}
-App.POIs[6]   = {name: 'Hotel',       icon: ''}
-App.POIs[13]  = {name: 'Police',      icon: ''}
-App.POIs[22]  = {name: 'University',  icon: ''}
-App.POIs[23]  = {name: 'Bar',         icon: ''}
-App.POIs[25]  = {name: 'Cafe',        icon: 'cafe'}
-App.POIs[29]  = {name: 'Restaurant',  icon: 'restaurant'}
-App.POIs[33]  = {name: 'Hospital',    icon: ''}
-App.POIs[34]  = {name: 'Pharmacy',    icon: ''}
-App.POIs[46]  = {name: 'Bank',        icon: ''}
-App.POIs[105] = {name: 'Supermarket', icon: ''}
-App.POIs[162] = {name: 'Fuel',        icon: ''}
-;
-
-//var MARKER_ICONS = ["cafe", "restaurant", "bar", "bank", "cinema", "hospital", "swimming", "theatre", "parking", "airport", "shop"];
+App.poiCategories      = {}
+App.poiCategories[6]   = {name: 'Hotel',       icon: 'hotel'}
+App.poiCategories[13]  = {name: 'Police',      icon: 'police'}
+App.poiCategories[22]  = {name: 'University',  icon: 'university'}
+App.poiCategories[23]  = {name: 'Bar',         icon: 'bar'}
+App.poiCategories[25]  = {name: 'Cafe',        icon: 'cafe'}
+App.poiCategories[29]  = {name: 'Restaurant',  icon: 'restaurant'}
+App.poiCategories[33]  = {name: 'Hospital',    icon: 'hospital'}
+App.poiCategories[34]  = {name: 'Pharmacy',    icon: 'pharmacy'}
+App.poiCategories[46]  = {name: 'Bank',        icon: 'bank'}
+App.poiCategories[105] = {name: 'Supermarket', icon: 'supermarket'}
+App.poiCategories[162] = {name: 'Fuel',        icon: 'fuel'}
 
 
 (function($){
