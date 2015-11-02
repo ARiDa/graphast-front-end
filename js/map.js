@@ -470,7 +470,7 @@ function mapInit() {
             var icon = L.mapbox.marker.icon({ 
                 'marker-size': 'large', 
                 'marker-color': '#D84027', 
-                'marker-symbol': "star",
+                'marker-symbol': "embassy",
                 'marker-fill': "rgba(255,255,255, 0.3)"
             });
 
