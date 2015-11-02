@@ -53,7 +53,12 @@ POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
 		},
 
 		openApp: function(name) {
-			alert('opening ... ' + name)
+			$.getJSON('http://demo.graphast.org:8080/graphast-ws/admin/load/' + name, function() {
+				GraphastMap.cleanMap();
+				GraphastMap.centerMapBasedOnTheGraph();
+			}, function(err) {
+				alert('error loading app graph ' + name)
+			})
 		}
 
 	}
