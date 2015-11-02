@@ -70,8 +70,8 @@ function mapInit() {
             var avgLat = (bbox.minLatitude + bbox.maxLatitude) / 2;
             var avgLng = (bbox.minLongitude + bbox.maxLongitude) / 2;
 
-            this.origin = {latitude: avgLat, longitude: avgLng};
-            this.destination = {latitude: avgLat + 0.003, longitude: avgLng };
+            this.origin = {latitude: avgLat, longitude: avgLng - 0.03};
+            this.destination = {latitude: avgLat , longitude: avgLng + 0.03 };
 
             this.addOriginDestinationMarker(this.origin, this.destination);
         },
@@ -447,7 +447,13 @@ function mapInit() {
                 'marker-color': '#30a07A', 
                 'marker-symbol': "pitch", 
                 'marker-fill': "#b36"
-            })
+            });
+
+            var aux = $('input[name="origin"]');
+            if (aux.length > 0) {
+                aux.val(that.origin.latitude.toFixed(6)+","+that.origin.longitude.toFixed(6));
+            }
+
             return this.addMarker(latlng, '#30a07A', function(e) {
                 that.origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
                 var aux = $('input[name="origin"]');
@@ -466,7 +472,13 @@ function mapInit() {
                 'marker-color': '#D84027', 
                 'marker-symbol': "embassy",
                 'marker-fill': "rgba(255,255,255, 0.3)"
-            })
+            });
+
+            var aux = $('input[name="destination"]');
+            if (aux.length > 0) {
+                aux.val(that.destination.latitude.toFixed(6)+","+that.destination.longitude.toFixed(6));
+            }
+
             return this.addMarker( latlng, '#D84027', function(e) {
                 that.destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
                 var aux = $('input[name="destination"]');
