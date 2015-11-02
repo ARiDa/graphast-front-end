@@ -58,6 +58,7 @@ function mapInit() {
         labelMarker: [],
         poisMarkers: [],
         pathSettings: [],
+        maxCost: 0,
 
         init: function() {
 
@@ -189,6 +190,10 @@ function mapInit() {
             var polyline = this.createPolyline(path);
             var points   = this.createPoints(path);
 
+            if (this.maxCost < path.totalCost/1000) {
+                this.maxCost = path.totalCost/1000;
+            }
+
             var speedVector = this.computeSpeedVector(path);
 
             var color = this.getColor();
@@ -226,10 +231,19 @@ function mapInit() {
 
             tick(this);
             function tick(e) {
+                
+                var f1 = d3.scale.linear().domain([0, 50]).range([20000, 50000]);
+                var f2 = d3.scale
+                            .linear()
+                            .domain([10, 3600000*24])
+                            .range([0.5, 1.0]);
+
+                console.log(f2(path.totalCost));
+                console.log(path.totalCost);
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
-                    distance: 20000,
+                    distance: 300,
                     // ms
-                    interval: 1000000 / (path.totalCost / 1000),
+                    interval: (f2(path.totalCost)-1 + 0.5)*200 + 70,
                     icon: L.mapbox.marker.icon({
                         'marker-size': 'large',
                         'marker-symbol': 'bus',
