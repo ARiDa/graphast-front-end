@@ -20,7 +20,7 @@ function mapInit() {
     // var colors = "#ffffb2 #fecc5c #fd8d3c #f03b20 #bd0026".split(" ");
     var colors = "#fb9a99 #fdbf6f #ff7f00 #cab2d6 #e31a1c".split(" ");
 
-    var MARKER_ICONS = ["cafe", "restaurant", "bar", "bank", "cinema", "hospital", "swimming", "theatre", "parking", "airport", "shop"];
+    
 
     function style(color) {
         return function(feature) {
@@ -56,6 +56,7 @@ function mapInit() {
         bbLayer: undefined,
         animatedMarker: [],
         labelMarker: [],
+        poisMarkers: [],
         pathSettings: [],
 
         init: function() {
@@ -223,7 +224,7 @@ function mapInit() {
 
             window.setTimeout(function(){$('path').css('stroke-dashoffset',0)},10);
 
-            tick(this);
+            // tick(this);
             function tick(e) {
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
                     distance: 20000,
@@ -334,22 +335,49 @@ function mapInit() {
 
             url  = url + "/" + categories.join(",") + "/"
 
+
+
+            if (this.labelExists(label, timeInfo)) {
+                return;
+            }
+
+            if (_.where(this.pathSettings, {label: label, timeInfo: timeInfo}).length == 0 ){
+                this.pathSettings.push({
+                    method: "osr", 
+                    timeInfo: timeInfo, 
+                    label: label,
+                    categories: categories
+                });
+            }
+
             $.get(url, function(data) {
+
                 that.addListOfPois(data.listOfPoIs);
+                that.addPath(data, label, timeInfo);
             })
         },
 
         addPoi: function(poi) {
-            var marker = L.marker([poi.latitude, poi.longitude], {
-                icon: POI_CATEGORIES[poi.categoryId].icon
+            var color = GraphastMap.getColor();
+            var icon = L.mapbox.marker.icon({ 
+                'marker-size': 'large', 
+                'marker-color': color, 
+                'marker-symbol': POI_CATEGORIES[poi.categoryId].icon,
+                'marker-fill': "rgba(255,255,255, 0.3)"
             })
+
+            var marker = L.marker([poi.latitude, poi.longitude], {
+                icon: icon
+            }) 
             .bindPopup(poi.label)
             .addTo(map);
+
+            return marker;
         },
 
         addListOfPois: function(pois) {
-            console.log(pois);
-            _.each(pois, this.addPoi)
+            var that = this;
+            _.each(pois, function(p) { that.poisMarkers.push( that.addPoi(p) ) });
         },
 
         getShortestPath: function(label, timeInfo) {
@@ -372,6 +400,11 @@ function mapInit() {
                 }
                 if (p.method == "a-star") {
                     that.getShortestPathAStart(p.label, p.timeInfo);
+                    return
+                }
+                if (p.method == "osr") {
+                    that.getOSR(p.label, p.timeInfo, p.categories);
+                    return
                 }
             })
         },
@@ -399,8 +432,6 @@ function mapInit() {
             if ( timeInfo && timeInfo.weekday >= 0 && timeInfo.hours >=0 && timeInfo.minutes >=0 ) {
                 url = url + timeInfo.weekday + "/" + timeInfo.hours + "/" + timeInfo.minutes + "/";
             }
-
-            console.log(url);
 
             var that = this;
             $.get(url, function(data){
@@ -475,7 +506,13 @@ function mapInit() {
 
         cleanMap: function() {
             this.cleanPath();
+            this.cleanPoisMarkers();
             this.pathSettings = [];
+        },
+
+        cleanPoisMarkers: function() {
+            _.each(this.poisMarkers, function(p) { map.removeLayer(p)});
+            this.poisMarkers = [];
         },
 
         addMarker: function(arrayLatLng, color, callbackDragEnd, icon) {
@@ -490,6 +527,7 @@ function mapInit() {
 
             marker.on('dragstart', function() {
                 that.cleanPath();
+                that.cleanPoisMarkers();
             })
             marker.on('dragend', function(e){
                 callbackDragEnd(e);
