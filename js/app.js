@@ -10,9 +10,9 @@ var App = {};
 
 			var that = this;
 
-			$("#dijstra-button").click(function(){
+			$("#dijkstra-button").click(function(){
 				var time = getClockTime();
-				var label = "Dikjstra";
+				var label = "Dijkstra";
 				GraphastMap.getShortestPath(label, time);
 			});
 

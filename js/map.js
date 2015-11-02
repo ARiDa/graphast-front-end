@@ -328,7 +328,7 @@ function mapInit() {
         },
 
         getShortestPath: function(label, timeInfo) {
-            var method = "dijstra";
+            var method = "dijkstra";
             this._getShortestPath(SHORTEST_PATH_URL, method, label, timeInfo);
         },
 
@@ -341,7 +341,7 @@ function mapInit() {
             var that = this;
             
             _.each(this.pathSettings, function(p) {
-                if (p.method == "dijstra") {
+                if (p.method == "dijkstra") {
                     that.getShortestPath(p.label, p.timeInfo);
                     return
                 }
