@@ -10,6 +10,7 @@ function createDialogOSR() {
 	})
 	$('.dialog-osr .places').on('click', 'button', function() {
 		$('.dialog-osr .places').empty()
+		GraphastMap.cleanMap();
 	})
 	$('#add-osr-poi').on('click', 'div b', function(e) {
 		var places = $('.dialog-osr .pois .places')
