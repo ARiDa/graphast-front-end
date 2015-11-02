@@ -61,20 +61,13 @@
 }
 
 .info {
-/*    padding: 6px 8px;
-    font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;*/
-
-        padding: 10px 10px 40px 10px;
+    min-height: 110px;
+    cursor: default;
+    padding: 10px 10px 20px 10px;
     background: #D1DBCB;
     border: none;
     border-radius: 3px 3px 0 0;
     box-shadow: 0 3px 8px rgba(0,0,0, 0.5);
-    transition: all 0.5s;
-
 }
 
 .info thead {
@@ -101,6 +94,10 @@
 .info h4 {
     margin: 0 0 5px;
     color: #777;
+}
+
+.info table td {
+  padding: 2px 5px;
 }
 
 .travelduration {
