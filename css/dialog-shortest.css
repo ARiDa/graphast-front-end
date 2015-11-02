@@ -1,0 +1,45 @@
+
+.dialog-shortest .options {
+	margin: 10px 0 0 0;
+	text-align: center;
+}
+
+.dialog-shortest .options i {
+	display: inline-block;
+	padding: 5px 30px 4px 30px;
+	font-size: 20px;
+	font-family: arial;
+	font-style: normal;
+	cursor: pointer;
+	color: #555;
+	background: rgba(0,0,0, 0);
+	border-bottom: 3px solid #b1c3b2;
+	transition: all 0.3s;
+}
+.dialog-shortest .options i:hover {
+	color: #333;
+	background: rgba(0,0,0, 0.05);
+	border-color: #262;
+}
+.dialog-shortest .options i:active {
+	color: #555;
+	background: rgba(50,50,50, 0.05);
+	border-color: #555;
+	transform: scale(1.2,1.2);
+	transition: none;
+}
+.dialog-shortest .options i.selected {
+	color: #475;
+	background: #B9C4B2;
+	border-color: #475;
+	transition: none;
+}
+
+
+
+
+
+
+
+
+
