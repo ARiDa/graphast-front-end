@@ -2,6 +2,9 @@
 function createAppMenu() {
 	//
 	$('#app-menu').on('click', 'button', function() {
+		if ($(this).hasClass('selected'))
+			return
+		cleanMap()
 		$('#app-menu button').removeClass('selected')
 		$(this).addClass('selected')
 		var button = $(this).html()
