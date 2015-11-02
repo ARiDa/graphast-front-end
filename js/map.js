@@ -243,7 +243,7 @@ function mapInit() {
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
                     distance: 300,
                     // ms
-                    interval: (f2(path.totalCost)-1 + 0.5)*200 + 70,
+                    interval: (f2(path.totalCost)-1 + 0.5)*200 + 50,
                     icon: L.mapbox.marker.icon({
                         'marker-size': 'large',
                         'marker-symbol': 'bus',
