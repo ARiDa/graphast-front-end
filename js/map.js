@@ -71,7 +71,7 @@ function mapInit() {
             var avgLng = (bbox.minLongitude + bbox.maxLongitude) / 2;
 
             this.origin = {latitude: avgLat, longitude: avgLng};
-            this.destination = {latitude: avgLat, longitude: avgLng};
+            this.destination = {latitude: avgLat + 0.003, longitude: avgLng };
 
             this.addOriginDestinationMarker(this.origin, this.destination);
         },
@@ -331,7 +331,7 @@ function mapInit() {
             var po = this.origin,
                 pd = this.destination;
 
-            var url = OSR_URL + "/" + [po.latitude,po.longitude,pd.latitude,pd.longitude,timeInfo.hours, timeInfo.minutes].join("/");
+            var url = OSR_URL + [po.latitude,po.longitude,pd.latitude,pd.longitude,timeInfo.hours, timeInfo.minutes].join("/");
 
             url  = url + "/" + categories.join(",") + "/"
 
