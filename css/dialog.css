@@ -96,23 +96,24 @@ body.admin
 }
 .dialog div.btn button.go {
 	display: inline-block;
-	padding: 5px 30px;
+	padding: 5px 50px;
 	margin:  0;
 	font-size: 20px;
 	cursor: pointer;
-	color: #ddd;
-	background: #999;
+	cursor: pointer;
+	color: rgba(255,255,255, 0.8);
+	background: #575;
 	border: none;
 	border-radius: 5px;
 	transition: all 0.2s;
 }
 .dialog div.btn button:hover {
 	color: #fff;
-	background: #aaa;
+	background: #686;
 }
 .dialog div.btn button:active {
 	color: rgba(255,255,255, 0.5);
-	background: #777;
+	background: #464;
 	transition: none;
 }
 
