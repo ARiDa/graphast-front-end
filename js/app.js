@@ -1,22 +1,19 @@
 
 var App = {};
 
-App.POIs = {}
-App.POIs[6]   = {name: 'Hotel',       icon: ''}
-App.POIs[13]  = {name: 'Police',      icon: ''}
-App.POIs[22]  = {name: 'University',  icon: ''}
-App.POIs[23]  = {name: 'Bar',         icon: ''}
-App.POIs[25]  = {name: 'Cafe',        icon: 'cafe'}
-App.POIs[29]  = {name: 'Restaurant',  icon: 'restaurant'}
-App.POIs[33]  = {name: 'Hospital',    icon: ''}
-App.POIs[34]  = {name: 'Pharmacy',    icon: ''}
-App.POIs[46]  = {name: 'Bank',        icon: ''}
-App.POIs[105] = {name: 'Supermarket', icon: ''}
-App.POIs[162] = {name: 'Fuel',        icon: ''}
+POI_CATEGORIES      = {}
+POI_CATEGORIES[6]   = {name: 'Hotel',       icon: 'hotel'}
+POI_CATEGORIES[13]  = {name: 'Police',      icon: 'police'}
+POI_CATEGORIES[22]  = {name: 'University',  icon: 'university'}
+POI_CATEGORIES[23]  = {name: 'Bar',         icon: 'bar'}
+POI_CATEGORIES[25]  = {name: 'Cafe',        icon: 'cafe'}
+POI_CATEGORIES[29]  = {name: 'Restaurant',  icon: 'restaurant'}
+POI_CATEGORIES[33]  = {name: 'Hospital',    icon: 'hospital'}
+POI_CATEGORIES[34]  = {name: 'Pharmacy',    icon: 'pharmacy'}
+POI_CATEGORIES[46]  = {name: 'Bank',        icon: 'bank'}
+POI_CATEGORIES[105] = {name: 'Supermarket', icon: 'supermarket'}
+POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
 ;
-
-//var MARKER_ICONS = ["cafe", "restaurant", "bar", "bank", "cinema", "hospital", "swimming", "theatre", "parking", "airport", "shop"];
-
 
 (function($){
 	var SHORTEST_PATH_URL = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";
