@@ -2,9 +2,14 @@ var GraphastMap = {};
 
 function mapInit() {
     var BOUNDS_URL                = "http://demo.graphast.org:8080/graphast-ws/graph/bbox";
+    
     var SHORTEST_PATH_URL         = "http://demo.graphast.org:8080/graphast-ws/shortestpath/";
+
+    // http://demo.graphast.org:8080/graphast-ws/osr/43.726669/7.417574/43.749366/7.436328/8/0/6,161/
     var OSR_URL                   = "http://demo.graphast.org:8080/graphast-ws/osr/";
+    
     var SHORTEST_A_STAR_PATH_URL  = "http://demo.graphast.org:8080/graphast-ws/shortestpath/a*/";
+    
     var ACCESS_TOKEN              = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
 
     L.mapbox.accessToken = ACCESS_TOKEN;
@@ -319,12 +324,14 @@ function mapInit() {
         	$(".info.legend tbody").empty();
         },
 
-        getOSR: function() {
+        getOSR: function(label, timeInfo, categories) {
 
             var po = this.origin,
                 pd = this.destination;
 
-            var url = OSR_URL + po.latitude + "/" + po.longitude + "/" + pd.latitude + "/" + pd.longitude + "/";
+            var url = OSR_URL + "/" + [po.latitude,po.longitude,pd.latitude,pd.longitude,timeInfo.hours].join("/");
+
+            console.log(OSR_URL);
         },
 
         getShortestPath: function(label, timeInfo) {
@@ -394,9 +401,9 @@ function mapInit() {
             })
             return this.addMarker(latlng, '#30a07A', function(e) {
                 that.origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
-                var aux = $('input[name="destination"]');
+                var aux = $('input[name="origin"]');
                 if (aux.length > 0) {
-                    aux.val(that.origin.latitude+","+that.origin.longitude);
+                    aux.val(that.origin.latitude.toFixed(6)+","+that.origin.longitude.toFixed(6));
                 }
 
             }, icon);
@@ -415,7 +422,7 @@ function mapInit() {
                 that.destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
                 var aux = $('input[name="destination"]');
                 if (aux.length > 0) {
-                    aux.val(that.destination.latitude+","+that.destination.longitude);
+                    aux.val(that.destination.latitude.toFixed(6)+","+that.destination.longitude.toFixed(6));
                 }
             }, icon);
         },
