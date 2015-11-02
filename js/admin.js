@@ -34,6 +34,7 @@ function adminInit() {
 			;
 		$('#AppsResult button.selected').removeClass('selected')
 		$('#AppInfo').addClass('hidden')
+		$('#AppForm').addClass('hidden')
 	})
 	//
 	// searching/filtering apps
@@ -54,6 +55,7 @@ function adminInit() {
 	//
 	// click on app buttons (edit app)
 	$('#AppsResult').on('click', 'button', function() {
+		$('#AppForm').addClass('hidden')
 		$('#AppsResult button').removeClass('selected')
 		$(this).addClass('selected')
 		//
@@ -88,6 +90,8 @@ function adminInit() {
 		$('body').removeClass('show-admin-app-details')
 		$('body').addClass('show-admin-app-form')
 		$('#AppInfo').addClass('hidden')
+		//
+		$('#AppForm').removeClass('hidden')
 	})
 	//
 	//

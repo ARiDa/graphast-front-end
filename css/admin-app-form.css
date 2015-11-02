@@ -1,0 +1,140 @@
+
+#AppForm * {
+	user-select: none;
+	-webkit-user-select: none;
+}
+#AppForm {
+	position: fixed;
+	z-index:  10000;
+	top:   50px;
+	left: 300px;
+	width: 900px;
+	height: 90%;
+	overflow: hidden;
+	opacity: 1;
+	transition: all 0.5s;
+}
+#AppForm.hidden {
+	left: 260px;
+	opacity: 0;
+	z-index: 0;
+}
+
+
+#AppForm h1 {
+	padding: 0;
+	margin:  0 0 10px 0;
+	text-shadow: 0 1px 1px #fff;
+	font-family: arial;
+	font-weight: lighter;
+	font-size: 44px;
+	color: #aaa;
+}
+#AppForm h1.appName * {
+	vertical-align: middle;
+}
+#AppForm h1 input {
+	display: inline-block;
+	padding: 4px 15px 5px 15px;
+	width: 400px;
+	font-family: arial;
+	font-size: 36px;
+	color: #555;
+	background: #f5f5f5;
+	border: 3px solid #ccc;
+	border-radius: 5px;
+	transition: all 0.3;
+}
+#AppForm h1 input:focus {
+	color: #333;
+	background: #fff;
+}
+
+#AppForm .column {
+	display: inline-block;
+	vertical-align: top;
+	margin: 20px 20px 0 0;
+	width:  400px;
+	height: 200px;
+}
+
+#AppForm .column h1 {
+	cursor: default;
+	margin: 20px 0 20px 0;
+	font-weight: lighter;
+	font-size: 28px;
+	text-shadow: 0 1px 1px #fff;
+	color: #bbb;
+}
+
+
+
+
+#AppForm .column.imports div {
+	padding: 4px 0;
+}
+#AppForm .column.imports p {
+	margin: 5px 0;
+	text-align: center;
+	font-size: 32px;
+	color: #aaa;
+}
+#AppForm .column.imports b {
+	display: inline-block;
+	width: 80px;
+	font-family: arial;
+	font-size: 20px;
+	font-weight: lighter;
+	text-align: right;
+	color: #777;
+}
+#AppForm .column.imports input {
+	display: inline-block;
+	padding: 4px 10px 5px 10px;
+	width: 250px;
+	font-family: arial;
+	font-size: 18px;
+	color: #555;
+	background: #f5f5f5;
+	border: 3px solid #ccc;
+	border-radius: 5px;
+	transition: all 0.3;
+}
+#AppForm .column.imports input:focus {
+	color: #333;
+	background: #fff;
+}
+
+
+
+
+#AppForm .column.services b {
+	display: block;
+	padding: 7px 10px 8px 10px;
+	font-weight: normal;
+	font-size: 22px;
+	font-family: arial;
+	cursor: pointer;
+	color: #777;
+	background: rgba(0,0,0, 0);
+	border-left: 5px solid rgba(20,90,20, 0);
+	transition: all 0.3s;
+}
+#AppForm .column.services b:hover {
+	color: #555;
+	background: rgba(0,0,0, 0.05);
+	border-left-color: #4a4;
+}
+#AppForm .column.services b:active {
+	opacity: 0.5;
+	transition: none;
+}
+
+
+
+
+
+
+
+
+

@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href="css/app.css" />
 	<link rel="stylesheet" href="css/map.css" />
 	<link rel="stylesheet" href="css/admin.css" />
-	<link rel="stylesheet" href="css/admin-form.css" />
-	<link rel="stylesheet" href="css/admin-app.css" />
+	<link rel="stylesheet" href="css/admin-app-form.css" />
+	<link rel="stylesheet" href="css/admin-app-info.css" />
 	<link rel="stylesheet" href="css/app-menu.css" />
 	<link rel="stylesheet" href="css/clock.css" />
 	<link rel="stylesheet" href="css/dialog.css" />
@@ -79,21 +79,33 @@
 		New Application
 	</button>
 
-	<div id="AppForm123" class="hidden">
-		<span>Application Name:</span>
-		<input type="text" name="name" placeholder=""/>
-		<br/>
-		<div class="column">
+	<div id="AppForm" class="hidden">
+		<h1 class="appName">
+			Application
+			<input type="text" name="name" placeholder=""/>
+		</h1>
+		<div class="column imports">
 			<h1>Import Service</h1>
-			<b>Map</b> <input/> <br/>
-			<b>PoIs</b> <input/> <br/>
-			<b>Costs</b> <input/> <br/>
+			<div>
+				<b>Network</b> <input/>
+			</div>
+			<p>OR</p>
+			<div>
+				<b>Map</b> <input/>
+			</div>
+			<div>
+				<b>PoIs</b> <input/>
+			</div>
+			<div>
+				<b>Costs</b> <input/>
+			</div>
 		</div>
-		<div class="column">
+		<div class="column services">
 			<h1>Query Services</h1>
-			<b>Shortest Path - Djkstra</b> <br/>
-			<b>Shortest Path - A*</b> <br/>
-			<b>Optimal Sequenced Route</b> <br/>
+			<b>Shortest Path - Djkstra</b>
+			<b>Shortest Path - A*</b>
+			<b>k-Nearest Neighbor</b>
+			<b>Optimal Sequenced Route</b>
 		</div>
 	</div>
 
