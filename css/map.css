@@ -61,6 +61,7 @@
 }
 
 .info {
+    min-height: 110px;
     cursor: default;
     padding: 10px 10px 20px 10px;
     background: #D1DBCB;
