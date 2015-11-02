@@ -328,7 +328,7 @@ function mapInit() {
         },
 
         getShortestPath: function(label, timeInfo) {
-            var method = "dijstra";
+            var method = "dijkstra";
             this._getShortestPath(SHORTEST_PATH_URL, method, label, timeInfo);
         },
 
@@ -341,7 +341,7 @@ function mapInit() {
             var that = this;
             
             _.each(this.pathSettings, function(p) {
-                if (p.method == "dijstra") {
+                if (p.method == "dijkstra") {
                     that.getShortestPath(p.label, p.timeInfo);
                     return
                 }
@@ -394,6 +394,11 @@ function mapInit() {
             })
             return this.addMarker(latlng, '#30a07A', function(e) {
                 that.origin = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
+                var aux = $('input[name="destination"]');
+                if (aux.length > 0) {
+                    aux.val(that.origin.latitude+","+that.origin.longitude);
+                }
+
             }, icon);
         },
 
@@ -408,6 +413,10 @@ function mapInit() {
             })
             return this.addMarker( latlng, '#D84027', function(e) {
                 that.destination = {latitude: e.target._latlng.lat, longitude: e.target._latlng.lng};
+                var aux = $('input[name="destination"]');
+                if (aux.length > 0) {
+                    aux.val(that.destination.latitude+","+that.destination.longitude);
+                }
             }, icon);
         },
 
