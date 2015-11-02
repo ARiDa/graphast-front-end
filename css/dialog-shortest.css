@@ -1,6 +1,6 @@
 
 .dialog-shortest .options {
-	margin: 10px 0 0 0;
+	margin: 10px 0 0 40px;
 	text-align: center;
 }
 
@@ -18,21 +18,19 @@
 }
 .dialog-shortest .options i:hover {
 	color: #333;
-	background: rgba(0,0,0, 0.05);
-	border-color: #262;
+	background: rgba(0,0,0, 0);
+	border-color: #797;
 }
 .dialog-shortest .options i:active {
-	color: #555;
-	background: rgba(50,50,50, 0.05);
-	border-color: #555;
-	transform: scale(1.2,1.2);
+	color: #9a9;
+	background: rgba(50,50,50, 0);
+	border-color: #aca;
 	transition: none;
 }
 .dialog-shortest .options i.selected {
 	color: #475;
 	background: #B9C4B2;
 	border-color: #475;
-	transition: none;
 }
 
 

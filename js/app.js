@@ -23,25 +23,9 @@ POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
 	App = {
 	
 		init: function() {
-
-			var that = this;
-
-			$("#dijkstra-button").click(function(){
-				var time = getClockTime();
-				var label = "Dijkstra";
-				GraphastMap.getShortestPath(label, time);
-			});
-
-			$("#a-start-button").click(function(){
-				var time = getClockTime();
-				var label = "A-Start";
-				GraphastMap.getShortestPathAStart(label);
-			});
-
 			$("#clean-map-button").click(function(){
 				GraphastMap.cleanMap();
 			});
-			
 		},
 
 		formatLabel: function(method, time) {

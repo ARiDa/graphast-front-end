@@ -9,6 +9,8 @@ function createAppMenu() {
 		if ($(this).hasClass('selected'))
 			return
 		GraphastMap.cleanMap();
+		$('.dialog .selected').removeClass('selected')
+		//
 		$('#app-menu button').removeClass('selected')
 		$(this).addClass('selected')
 		var button = $(this).html()

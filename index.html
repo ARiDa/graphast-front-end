@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="css/app-menu.css" />
 	<link rel="stylesheet" href="css/clock.css" />
 	<link rel="stylesheet" href="css/dialog.css" />
+	<link rel="stylesheet" href="css/dialog-shortest.css" />
 	<link rel="stylesheet" href="css/dialog-knn.css" />
 	<link rel="stylesheet" href="css/dialog-osr.css" />
 	
@@ -35,19 +36,6 @@
 	<script src="js/dialog-osr.js"></script>
 	<script src="js/dialog-shortest-path.js"></script>
 	<script src="js/app.js"></script>
-
-	<style>
-		#algorithms {
-		position: absolute;
-    	/* width: 200px; */
-	    background-color: white;
-	    /* height: 300px; */
-	    z-index: 99;
-	    padding: 15px 15px 15px 15px;
-	    right:  50px;
-	    bottom: 20px;
-		}
-	</style>
 </head>
 <body class="loading">
 
@@ -128,18 +116,6 @@
 	</div>
 	<!-- END Admin Screen -->
 
-	<div id='algorithms'>
-		<div>
-			<button id='a-start-button' type="button">A-Start</button>
-		</div>
-		<div>
-			<button id='dijkstra-button' type="button">Dijkstra</button>
-		</div>
-				<div>
-			<button id='clean-map-button' type="button">Clean Map</button>
-		</div>
-	</div>
-
 	<!-- BEGIN Clock Widget -->
 	<div id="Clock" hours="3" minutes="30" weekday="Monday">
 		<div id="ClockDate"></div>
@@ -164,7 +140,7 @@
 
 	<!-- BEGIN App Menu -->
 	<div id="app-menu">
-		<b>washington</b>
+		<b>-</b>
 		<button>Shortest Path</button>
 		<button>kNN</button>
 		<button>OSR</button>
@@ -172,7 +148,7 @@
 	<!-- END App Menu -->
 
 	<!-- BEGIN Dialog Shortest Path Widget -->
-	<div class="dialog dialog-shortest-path hidden">
+	<div class="dialog dialog-shortest-path dialog-shortest hidden">
 		<h1>Shortest Path</h1>
 		<div class="input">
 			<b class="begin"></b> <input type="text" name="origin" placeholder="origin" readonly />
@@ -180,6 +156,10 @@
 		<div class="space"></div>
 		<div class="input">
 			<b class="end"></b> <input type="text" name="destination" placeholder="destination" readonly />
+		</div>
+		<div class="options algorithms">
+			<i class="astart">A-Start</i>
+			<i class="dijkstra">Dijkstra</i>
 		</div>
 		<div class="btn">
 			<button class="go">Go</button>
@@ -222,11 +202,12 @@
 	</div>
 	<!-- END Dialog OSM Widget -->
 
+
+	<button id="clean-map-button">Clean Map</button>
+
 	<!-- BEGIN Admin Screen -->
 	<div id="Map"></div>
 	<!-- END Admin Screen -->
-
-	<!-- <div id="city" class="city">City</div> -->
 
 
 </body>
