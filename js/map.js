@@ -606,7 +606,7 @@ function mapInit() {
                 var startGeom = inst.startGeometry;
                 var endGeom   = inst.endGeometry;
 
-                var points  = geometry.slice(startGeom, endGeom + 1);
+                var points  = geometry.slice(startGeom, endGeom+1);
                 var linestring = _.map(points, function(point) {
                     return [point.longitude, point.latitude];
                 });
@@ -623,7 +623,14 @@ function mapInit() {
                     }
                 }
             });
-
+            
+            var aux = _.reduce(polylines, function(memo, num){ 
+                return memo + num.geometry.coordinates.length; 
+            }, 0) - (instructions.length - 1);
+            if( geometry.length != aux ) {
+                console.error("Wrong geometry: "+ geometry.length + " (Geometries) != " + aux + " (LineStrings)");
+            }
+            
             return { type: "FeatureCollection", features: polylines }
         },
 
