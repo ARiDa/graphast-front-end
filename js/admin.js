@@ -111,5 +111,30 @@ function adminInit() {
 		alert('not implemented yet')
 	})
 	//
+	$('#AppForm .column.services b').click(function() {
+		$(this).toggleClass('selected')
+	})
+	//
+	window.getAppFormSelectedServices = function() {
+		var services = []
+		$('#AppForm .column.services b.selected').each(function() {
+			var s = $(this).html()
+			if (s.indexOf('Dijkstra') >= 0)
+				services.push('dijkstra')
+			if (s.indexOf('A-Star') >= 0)
+				services.push('a*')
+			if (s.indexOf('k-Nearest') >= 0)
+				services.push('knn')
+			if (s.indexOf('Optimal Sequenced') >= 0)
+				services.push('osr')
+		})
+		return services
+	}
+	//
 }
+
+
+
+
+
 
