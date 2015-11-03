@@ -189,7 +189,7 @@ function mapInit() {
 
         addPath: function(path, label, timeInfo) {
 
-            path.path.reverse();
+            // path.path.reverse();
 
             var costFormatted = this.formatCost(path);
             var ETA = this.formatETA(path, timeInfo);
