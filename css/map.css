@@ -105,6 +105,10 @@ body.loading
 }
 
 
+#routes tr {
+  cursor: pointer;
+}
+
 #routes tr:hover {
   background: #575;
   color: white;
