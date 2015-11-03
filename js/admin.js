@@ -83,6 +83,8 @@ function adminInit() {
 	})
 	//
 	$('#BtnMenuNewApp').click(function() {
+		$('#AppForm input').val('')
+		$('#AppForm .column.services b.selected').removeClass('selected')
 		$('#AppsResult button').removeClass('selected')
 		Search.value = ''
 		search('')
@@ -131,6 +133,24 @@ function adminInit() {
 		return services
 	}
 	//
+	$('#AppForm button.cancel').click(function() {
+		$('#AppForm .column.services b.selected').removeClass('selected')
+		$('#AppForm').addClass('hidden')
+	})
+	//
+	$('#AppForm button.create').click(function() {
+		var data = {}
+		data.app = $('#AppForm input[name="name"]').val()
+		data.network = $('#AppForm input[name="network"]').val()
+		data['query-services'] = getAppFormSelectedServices().join(',')
+		// other fields...
+		//
+		console.log(data)
+		window.valor = data
+		// $.post('http://demo.graphast.org:8080/graphast-ws/admin/create', data, function(result) {
+		// 	console.log(result)
+		// })
+	})
 }
 
 

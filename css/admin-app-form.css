@@ -55,7 +55,7 @@
 	vertical-align: top;
 	margin: 20px 20px 0 0;
 	width:  400px;
-	height: 200px;
+	height: auto;
 }
 
 #AppForm .column h1 {
@@ -112,8 +112,8 @@
 #AppForm .column.imports p {
 	margin: 5px 0;
 	text-align: center;
-	font-size: 32px;
-	color: #aaa;
+	font-size: 26px;
+	color: #bbb;
 }
 #AppForm .column.imports b {
 	display: inline-block;
@@ -175,7 +175,27 @@
 
 
 
-
+#AppForm button {
+	display: inline-block;
+	padding: 8px 30px 10px 30px;
+	margin: 40px 20px 0 0;
+	font-size: 20px;
+	cursor: pointer;
+	color: #ddd;
+	background: #999;
+	border: none;
+	border-radius: 5px;
+	transition: all 0.2s;
+}
+#AppForm button:hover {
+	color: #fff;
+	background: #aaa;
+}
+#AppForm button:active {
+	color: rgba(255,255,255, 0.5);
+	background: #777;
+	transition: none;
+}
 
 
 
