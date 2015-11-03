@@ -398,10 +398,11 @@ function mapInit() {
 
         addPoi: function(poi) {
             var color = GraphastMap.getColor();
+
             var icon = L.mapbox.marker.icon({ 
                 'marker-size': 'large', 
                 'marker-color': color, 
-                'marker-symbol': POI_CATEGORIES[poi.categoryId].icon,
+                'marker-symbol': POI_CATEGORIES[poi.poiCategory.id].icon,
                 'marker-fill': "rgba(255,255,255, 0.3)"
             })
 
