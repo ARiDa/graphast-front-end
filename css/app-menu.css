@@ -29,6 +29,7 @@ body.admin
 	display: inline-block;
 	padding: 5px 20px 5px 20px;
 	cursor: pointer;
+	font-family: arial;
 	font-size: 18px;
 	color: rgba(255,255,255, 0.5);
 	background: none;
