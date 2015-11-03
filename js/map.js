@@ -151,7 +151,6 @@ function mapInit() {
             var tt = (path.totalCost / 1000 / 60).toFixed(0)
 
             var eta = new Date(d.getTime() + tt*60000);
-            console.log(eta);
             return eta.getHours() + ":" + eta.getMinutes();
         },
 
