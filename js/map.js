@@ -210,7 +210,7 @@ function mapInit() {
             var info = {
                 cost: costFormatted, 
                 distance: distanceFormatted,
-                date: (timeInfo) ? timeInfo.year+"/"+this.n(timeInfo.month)+"/"+this.n(timeInfo.day) : "",
+                date: (timeInfo) ? this.n(timeInfo.day)+"-"+this.n(timeInfo.month)+"-"+timeInfo.year : "",
                 timeInfo: (timeInfo) ? this.n(timeInfo.hours)+":"+this.n(timeInfo.minutes) : ""
             }
 
