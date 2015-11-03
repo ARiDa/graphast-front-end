@@ -67,7 +67,7 @@ window.onload = function() {
 	GraphastMap.init();
 	// ...
 	//
-
+	createLogin();
 	
 }
 
