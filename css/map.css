@@ -100,6 +100,17 @@ body.loading
   padding: 2px 5px;
 }
 
+#routes {
+  border-spacing:  0px;
+}
+
+
+#routes tr:hover {
+  background: #575;
+  color: white;
+  font-weight: 600;
+}
+
 .travelduration {
   background:white;
   border:2px solid;
@@ -122,7 +133,7 @@ path.leaflet-clickable.route {
     -moz-transition:stroke-dashoffset 10s;
     -webkit-transition:stroke-dashoffset 10s;
     pointer-events:none;
-    stroke-opacity: 0.7;
+    stroke-opacity: 1.0;
 }
 
 path.leaflet-clickable.bbox {

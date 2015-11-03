@@ -22,12 +22,12 @@ function mapInit() {
 
     
 
-    function style(color) {
+    function style(color, id) {
         return function(feature) {
             return {
                 color: color,
                 'stroke-width': 10,
-                className: "route"
+                className: "route "+id
             };
         }
     }
@@ -35,7 +35,7 @@ function mapInit() {
 
     function highlightFeature(e) {
         var layer = e.target;
-
+        console.log(e);
         if (!L.Browser.ie && !L.Browser.opera) {
             layer.bringToFront();
         }
@@ -196,10 +196,12 @@ function mapInit() {
 
             var speedVector = this.computeSpeedVector(path);
 
+            var id = this.createLabelID(label, timeInfo);
+
             var color = this.getColor();
             var layer = L.geoJson(
                 features, {
-                    style: style(color),
+                    style: style(color, id),
                     onEachFeature: onEachFeature
                 }).addTo(map);
 
@@ -218,7 +220,7 @@ function mapInit() {
 
             this.fitBounds(polyline);
 
-            var durationlabel = L.divIcon({className: '', html: '<div class="travelduration" style="color:'+color+';border-color:'+color+';">'+costFormatted+'</strong>'});
+            var durationlabel = L.divIcon({className: '', html: '<div id="duration-'+id+'" class="travelduration" style="color:'+color+';border-color:'+color+';">'+costFormatted+'</strong>'});
 
             var middlepos=polyline._latlngs[Math.round(polyline._latlngs.length/2)];
             this.labelMarker.push(L.marker(middlepos, {icon: durationlabel})
@@ -238,8 +240,6 @@ function mapInit() {
                             .domain([10, 3600000*24])
                             .range([0.5, 1.0]);
 
-                console.log(f2(path.totalCost));
-                console.log(path.totalCost);
                 var animatedMarker = L.animatedMarker(polyline.getLatLngs(), {
                     distance: 300,
                     // ms
@@ -259,6 +259,8 @@ function mapInit() {
                         });
                     }
                 }).addTo(map);
+
+                $(animatedMarker._icon).addClass("animated-marker " + "animated-"+id);
 
                 // map.addLayer(animatedMarker);
                 // animatedMarker.start();
@@ -282,7 +284,7 @@ function mapInit() {
             var id = this.createLabelID(label, timeInfo);
 
             if ( !this.labelExists(label, timeInfo) ) {
-                var html = '<tr id="'+id+'">' +
+                var html = $('<tr id="'+id+'">' +
                 			'<td><i  style="background:'+color+'"></i></td>'+
                 			'<td>' + label + '</td>' +
                             '<td>' + info.date + '</td>' +
@@ -290,7 +292,20 @@ function mapInit() {
                 			'<td>' + info.cost + '</td>' +
                 			'<td>' + info.distance + '</td> ' +
                 			'<td></td> ' +
-                			'</tr>';
+                			'</tr>');
+
+                html.on('mouseover', function(e){
+                    // console.log($(".route").not( "."+id ));
+                    $(".route").not( "."+id ).css("stroke-opacity", "0.0");
+                    $(".travelduration").not( "#duration-"+id).hide();
+                    $(".animated-marker").not( ".animated-"+id).hide();
+                })
+                html.on('mouseout', function(e){
+                    $(".route").not( "."+id ).css("stroke-opacity", "1.0");
+                    $(".travelduration").not("#duration-"+id).show();
+                    $(".animated-marker").not(".animated-"+id).show();
+                })
+
                 jDoc.append(html);
             } else {
                 jDoc.find("#"+id).css('background', color)
