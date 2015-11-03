@@ -84,6 +84,7 @@ function adminInit() {
 	//
 	$('#BtnMenuNewApp').click(function() {
 		$('#AppForm input').val('')
+		$('#AppForm .loading').removeClass('loading')
 		$('#AppForm .column.services b.selected').removeClass('selected')
 		$('#AppsResult button').removeClass('selected')
 		Search.value = ''
@@ -146,17 +147,19 @@ function adminInit() {
 		// other fields...
 		//
 		// http://download.geofabrik.de/europe/monaco-latest.osm.pbf
+		$('#AppForm button.create').addClass('loading')
 		$.post('http://demo.graphast.org:8080/graphast-ws/admin/create', data, function(result) {
 			var size = (result.size / 1024 / 1024).toFixed(2) + ' MB'
 			var html = '<button '
-			html += ' data-id="' + result.appName + '"'
-			html += ' data-name="' + result.appName + '"'
-			html += ' data-dir="' + result.graphDir + '"'
+			html += ' data-id="'    + result.appName + '"'
+			html += ' data-name="'  + result.appName + '"'
+			html += ' data-dir="'   + result.graphDir + '"'
 			html += ' data-nodes="' + result.numberOfNodes + '"'
 			html += ' data-edges="' + result.numberOfEdges + '"'
-			html += ' data-size="' + size + '"'
+			html += ' data-size="'  + size + '"'
 			html += '>' + result.appName + '<b>' + size + '</b><span>' + result.numberOfNodes + '</span></button>'
 			$('#AppsResult').prepend(html)
+			$('#AppForm button.loading').removeClass('loading')
 		})
 	})
 	//
