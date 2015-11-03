@@ -71,8 +71,8 @@ function mapInit() {
             var avgLat = (bbox.minLatitude + bbox.maxLatitude) / 2;
             var avgLng = (bbox.minLongitude + bbox.maxLongitude) / 2;
 
-            this.origin = {latitude: avgLat, longitude: avgLng - 0.03};
-            this.destination = {latitude: avgLat , longitude: avgLng + 0.03 };
+            this.origin = {latitude: avgLat, longitude: Math.max(avgLng - 0.03, bbox.minLongitude)};
+            this.destination = {latitude: avgLat , longitude: Math.min(avgLng + 0.03, bbox.maxLongitude) };
 
             this.addOriginDestinationMarker(this.origin, this.destination);
         },
