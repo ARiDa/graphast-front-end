@@ -309,11 +309,13 @@ function mapInit() {
                     $(".route").not( "."+id ).css("stroke-opacity", "0.0");
                     $(".travelduration").not( "#duration-"+id).hide();
                     $(".animated-marker").not( ".animated-"+id).hide();
+                    $(".poi-marker").not(".poi-"+id).hide();
                 })
                 html.on('mouseout', function(e){
                     $(".route").not( "."+id ).css("stroke-opacity", "1.0");
                     $(".travelduration").not("#duration-"+id).show();
                     $(".animated-marker").not(".animated-"+id).show();
+                    $(".poi-marker").not(".poi-"+id).show();
                 })
 
                 jDoc.append(html);
@@ -389,35 +391,38 @@ function mapInit() {
                 });
             }
 
-            $.get(url, function(data) {
+            var id = this.createLabelID(label, timeInfo);
 
-                that.addListOfPois(data.listOfPoIs);
+            $.get(url, function(data) {
+                that.addListOfPois(data.listOfPoIs, id);
                 that.addPath(data, label, timeInfo);
             })
         },
 
-        addPoi: function(poi) {
+        addPoi: function(poi, id) {
             var color = GraphastMap.getColor();
-
+            var i = (POI_CATEGORIES[poi.poiCategory.id]) ? POI_CATEGORIES[poi.poiCategory.id].icon : "marker";
             var icon = L.mapbox.marker.icon({ 
                 'marker-size': 'large', 
                 'marker-color': color, 
-                'marker-symbol': POI_CATEGORIES[poi.poiCategory.id].icon,
+                'marker-symbol': i,
                 'marker-fill': "rgba(255,255,255, 0.3)"
             })
 
             var marker = L.marker([poi.latitude, poi.longitude], {
                 icon: icon
-            }) 
+            })
             .bindPopup(poi.label)
             .addTo(map);
+
+            $(marker._icon).addClass("poi-marker poi-"+id);
 
             return marker;
         },
 
-        addListOfPois: function(pois) {
+        addListOfPois: function(pois, id) {
             var that = this;
-            _.each(pois, function(p) { that.poisMarkers.push( that.addPoi(p) ) });
+            _.each(pois, function(p) { that.poisMarkers.push( that.addPoi(p, id) ) });
         },
 
         getShortestPath: function(label, timeInfo) {

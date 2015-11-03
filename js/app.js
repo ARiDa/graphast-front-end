@@ -2,7 +2,7 @@
 var App = {};
 
 POI_CATEGORIES      = {}
-POI_CATEGORIES[6]   = {name: 'Hotel',       icon: 'hotel'}
+POI_CATEGORIES[6]   = {name: 'Hotel',       icon: 'lodging'}
 POI_CATEGORIES[13]  = {name: 'Police',      icon: 'police'}
 POI_CATEGORIES[22]  = {name: 'University',  icon: 'college'}
 POI_CATEGORIES[23]  = {name: 'Bar',         icon: 'bar'}
