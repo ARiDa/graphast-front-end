@@ -80,33 +80,37 @@
 	</button>
 
 	<div id="AppForm" class="hidden">
-		<h1 class="appName">
-			Application
-			<input type="text" name="name" placeholder=""/>
-		</h1>
+		<div class="column appname">
+			<h1>Application</h1>
+			<div>
+				<b>Name</b> <input type="text" name="name" placeholder=""/>
+			</div>
+		</div>
 		<div class="column imports">
 			<h1>Import Service</h1>
 			<div>
-				<b>Network</b> <input/>
+				<b>Network</b> <input type="text" name="network"/>
 			</div>
 			<p>OR</p>
 			<div>
-				<b>Map</b> <input/>
+				<b>Map</b> <input type="text" name="map"/>
 			</div>
 			<div>
-				<b>PoIs</b> <input/>
+				<b>PoIs</b> <input type="text" name="poi"/>
 			</div>
 			<div>
-				<b>Costs</b> <input/>
+				<b>Costs</b> <input type="text" name="cost"/>
 			</div>
 		</div>
 		<div class="column services">
 			<h1>Query Services</h1>
-			<b>Shortest Path - Djkstra</b>
-			<b>Shortest Path - A*</b>
+			<b>Shortest Path / Dijkstra</b>
+			<b>Shortest Path / A-Star</b>
 			<b>k-Nearest Neighbor</b>
 			<b>Optimal Sequenced Route</b>
 		</div>
+		<button class="create">Create</button>
+		<button class="cancel">Cancel</button>
 	</div>
 
 	<div id="AppInfo" class="hidden">
@@ -170,7 +174,7 @@
 			<b class="end"></b> <input type="text" name="destination" placeholder="destination" readonly />
 		</div>
 		<div class="options algorithms">
-			<i class="astart">A-Start</i>
+			<i class="astar">A-Star</i>
 			<i class="dijkstra">Dijkstra</i>
 		</div>
 		<div class="btn">

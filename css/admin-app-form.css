@@ -55,18 +55,54 @@
 	vertical-align: top;
 	margin: 20px 20px 0 0;
 	width:  400px;
-	height: 200px;
+	height: auto;
 }
 
 #AppForm .column h1 {
 	cursor: default;
 	margin: 20px 0 20px 0;
 	font-weight: lighter;
-	font-size: 28px;
+	font-size: 32px;
 	text-shadow: 0 1px 1px #fff;
 	color: #bbb;
 }
 
+
+#AppForm .column.appname {
+	display: block;
+	width: 800px;
+	height: auto;
+	margin-bottom: 20px;
+}
+#AppForm .column.appname h1 {
+	margin-top: 0;
+}
+#AppForm .column.appname  b {
+	display: inline-block;
+	width: 80px;
+	font-family: arial;
+	font-size: 20px;
+	font-weight: lighter;
+	text-align: right;
+	color: #777;
+}
+#AppForm .column.appname input {
+	display: inline-block;
+	padding: 4px 10px 5px 10px;
+	margin-left: 5px;
+	width: 250px;
+	font-family: arial;
+	font-size: 18px;
+	color: #555;
+	background: #f5f5f5;
+	border: 3px solid #ccc;
+	border-radius: 5px;
+	transition: all 0.3;
+}
+#AppForm .column.appname input:focus {
+	color: #333;
+	background: #fff;
+}
 
 
 
@@ -76,8 +112,8 @@
 #AppForm .column.imports p {
 	margin: 5px 0;
 	text-align: center;
-	font-size: 32px;
-	color: #aaa;
+	font-size: 26px;
+	color: #bbb;
 }
 #AppForm .column.imports b {
 	display: inline-block;
@@ -91,6 +127,7 @@
 #AppForm .column.imports input {
 	display: inline-block;
 	padding: 4px 10px 5px 10px;
+	margin-left: 5px;
 	width: 250px;
 	font-family: arial;
 	font-size: 18px;
@@ -111,8 +148,9 @@
 #AppForm .column.services b {
 	display: block;
 	padding: 7px 10px 8px 10px;
+	margin-bottom: 2px;
 	font-weight: normal;
-	font-size: 22px;
+	font-size: 20px;
 	font-family: arial;
 	cursor: pointer;
 	color: #777;
@@ -120,10 +158,15 @@
 	border-left: 5px solid rgba(20,90,20, 0);
 	transition: all 0.3s;
 }
+#AppForm .column.services b.selected {
+	opacity: 1;
+	color: #555;
+	border-left-color: #4a4;
+	transition: none;
+}
 #AppForm .column.services b:hover {
 	color: #555;
 	background: rgba(0,0,0, 0.05);
-	border-left-color: #4a4;
 }
 #AppForm .column.services b:active {
 	opacity: 0.5;
@@ -132,7 +175,27 @@
 
 
 
-
+#AppForm button {
+	display: inline-block;
+	padding: 8px 30px 10px 30px;
+	margin: 40px 20px 0 0;
+	font-size: 20px;
+	cursor: pointer;
+	color: #ddd;
+	background: #999;
+	border: none;
+	border-radius: 5px;
+	transition: all 0.2s;
+}
+#AppForm button:hover {
+	color: #fff;
+	background: #aaa;
+}
+#AppForm button:active {
+	color: rgba(255,255,255, 0.5);
+	background: #777;
+	transition: none;
+}
 
 
 
