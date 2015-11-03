@@ -160,6 +160,7 @@ function adminInit() {
 			html += '>' + result.appName + '<b>' + size + '</b><span>' + result.numberOfNodes + '</span></button>'
 			$('#AppsResult').prepend(html)
 			$('#AppForm button.loading').removeClass('loading')
+			$('#AppsResult button:first').click()
 		})
 	})
 	//
