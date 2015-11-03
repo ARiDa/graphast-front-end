@@ -142,8 +142,17 @@ function mapInit() {
             this.destinationMarker.addTo(map);
         },
 
-        formatCost: function(path) {
-			return (path.totalCost / 1000 / 60).toFixed(1) + " min";
+        formatCost: function(path, timeInfo) {
+			return (path.totalCost / 1000 / 60).toFixed(0) + " min";
+        },
+
+        formatETA: function(path, timeInfo) {
+            var d  = new Date(timeInfo.year, timeInfo.month, timeInfo.day, timeInfo.hours, timeInfo.minutes, 0, 0);
+            var tt = (path.totalCost / 1000 / 60).toFixed(0)
+
+            var eta = new Date(d.getTime() + tt*60000);
+            console.log(eta);
+            return eta.getHours() + ":" + eta.getMinutes();
         },
 
         formatDistance: function(path) {
@@ -184,6 +193,7 @@ function mapInit() {
             path.path.reverse();
 
             var costFormatted = this.formatCost(path);
+            var ETA = this.formatETA(path, timeInfo);
             var distanceFormatted = this.formatDistance(path);
 
             var features = this.createPolylines(path);
@@ -210,7 +220,7 @@ function mapInit() {
             this.pathLayer.push(layer);
 
             var info = {
-                cost: costFormatted, 
+                cost: ETA, 
                 distance: distanceFormatted,
                 date: (timeInfo) ? this.n(timeInfo.day)+"-"+this.n(timeInfo.month)+"-"+timeInfo.year : "",
                 timeInfo: (timeInfo) ? this.n(timeInfo.hours)+":"+this.n(timeInfo.minutes) : ""

@@ -12,7 +12,7 @@ function createDialogShortestPath() {
 		if (algorithm == 'Dijkstra')
 			GraphastMap.getShortestPath(algorithm, getClockTime())
 		if (algorithm == 'A-Star')
-			GraphastMap.getShortestPathAStart(algorithm)
+			GraphastMap.getShortestPathAStart(algorithm, getClockTime())
 	})
 	//
 	window.getCurrentAlgorithm = function() {
