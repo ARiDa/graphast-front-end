@@ -145,12 +145,21 @@ function adminInit() {
 		data['query-services'] = getAppFormSelectedServices().join(',')
 		// other fields...
 		//
-		console.log(data)
-		window.valor = data
-		// $.post('http://demo.graphast.org:8080/graphast-ws/admin/create', data, function(result) {
-		// 	console.log(result)
-		// })
+		// http://download.geofabrik.de/europe/monaco-latest.osm.pbf
+		$.post('http://demo.graphast.org:8080/graphast-ws/admin/create', data, function(result) {
+			var size = (result.size / 1024 / 1024).toFixed(2) + ' MB'
+			var html = '<button '
+			html += ' data-id="' + result.appName + '"'
+			html += ' data-name="' + result.appName + '"'
+			html += ' data-dir="' + result.graphDir + '"'
+			html += ' data-nodes="' + result.numberOfNodes + '"'
+			html += ' data-edges="' + result.numberOfEdges + '"'
+			html += ' data-size="' + size + '"'
+			html += '>' + result.appName + '<b>' + size + '</b><span>' + result.numberOfNodes + '</span></button>'
+			$('#AppsResult').prepend(html)
+		})
 	})
+	//
 }
 
 
