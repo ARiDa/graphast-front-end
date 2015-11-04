@@ -18,7 +18,7 @@ function mapInit() {
     new L.Control.Zoom({position: 'bottomright'}).addTo(map)
 
     // var colors = "#ffffb2 #fecc5c #fd8d3c #f03b20 #bd0026".split(" ");
-    var colors = "#fb9a99 #fdbf6f #ff7f00 #cab2d6 #e31a1c".split(" ");
+    var colors = "#393b79 #3182bd #b5cf6b #637939 #d62728 #e7ba52 #843c39 #d6616b #e7969c #a55194".split(" ");
 
     
 
@@ -187,6 +187,60 @@ function mapInit() {
             return n > 9 ? "" + n : "0" + n;
         },
 
+        
+
+        checkOverlap: function(id) {
+            var idDuration = "duration-"+id
+            var rect = document.getElementById(idDuration).getBoundingClientRect();
+            var els = $(".travelduration").not("#"+idDuration);
+
+            for (var i = 0; i < els.length; i++) {
+                var el = els[i];
+                var id2 = $(el).attr("id");
+                var rect2 = document.getElementById(id2).getBoundingClientRect();
+                if ( (rect2.left >= rect.left && rect2.left <= rect.right) || (rect2.right >= rect.left && rect2.right <= rect.right) ) {
+                    if ( (rect2.bottom >= rect.top && rect2.bottom <= rect.bottom) || (rect2.top >= rect.top && rect2.top <= rect.bottom) ) {            
+                        return true;
+                    }
+                }
+            }
+
+            els = $(".poi-marker");
+
+            for (var i = 0; i < els.length; i++) {
+                var el = els[i];
+                var cls = $(el).attr("class");
+                var rect2 = document.getElementsByClassName(cls)[0].getBoundingClientRect();
+                if ( (rect2.left >= rect.left && rect2.left <= rect.right) || (rect2.right >= rect.left && rect2.right <= rect.right) ) {
+                    if ( (rect2.bottom >= rect.top && rect2.bottom <= rect.bottom) || (rect2.top >= rect.top && rect2.top <= rect.bottom) ) {            
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        },
+
+        addDurationLabel: function(id, polyline, color, costFormatted) {
+            var durationlabel = L.divIcon({className: '', html: '<div id="duration-'+id+'" class="travelduration" style="color:'+color+';border-color:'+color+';">'+costFormatted+'</strong>'});
+
+            var middlepos=polyline._latlngs[Math.round(polyline._latlngs.length/2)];
+            var m = L.marker(middlepos, {icon: durationlabel}).addTo(map);
+            var i = 0;
+            var aux = this.checkOverlap(id);
+
+            while (aux == true && i < polyline._latlngs.length) {
+                map.removeLayer(m);
+                middlepos = polyline._latlngs[i];
+                m = L.marker(middlepos, {icon: durationlabel}).addTo(map);
+                aux = this.checkOverlap(id);
+
+                i++;
+            }
+
+            this.labelMarker.push(m);
+        },
+
         addPath: function(path, label, timeInfo) {
 
             // path.path.reverse();
@@ -218,6 +272,8 @@ function mapInit() {
 
             this.pathLayer.push(layer);
 
+            this.addDurationLabel(id, polyline, color, costFormatted);
+
             var info = {
                 cost: ETA, 
                 distance: distanceFormatted,
@@ -229,11 +285,9 @@ function mapInit() {
 
             this.fitBounds(polyline);
 
-            var durationlabel = L.divIcon({className: '', html: '<div id="duration-'+id+'" class="travelduration" style="color:'+color+';border-color:'+color+';">'+costFormatted+'</strong>'});
 
-            var middlepos=polyline._latlngs[Math.round(polyline._latlngs.length/2)];
-            this.labelMarker.push(L.marker(middlepos, {icon: durationlabel})
-                .addTo(map));
+
+
 
             // var j = 1;
             // var totalTimePerPoint = 10000/path.geometry.length;
@@ -628,7 +682,7 @@ function mapInit() {
                 return memo + num.geometry.coordinates.length; 
             }, 0) - (instructions.length - 1);
             if( geometry.length != aux ) {
-                console.error("Wrong geometry: "+ geometry.length + " (Geometries) != " + aux + " (LineStrings)");
+                console.warn("Wrong geometry: "+ geometry.length + " (Geometries) != " + aux + " (LineStrings)");
             }
             
             return { type: "FeatureCollection", features: polylines }
