@@ -10,7 +10,7 @@ function createLogin() {
 			$.post('http://demo.graphast.org:8080/graphast-ws/login', {pass: s}, function(data) {
 				$('body').removeClass('public')
 				$('#Login').addClass('hidden')
-				location.href = '/'
+				history.pushState(null, null, '/')
 			}).error(function(err) {
 				$('#Login input').val('')
 				$('#Login input')
