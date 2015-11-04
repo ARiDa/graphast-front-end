@@ -56,6 +56,8 @@ function adminInit() {
 	// click on app buttons (edit app)
 	$('#AppsResult').on('click', 'button', function() {
 		$('#AppForm').addClass('hidden')
+		$('#AppForm button.loading').removeClass('loading')
+		$('#AppInfo button.loading').removeClass('loading')
 		$('#AppsResult button').removeClass('selected')
 		$(this).addClass('selected')
 		//
@@ -111,7 +113,15 @@ function adminInit() {
 	})
 	//
 	$('#AppInfo button.delete').click(function() {
-		alert('not implemented yet')
+		$('#AppInfo button.delete').addClass('loading')
+		var app = $('#AppInfo h1').html()
+		$.post('http://demo.graphast.org:8080/graphast-ws/admin/delete/'+app, function() {
+			$('#AppInfo').addClass('hidden')
+			$('#AppsResult button[data-id="'+app+'"]').remove()
+		}).error(function(err) {
+			console.log('========= Error Deleting App')
+			console.log(err)
+		})
 	})
 	//
 	$('#AppForm .column.services b').click(function() {

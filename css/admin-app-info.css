@@ -54,7 +54,7 @@
 	font-size: 20px;
 	cursor: pointer;
 	color: #ddd;
-	background: #999;
+	background: #999 url(../img/loading.gif) no-repeat 200% 200%;;
 	border: none;
 	border-radius: 5px;
 	transition: all 0.2s;
@@ -66,6 +66,13 @@
 #AppInfo button:active {
 	color: rgba(255,255,255, 0.5);
 	background: #777;
+	transition: none;
+}
+#AppInfo button.loading {
+	cursor: default;
+	color: transparent;
+	opacity:    0.5;
+	background: #777 url(../img/loading.gif) no-repeat center;
 	transition: none;
 }
 
