@@ -115,7 +115,7 @@ function adminInit() {
 	$('#AppInfo button.delete').click(function() {
 		$('#AppInfo button.delete').addClass('loading')
 		var app = $('#AppInfo h1').html()
-		$.post('http://demo.graphast.org:8080/graphast-ws/admin/delete/'+app, function() {
+		$.get('http://demo.graphast.org:8080/graphast-ws/admin/delete/'+app, function() {
 			$('#AppInfo').addClass('hidden')
 			$('#AppsResult button[data-id="'+app+'"]').remove()
 		}).error(function(err) {

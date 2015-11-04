@@ -3,6 +3,7 @@ function createLogin() {
 	if (window.location.href.indexOf('login') == -1)
 		return
 	$('#Login').removeClass('hidden')
+	$('#Login input').focus()
 	//
 	$('#Login input').keypress(function(e) {
 		if (e.keyCode == 13) {

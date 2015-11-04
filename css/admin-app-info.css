@@ -61,11 +61,11 @@
 }
 #AppInfo button:hover {
 	color: #fff;
-	background: #aaa;
+	background-color: #aaa;
 }
 #AppInfo button:active {
 	color: rgba(255,255,255, 0.5);
-	background: #777;
+	background-color: #777;
 	transition: none;
 }
 #AppInfo button.loading {
