@@ -453,7 +453,7 @@ function mapInit() {
             var id = this.createLabelID(label, timeInfo);
 
             $.get(url, function(data) {
-                if (data) {
+                if (data && data.path) {
                     that.addListOfPois(data.listOfPoIs, id);
                     that.addPath(data, label, timeInfo);                    
                 }
@@ -542,7 +542,7 @@ function mapInit() {
 
             var that = this;
             $.get(url, function(data){
-                if (data) {
+                if (data && data.path) {
                     that.addPath(data, label, timeInfo);    
                 }
                 
