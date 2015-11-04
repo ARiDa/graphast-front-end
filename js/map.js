@@ -224,19 +224,24 @@ function mapInit() {
 
         addDurationLabel: function(id, polyline, color, costFormatted) {
             var durationlabel = L.divIcon({className: '', html: '<div id="duration-'+id+'" class="travelduration" style="color:'+color+';border-color:'+color+';">'+costFormatted+'</strong>'});
-
-            var middlepos=polyline._latlngs[Math.round(polyline._latlngs.length/2)];
+            var mid = Math.round(polyline._latlngs.length/2);
+            var middlepos=polyline._latlngs[mid];
             var m = L.marker(middlepos, {icon: durationlabel}).addTo(map);
-            var i = 0;
+            var i = mid;
             var aux = this.checkOverlap(id);
-
-            while (aux == true && i < polyline._latlngs.length) {
+            var j = 1, k = 1;
+            while (aux == true && (i < polyline._latlngs.length && i >= 0)) {
                 map.removeLayer(m);
                 middlepos = polyline._latlngs[i];
                 m = L.marker(middlepos, {icon: durationlabel}).addTo(map);
                 aux = this.checkOverlap(id);
 
-                i++;
+                i = mid + j*k;
+                k = k * -1;
+
+                if ( j*k > 0) {
+                    j++;
+                }
             }
 
             this.labelMarker.push(m);
@@ -650,6 +655,8 @@ function mapInit() {
                 callbackDragEnd(e);
                 that.runPathSettings();
             });
+
+            $(marker._icon).addClass("od-marker");
 
             return marker;
         },
