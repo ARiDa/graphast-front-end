@@ -34,7 +34,17 @@
 }
 
 
-
+.dialog-shortest i.used {
+	cursor: default;
+	text-align: right;
+	width: 200px;
+	margin: -5px 0 10px 0;
+}
+.dialog-shortest i.used:hover {
+	color: #797;
+	background: rgba(0,0,0, 0);
+	border-bottom: 3px solid #b1c3b2;
+}
 
 
 

@@ -1,4 +1,9 @@
 
+#app-menu * {
+	user-select: none;
+	-webkit-user-select: none;
+}
+
 #app-menu {
 	position: fixed;
 	z-index:  9;
@@ -50,7 +55,5 @@ body.admin
 	color: #fff;
 	border-bottom-color: rgba(255,255,255, 0.7);
 }
-
-
 
 
