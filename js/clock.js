@@ -83,13 +83,13 @@ function createClock() {
 }
 
 function getClockTime() {
-	return { hours: datetime.hours,
+	var d = new Date(datetime.year, datetime.month, datetime.day, datetime.hours, datetime.minutes, 0, 0);
+	return { hours: d.getHours(),
 			 day: datetime.day,
 			 year: datetime.year,
 			 weekday: datetime.weekday,
 			 month: datetime.month,
-			 minutes: datetime.minutes,
-			 weekday: datetime.weekday
+			 minutes: d.getMinutes()
 			}
 }
 

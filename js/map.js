@@ -17,7 +17,7 @@ function mapInit() {
 
     var map = L.mapbox.map('Map', 'mapbox.light', { zoomControl: false });
     new L.Control.Zoom({position: 'bottomright'}).addTo(map)
-    console.log(map.attributionControl);
+    
     var credits = map.attributionControl;
     
     credits.addAttribution("<a href='http://arida.github.io/graphast/'>© Graphast</a>");
@@ -157,7 +157,7 @@ function mapInit() {
             var tt = (path.totalCost / 1000 / 60).toFixed(0)
 
             var eta = new Date(d.getTime() + tt*60000);
-            return eta.getHours() + ":" + eta.getMinutes();
+            return this.n(eta.getHours()) + ":" + this.n(eta.getMinutes());
         },
 
         formatDistance: function(path) {
@@ -461,8 +461,13 @@ function mapInit() {
                 if (data && data.path) {
                     that.addListOfPois(data.listOfPoIs, id);
                     that.addPath(data, label, timeInfo);                    
+                } else {
+                    console.warn("Not possible to process the result of OSR");
                 }
 
+            })
+            .fail(function() {
+                console.warn("Not possible to process the result of OSR")
             })
         },
 
@@ -549,8 +554,12 @@ function mapInit() {
             $.get(url, function(data){
                 if (data && data.path) {
                     that.addPath(data, label, timeInfo);    
-                }
-                
+                } else {
+                    console.warn("Not possible to process the result for Shortest Path")
+                }  
+            })
+            .fail(function() {
+                console.warn("Not possible to process the result for Shortest Path");
             })
         },
 
