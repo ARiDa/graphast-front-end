@@ -53,17 +53,18 @@ POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
 				var dijkstra = data.indexOf('dijkstra') >= 0
 				var astar    = data.indexOf('a*') >= 0
 				var osr      = data.indexOf('osr') >= 0
-				var knn = data.indexOf('knn') >= 0
+				console.log('fOI!')
+				console.log(knn, dijkstra, astar, osr)
 				//
 				$('#app-menu button.shortest-path').hide()
 				$('#app-menu button.knn').hide()
 				$('#app-menu button.osr').hide()
 				//
-				$('.dialog algorithms i.dijkstra').show()
-				$('.dialog algorithms i.astar').show()
+				$('.dialog .algorithms i.dijkstra').show()
+				$('.dialog .algorithms i.astar').show()
 				//
-				$('.dialog algorithms i.dijkstra').removeClass('selected')
-				$('.dialog algorithms i.astar').removeClass('selected')
+				$('.dialog .algorithms i.dijkstra').removeClass('used')
+				$('.dialog .algorithms i.astar').removeClass('used')
 				//
 				if (dijkstra || astar)
 					$('#app-menu button.shortest-path').show()
@@ -73,12 +74,12 @@ POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
 					$('#app-menu button.knn').show()
 				//
 				if (dijkstra && !astar) {
-					$('.dialog algorithms i.dijkstra').addClass('selected')
-					$('.dialog algorithms i.astar').hide()
+					$('.dialog .algorithms i.dijkstra').addClass('used')
+					$('.dialog .algorithms i.astar').hide()
 				}
 				if (astar && !dijkstra) {
-					$('.dialog algorithms i.astar').addClass('selected')
-					$('.dialog algorithms i.dijkstra').hide()
+					$('.dialog .algorithms i.astar').addClass('used')
+					$('.dialog .algorithms i.dijkstra').hide()
 				}
 			}).error(function(err) {
 				alert('error loading app graph ' + name)

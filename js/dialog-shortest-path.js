@@ -19,6 +19,9 @@ function createDialogShortestPath() {
 		var btn = $('.dialog-shortest .algorithms i.selected')
 		if (btn.length > 0)
 			return btn.html().trim()
+		btn = $('.dialog-shortest .algorithms i.used')
+		if (btn.length > 0)
+			return btn.html().trim()
 		return null
 	}
 	//
