@@ -18,6 +18,15 @@ body.admin #AdminSidebar {
 	transform: rotateZ(0deg);
 }
 
+body.public
+#AdminSidebar {
+	display: none !important;
+}
+body.public
+#BtnMenuClose {
+	display: none !important;
+}
+
 
 #AdminContent {
 	position: fixed;
@@ -111,9 +120,9 @@ body.admin #Logo {
 
 #Search {
 	position: fixed;
-	z-index: 1003;
-	top:   120px;
-	left: -200px;
+	z-index:  0;
+	top:   80px;
+	left:  20px;
 	width: 170px;
 	padding: 5px 10px 7px 36px;
 	font-size: 20px;
@@ -132,8 +141,9 @@ body.admin #Search:focus {
 	transition: all 0.3s;
 }
 body.admin #Search {
+	z-index: 9999;
 	opacity: 1;
-	left: 20px;
+	top: 120px;
 	transition: all 0.7s ease 0.5s;
 }
 
