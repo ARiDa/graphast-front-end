@@ -70,9 +70,10 @@ function mapInit() {
         centroid: function(bbox) {
             var avgLat = (bbox.minLatitude + bbox.maxLatitude) / 2;
             var avgLng = (bbox.minLongitude + bbox.maxLongitude) / 2;
+            var l = (bbox.maxLongitude - bbox.minLongitude) / 16;
 
-            this.origin = {latitude: avgLat, longitude: Math.max(avgLng - 0.03, bbox.minLongitude)};
-            this.destination = {latitude: avgLat , longitude: Math.min(avgLng + 0.03, bbox.maxLongitude) };
+            this.origin = {latitude: avgLat, longitude: Math.max(avgLng - l, bbox.minLongitude)};
+            this.destination = {latitude: avgLat , longitude: Math.min(avgLng + l, bbox.maxLongitude) };
 
             this.addOriginDestinationMarker(this.origin, this.destination);
         },
