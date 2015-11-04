@@ -38,11 +38,51 @@ POI_CATEGORIES[162] = {name: 'Fuel',        icon: 'fuel'}
 
 		openApp: function(name) {
 			$.getJSON('http://demo.graphast.org:8080/graphast-ws/admin/load/' + name, function() {
+				App.updateAppDialogs();
 				GraphastMap.cleanMap();
 				GraphastMap.centerMapBasedOnTheGraph();
-			}, function(err) {
+			}).error(function(err) {
 				alert('error loading app graph ' + name)
 			})
+		},
+
+		updateAppDialogs: function() {
+			$.getJSON('http://demo.graphast.org:8080/graphast-ws/graph/query-services', function(data) {
+				//
+				var knn      = data.indexOf('knn') >= 0
+				var dijkstra = data.indexOf('dijkstra') >= 0
+				var astar    = data.indexOf('a*') >= 0
+				var osr      = data.indexOf('osr') >= 0
+				var knn = data.indexOf('knn') >= 0
+				//
+				$('#app-menu button.shortest-path').hide()
+				$('#app-menu button.knn').hide()
+				$('#app-menu button.osr').hide()
+				//
+				$('.dialog algorithms i.dijkstra').show()
+				$('.dialog algorithms i.astar').show()
+				//
+				$('.dialog algorithms i.dijkstra').removeClass('selected')
+				$('.dialog algorithms i.astar').removeClass('selected')
+				//
+				if (dijkstra || astar)
+					$('#app-menu button.shortest-path').show()
+				if (osr)
+					$('#app-menu button.osr').show()
+				if (knn)
+					$('#app-menu button.knn').show()
+				//
+				if (dijkstra && !astar) {
+					$('.dialog algorithms i.dijkstra').addClass('selected')
+					$('.dialog algorithms i.astar').hide()
+				}
+				if (astar && !dijkstra) {
+					$('.dialog algorithms i.astar').addClass('selected')
+					$('.dialog algorithms i.dijkstra').hide()
+				}
+			}).error(function(err) {
+				alert('error loading app graph ' + name)
+			})	
 		}
 
 	}
@@ -64,11 +104,11 @@ window.onload = function() {
 	createDialogShortestPath();
 
 	App.init();
+	App.updateAppDialogs();
 	GraphastMap.init();
 	// ...
 	//
 	createLogin();
-	
 }
 
 

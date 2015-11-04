@@ -1,4 +1,9 @@
 
+#app-menu * {
+	user-select: none;
+	-webkit-user-select: none;
+}
+
 #app-menu {
 	position: fixed;
 	z-index:  9;
