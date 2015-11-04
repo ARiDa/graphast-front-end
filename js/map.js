@@ -14,8 +14,13 @@ function mapInit() {
 
     L.mapbox.accessToken = ACCESS_TOKEN;
 
-    var map = L.mapbox.map('Map', 'mapbox.light', {zoomControl: false})
+
+    var map = L.mapbox.map('Map', 'mapbox.light', { zoomControl: false });
     new L.Control.Zoom({position: 'bottomright'}).addTo(map)
+    console.log(map.attributionControl);
+    var credits = map.attributionControl;
+    
+    credits.addAttribution("<a href='http://arida.github.io/graphast/'>© Graphast</a>");
 
     // var colors = "#ffffb2 #fecc5c #fd8d3c #f03b20 #bd0026".split(" ");
     var colors = "#393b79 #3182bd #b5cf6b #637939 #d62728 #e7ba52 #843c39 #d6616b #e7969c #a55194".split(" ");
