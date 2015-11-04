@@ -30,7 +30,11 @@ body.admin
 	color: #B9C4B2;
 }
 
-#app-menu button {
+#app-menu a {
+	text-decoration: none;
+}
+
+#app-menu button, #app-menu a {
 	display: inline-block;
 	padding: 5px 20px 5px 20px;
 	cursor: pointer;
@@ -42,7 +46,7 @@ body.admin
 	border-bottom: 3px solid rgba(255,255,255, 0);
 	transition: all 0.3s;
 }
-#app-menu button:hover {
+#app-menu button:hover, #app-menu a:hover {
 	color: rgba(255,255,255, 0.9);
 	border-bottom-color: rgba(255,255,255, 0.4);
 }
