@@ -9,6 +9,11 @@ body {
 	margin: 0;
 }
 
-
+#logo-graphast {
+	position: fixed;
+	z-index:  9;
+	bottom: 30px;
+	right: 130px;
+}
 
 
